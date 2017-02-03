@@ -23,10 +23,10 @@ public class EcrireMessageWrk {
     }
     
     public void writeMessage(String message){
-        String msg = name + " -- " + message +"\n";
+        //String msg = name + " -- " + message +"\n";
         try {
-            sp.writeBytes(msg.getBytes());//Write data to port
-            wrk.showMessage(msg);
+            sp.writeBytes(message.getBytes());//Write data to port
+            wrk.showMessage(message);
         } catch (SerialPortException ex) {
             
         }
