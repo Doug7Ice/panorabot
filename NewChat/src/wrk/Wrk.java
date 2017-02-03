@@ -22,7 +22,7 @@ public class Wrk {
                     SerialPort.STOPBITS_1,
                     SerialPort.PARITY_NONE);//Set params. Also you can set params by this string: serialPort.setParams(9600, 8, 1, 0);
         } catch (SerialPortException ex) {
-           System.out.println(ex);
+           System.out.println("erreur = " + ex);
         }
     }
     
