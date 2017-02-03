@@ -38,7 +38,16 @@ public class LireMessageWrk extends Thread {
     public void run() {
         isReading = true;
         while (isReading) {
-            readPort();
+            try {
+
+                String message = in.readLine();
+                wrk.showMessage(message);
+                System.out.println(message);
+
+            } catch (IOException e) {
+
+                e.printStackTrace();
+            }
         }
     }
 

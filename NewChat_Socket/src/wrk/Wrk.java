@@ -25,16 +25,14 @@ public class Wrk {
 
     public Wrk() {
         ouvrirPort();
-        //wrkWrite = new EcrireMessageWrk(serialPort, this);
+        wrkWrite = new EcrireMessageWrk(this.socket, this);
         wrkRead = new LireMessageWrk(this.socket,this, "Thread LireMessageWrk");
         wrkRead.start();
     }
 
     public void ouvrirPort() {
         try {
-            InetAddress a = InetAddress.getLocalHost();
-            this.socket = new Socket(a, 2009);
-            socket.close();
+            this.socket = new Socket("192.168.2.1", 2009);
         } catch (UnknownHostException e) {
 
             e.printStackTrace();
