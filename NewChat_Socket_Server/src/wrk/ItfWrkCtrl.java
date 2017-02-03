@@ -10,5 +10,5 @@ package wrk;
  * @author Nathan
  */
 public interface ItfWrkCtrl {
-    
+    public void afficherMessage(String msg);
 }

@@ -10,5 +10,5 @@ package ctrl;
  * @author Nathan
  */
 public interface ItfCtrlIhm {
-    
+    public void afficherMessage(String msg);
 }

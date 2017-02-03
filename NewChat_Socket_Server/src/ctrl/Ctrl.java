@@ -28,6 +28,10 @@ public class Ctrl implements ItfIhmCtrl, ItfWrkCtrl{
     public ItfCtrlIhm getRefIhm() {
         return refIhm;
     }
+    
+    public void afficherMessage(String msg){
+        refIhm.afficherMessage(msg);
+    }
 
     @Override
     public void setRefIhm(ItfCtrlIhm refIhm) {
