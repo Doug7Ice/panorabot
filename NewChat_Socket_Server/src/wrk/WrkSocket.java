@@ -10,5 +10,5 @@ package wrk;
  * @author Nathan
  */
 public class WrkSocket extends Thread{
-    
+    private int leInt;
 }
