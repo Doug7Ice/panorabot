@@ -30,6 +30,8 @@ public class FXMLDocumentController implements Initializable {
     @FXML
     private TextField txtMessage;
     private ctrl.Ctrl refCtrl;
+    @FXML
+    private Button btnExit;
     
     private void handleButtonAction(ActionEvent event) {
         System.out.println("You clicked me!");
@@ -47,6 +49,8 @@ public class FXMLDocumentController implements Initializable {
     public void setRefCtrl(Ctrl refCtrl) {
         this.refCtrl = refCtrl;
     }
+    
+    
 
     @FXML
     private void send(ActionEvent event) {
@@ -54,8 +58,13 @@ public class FXMLDocumentController implements Initializable {
         refCtrl.envoyerMsg(msg);
     }
     public void afficheMsg(String msg){
-        txaMessages.setText(msg);
+        txaMessages.appendText(msg);
         System.out.println(msg);
+    }
+
+    @FXML
+    private void close2(ActionEvent event) {
+        refCtrl.fermer();
     }
     
 }

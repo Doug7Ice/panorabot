@@ -40,6 +40,7 @@ public class NewChat extends Application {
         ihm.setRefCtrl(ctrl);
         ctrl.setRefIhm(ihm);
         ctrl.setRefWrk(wrk);
+        wrk.setRefCtrl(ctrl);
         
         launch(args);
     }

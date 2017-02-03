@@ -5,11 +5,11 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 
-
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.92" xmlns:fx="http://javafx.com/fxml/1" fx:controller="newchat.FXMLDocumentController">
    <children>
-      <Button fx:id="btnSend" layoutX="487.0" layoutY="348.0" mnemonicParsing="false" onAction="#send" text="Button" />
+      <Button fx:id="btnSend" layoutX="487.0" layoutY="348.0" mnemonicParsing="false" onAction="#send" text="Send" />
       <TextArea fx:id="txaMessages" layoutX="27.0" layoutY="21.0" prefHeight="309.0" prefWidth="543.0" />
       <TextField fx:id="txtMessage" layoutX="27.0" layoutY="348.0" prefHeight="25.0" prefWidth="436.0" />
+      <Button fx:id="btnExit" layoutX="544.0" layoutY="348.0" mnemonicParsing="false" onAction="#close2" text="Exit" />
    </children>
 </AnchorPane>
