@@ -35,7 +35,10 @@ public class NewChat extends Application {
     public static void main(String[] args) {
         Ctrl ctrl = new Ctrl();
         Wrk wrk = new Wrk();
+        FXMLDocumentController ihm = new FXMLDocumentController();
         
+        ihm.setRefCtrl(ctrl);
+        ctrl.setRefIhm(ihm);
         ctrl.setRefWrk(wrk);
         
         launch(args);

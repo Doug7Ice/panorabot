@@ -5,6 +5,7 @@
  */
 package newchat;
 
+import ctrl.Ctrl;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
@@ -28,6 +29,7 @@ public class FXMLDocumentController implements Initializable {
     private TextArea txaMessages;
     @FXML
     private TextField txtMessage;
+    private ctrl.Ctrl refCtrl;
     
     private void handleButtonAction(ActionEvent event) {
         System.out.println("You clicked me!");
@@ -36,11 +38,24 @@ public class FXMLDocumentController implements Initializable {
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
     }    
+
+    public Ctrl getRefCtrl() {
+        return refCtrl;
+    }
+
+    public void setRefCtrl(Ctrl refCtrl) {
+        this.refCtrl = refCtrl;
+    }
 
     @FXML
     private void send(ActionEvent event) {
+        String msg = txtMessage.getText();
+        refCtrl.envoyerMsg(msg);
+    }
+    public void afficheMsg(String msg){
+        txaMessages.setText(msg);
+        System.out.println(msg);
     }
     
 }

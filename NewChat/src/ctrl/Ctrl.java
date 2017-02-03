@@ -5,6 +5,7 @@
  */
 package ctrl;
 
+import newchat.FXMLDocumentController;
 import wrk.Wrk;
 
 /**
@@ -21,5 +22,24 @@ public class Ctrl {
         this.refWrk = refWrk;
     }
     
+    public void setRefIhm(FXMLDocumentController ihm) {
+        this.refIhm = ihm;
+    }
+    
+    public void envoyerMsg(String msg) {
+        refWrk.envoyerMsg(msg);
+    }
+    
+    public void msgAfficher(String msg) {
+        refIhm.afficheMsg(msg);
+    }
+    
+    public void fermer() {
+       refWrk.fermer();
+    }
+    
     private Wrk refWrk;
+    private FXMLDocumentController refIhm;
+
+    
 }
