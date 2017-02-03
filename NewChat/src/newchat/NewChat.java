@@ -16,6 +16,7 @@ import wrk.Wrk;
 /**
  *
  * @author ReyL03
+ * @since 03.02.2017
  */
 public class NewChat extends Application {
     
