@@ -40,6 +40,16 @@ public class LireMessageWrk extends Thread{
         } catch (SerialPortTimeoutException ex) {            
         } 
     }
+
+    public boolean isIsReading() {
+        return isReading;
+    }
+
+    public void setIsReading(boolean isReading) {
+        this.isReading = isReading;
+    }
+    
+    
     
     private SerialPort sp;
     private boolean isReading;

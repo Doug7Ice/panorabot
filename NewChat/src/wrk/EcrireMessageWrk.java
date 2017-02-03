@@ -5,7 +5,10 @@
  */
 package wrk;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import jssc.SerialPort;
+import jssc.SerialPortException;
 
 /**
  *
@@ -16,9 +19,26 @@ public class EcrireMessageWrk {
     public EcrireMessageWrk(SerialPort sp, Wrk wrk) {
         this.wrk = wrk;
         this.sp = sp;
+        setComputerName();
+    }
+    
+    public void writeMessage(String message){
+        String msg = name + " -- " + message +"\n";
+        try {
+            sp.writeBytes(msg.getBytes());//Write data to port
+            wrk.showMessage(msg);
+        } catch (SerialPortException ex) {
+            
+        }
+    }
+    
+    public void setComputerName() {
+        //InetAddress.getLocalHost().getHostName();
+        name = System.getProperty("user.name");
     }
     
     
     private Wrk wrk;
     private SerialPort sp;
+    private String name;
 }
