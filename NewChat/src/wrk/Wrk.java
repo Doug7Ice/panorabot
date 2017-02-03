@@ -3,23 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package ctrl;
-
-import wrk.Wrk;
+package wrk;
 
 /**
  *
  * @author Nathan
  */
-public class Ctrl {
-
-    public Wrk getRefWrk() {
-        return refWrk;
-    }
-
-    public void setRefWrk(Wrk refWrk) {
-        this.refWrk = refWrk;
-    }
+public class Wrk {
     
-    private Wrk refWrk;
 }

@@ -5,11 +5,13 @@
  */
 package newchat;
 
+import ctrl.Ctrl;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import wrk.Wrk;
 
 /**
  *
@@ -31,6 +33,11 @@ public class NewChat extends Application {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
+        Ctrl ctrl = new Ctrl();
+        Wrk wrk = new Wrk();
+        
+        ctrl.setRefWrk(wrk);
+        
         launch(args);
     }
     
