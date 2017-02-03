@@ -6,6 +6,8 @@
 package wrk;
 
 import ctrl.Ctrl;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import jssc.SerialPort;
 import jssc.SerialPortException;
 
@@ -36,11 +38,20 @@ public class Wrk {
     }
     
     public void envoyerMsg(String msg){
-        
+        wrkWrite.writeMessage(msg);
     }
     
     public void showMessage(String msg){
-       
+       refCtrl.msgAfficher(msg);
+    }
+    
+    public void fermer() {
+        try {
+            wrkRead.setIsReading(false);
+            serialPort.closePort();            
+        } catch (SerialPortException ex) {
+            Logger.getLogger(Wrk.class.getName()).log(Level.SEVERE, null, ex);
+        }       
     }
     
     
