@@ -15,10 +15,14 @@ import jssc.SerialPortTimeoutException;
  */
 public class LireMessageWrk extends Thread{
 
-    public LireMessageWrk(SerialPort sp, Wrk wrk) {
+
+    public LireMessageWrk(SerialPort sp, Wrk wrk, String string) {
+        super(string);
         this.sp = sp;
         this.wrk = wrk;
     }
+    
+    
     
     
     @Override
