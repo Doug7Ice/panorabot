@@ -19,8 +19,9 @@ public class Ctrl implements ItfIhmCtrl, ItfWrkCtrl{
         this.refWrk = new Wrk(this);
     }
     
+    @Override
     public void lauchSocket(){
-        
+        refWrk.launchSocket();
     }
 
     //SETTERS AND GETTERS
@@ -46,4 +47,6 @@ public class Ctrl implements ItfIhmCtrl, ItfWrkCtrl{
     
     private ItfCtrlIhm refIhm;
     private ItfCtrlWrk refWrk;
+
+
 }

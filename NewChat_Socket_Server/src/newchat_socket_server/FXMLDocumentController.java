@@ -30,6 +30,7 @@ public class FXMLDocumentController implements Initializable, ItfCtrlIhm {
     public void initialize(URL url, ResourceBundle rb) {
         ItfIhmCtrl ctrl = new Ctrl();
         ctrl.setRefIhm(this);
+        ctrl.lauchSocket();
     }    
     
 }
