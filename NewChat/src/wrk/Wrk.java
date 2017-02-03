@@ -13,6 +13,14 @@ import jssc.SerialPortException;
  * @author Nathan
  */
 public class Wrk {
+
+    public Wrk() {
+        ouvrirPort();
+        wrkWrite = new EcrireMessageWrk(serialPort, this);
+        wrkRead = new LireMessageWrk(serialPort, this);
+    }
+    
+    
     public void ouvrirPort(){
         this.serialPort = new SerialPort("COM1");
         try {            
@@ -26,5 +34,32 @@ public class Wrk {
         }
     }
     
+    public void envoyerMsg(String msg){
+        
+    }
+    
+    
+    //SETTERS AND GETTERS
+    public EcrireMessageWrk getWrkWrite() {
+        return wrkWrite;
+    }
+
+    public void setWrkWrite(EcrireMessageWrk wrkWrite) {
+        this.wrkWrite = wrkWrite;
+    }
+
+    public LireMessageWrk getWrkRead() {
+        return wrkRead;
+    }
+
+    public void setWrkRead(LireMessageWrk wrkRead) {
+        this.wrkRead = wrkRead;
+    }
+    
+    //VARIABLES
     private SerialPort serialPort;
+    private EcrireMessageWrk wrkWrite;
+    private LireMessageWrk wrkRead;
 }
+
+
