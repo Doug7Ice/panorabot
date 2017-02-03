@@ -32,13 +32,13 @@ public class Wrk {
 
     public void ouvrirPort() {
         try {
-            this.socket = new Socket(InetAddress.getLocalHost(), 2009);
+            InetAddress a = InetAddress.getLocalHost();
+            this.socket = new Socket(a, 2009);
             socket.close();
         } catch (UnknownHostException e) {
 
             e.printStackTrace();
         } catch (IOException e) {
-
             e.printStackTrace();
         }
     }
