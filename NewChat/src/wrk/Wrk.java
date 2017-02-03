@@ -21,6 +21,7 @@ public class Wrk {
         ouvrirPort();
         wrkWrite = new EcrireMessageWrk(serialPort, this);
         wrkRead = new LireMessageWrk(serialPort, this);
+        wrkRead.start();
     }
     
     
