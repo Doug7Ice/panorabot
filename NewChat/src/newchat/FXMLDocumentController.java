@@ -15,6 +15,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import wrk.Wrk;
 
 /**
  *
@@ -29,7 +30,7 @@ public class FXMLDocumentController implements Initializable {
     private TextArea txaMessages;
     @FXML
     private TextField txtMessage;
-    private ctrl.Ctrl refCtrl;
+    private Ctrl refCtrl;
     @FXML
     private Button btnExit;
     
@@ -40,6 +41,13 @@ public class FXMLDocumentController implements Initializable {
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        Ctrl ctrl = new Ctrl();
+        Wrk wrk = new Wrk();
+        
+        this.setRefCtrl(ctrl);
+        ctrl.setRefIhm(this);
+        ctrl.setRefWrk(wrk);
+        wrk.setRefCtrl(ctrl);
     }    
 
     public Ctrl getRefCtrl() {
@@ -54,6 +62,7 @@ public class FXMLDocumentController implements Initializable {
 
     @FXML
     private void send(ActionEvent event) {
+        System.out.println("helllllllo");
         String msg = txtMessage.getText();
         refCtrl.envoyerMsg(msg);
     }

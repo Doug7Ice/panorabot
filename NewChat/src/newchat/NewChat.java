@@ -33,14 +33,7 @@ public class NewChat extends Application {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        Ctrl ctrl = new Ctrl();
-        Wrk wrk = new Wrk();
-        FXMLDocumentController ihm = new FXMLDocumentController();
         
-        ihm.setRefCtrl(ctrl);
-        ctrl.setRefIhm(ihm);
-        ctrl.setRefWrk(wrk);
-        wrk.setRefCtrl(ctrl);
         
         launch(args);
     }
