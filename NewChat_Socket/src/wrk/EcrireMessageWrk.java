@@ -5,40 +5,44 @@
  */
 package wrk;
 
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import jssc.SerialPort;
-import jssc.SerialPortException;
-
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.net.Socket;
+import java.util.Scanner;
 /**
  *
  * @author Nathan
  */
 public class EcrireMessageWrk {
 
-    public EcrireMessageWrk(SerialPort sp, Wrk wrk) {
+    public EcrireMessageWrk(Socket socket, Wrk wrk) {
         this.wrk = wrk;
-        this.sp = sp;
+        this.socket = socket;
+        try {
+            this.out = new PrintWriter(socket.getOutputStream());
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
         setComputerName();
     }
-    
-    public void writeMessage(String message){
-        //String msg = name + " -- " + message +"\n";
-        try {
-            sp.writeBytes(message.getBytes());//Write data to port
-            wrk.showMessage(message);
-        } catch (SerialPortException ex) {
-            
-        }
+
+    public void writeMessage(String message) {
+        
+        System.out.println("Votre message :");
+        
+        out.println(message);
+        out.flush();
+
     }
-    
+
     public void setComputerName() {
         //InetAddress.getLocalHost().getHostName();
         name = System.getProperty("user.name");
     }
-    
-    
+
     private Wrk wrk;
-    private SerialPort sp;
+    private Socket socket;
+    private PrintWriter out;
     private String name;
+    private Scanner sc = null;
 }

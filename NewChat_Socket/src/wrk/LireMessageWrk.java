@@ -10,9 +10,6 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.Socket;
 import java.net.UnknownHostException;
-import jssc.SerialPort;
-import jssc.SerialPortException;
-import jssc.SerialPortTimeoutException;
 
 /**
  *
@@ -38,17 +35,16 @@ public class LireMessageWrk extends Thread {
     public void run() {
         isReading = true;
         while (isReading) {
-            readPort();
-        }
-    }
+            try {
 
-    private void readPort() {
-        try {
-            String message_distant = in.readLine();
-            wrk.envoyerMsg(message_distant);
-        } catch (IOException e) {
+                String message = in.readLine();
+                wrk.showMessage(message);
+                System.out.println(message);
 
-            e.printStackTrace();
+            } catch (IOException e) {
+
+                e.printStackTrace();
+            }
         }
     }
 
