@@ -1,2 +1,2 @@
 # panorabot
-R2
+Project for module 326
