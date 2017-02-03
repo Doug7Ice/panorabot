@@ -51,16 +51,6 @@ public class LireMessageWrk extends Thread {
         }
     }
 
-    private void readPort() {
-        try {
-            String message_distant = in.readLine();
-            wrk.envoyerMsg(message_distant);
-        } catch (IOException e) {
-
-            e.printStackTrace();
-        }
-    }
-
     public boolean isIsReading() {
         return isReading;
     }
