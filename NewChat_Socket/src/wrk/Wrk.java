@@ -6,6 +6,12 @@
 package wrk;
 
 import ctrl.Ctrl;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.net.InetAddress;
+import java.net.Socket;
+import java.net.UnknownHostException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import jssc.SerialPort;
@@ -19,44 +25,41 @@ public class Wrk {
 
     public Wrk() {
         ouvrirPort();
-        wrkWrite = new EcrireMessageWrk(serialPort, this);
-        wrkRead = new LireMessageWrk(serialPort, this, "Thread LireMessageWrk");
+        //wrkWrite = new EcrireMessageWrk(serialPort, this);
+        wrkRead = new LireMessageWrk(this.socket,this, "Thread LireMessageWrk");
         wrkRead.start();
     }
-    
-    
-    public void ouvrirPort(){
-        this.serialPort = new SerialPort("COM1");
-        try {            
-            serialPort.openPort();
-            serialPort.setParams(SerialPort.BAUDRATE_57600,
-                    SerialPort.DATABITS_8,
-                    SerialPort.STOPBITS_2,
-                    SerialPort.PARITY_EVEN);//Set params. Also you can set params by this string: serialPort.setParams(9600, 8, 1, 0);
-        } catch (SerialPortException ex) {
-           System.out.println("erreur = " + ex);
-           wrkRead.setIsReading(false);
+
+    public void ouvrirPort() {
+        try {
+            this.socket = new Socket(InetAddress.getLocalHost(), 2009);
+            socket.close();
+        } catch (UnknownHostException e) {
+
+            e.printStackTrace();
+        } catch (IOException e) {
+
+            e.printStackTrace();
         }
     }
-    
-    public void envoyerMsg(String msg){
+
+    public void envoyerMsg(String msg) {
         wrkWrite.writeMessage(msg);
     }
-    
-    public void showMessage(String msg){
-       refCtrl.msgAfficher(msg);
+
+    public void showMessage(String msg) {
+        refCtrl.msgAfficher(msg);
     }
-    
+
     public void fermer() {
         try {
             wrkRead.setIsReading(false);
-            serialPort.closePort();            
-        } catch (SerialPortException ex) {
-            Logger.getLogger(Wrk.class.getName()).log(Level.SEVERE, null, ex);
-        }       
+            socket.close();
+        } catch (IOException ex) {
+            System.out.println(ex.getMessage());
+        }
     }
-    
-    
+
     //SETTERS AND GETTERS
     public EcrireMessageWrk getWrkWrite() {
         return wrkWrite;
@@ -82,13 +85,11 @@ public class Wrk {
         this.refCtrl = refCtrl;
     }
 
-    
-    
     //VARIABLES
-    private SerialPort serialPort;
+    private Socket socket;
+    private BufferedReader in;
+    private PrintWriter out;
     private EcrireMessageWrk wrkWrite;
     private LireMessageWrk wrkRead;
     private Ctrl refCtrl;
 }
-
-

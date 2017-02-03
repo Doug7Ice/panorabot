@@ -5,6 +5,11 @@
  */
 package wrk;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.Socket;
+import java.net.UnknownHostException;
 import jssc.SerialPort;
 import jssc.SerialPortException;
 import jssc.SerialPortTimeoutException;
@@ -13,36 +18,38 @@ import jssc.SerialPortTimeoutException;
  *
  * @author Nathan
  */
-public class LireMessageWrk extends Thread{
+public class LireMessageWrk extends Thread {
 
-
-    public LireMessageWrk(SerialPort sp, Wrk wrk, String string) {
+    public LireMessageWrk(Socket socket, Wrk wrk, String string) {
         super(string);
-        this.sp = sp;
+        try {
+            this.in = new BufferedReader(new InputStreamReader(socket.getInputStream()));;
+        } catch (UnknownHostException e) {
+
+            e.printStackTrace();
+        } catch (IOException e) {
+
+            e.printStackTrace();
+        }
         this.wrk = wrk;
     }
-    
-    
-    
-    
+
     @Override
-    public void run(){
+    public void run() {
         isReading = true;
-        while(isReading){
+        while (isReading) {
             readPort();
         }
     }
-    
-    private void readPort(){
+
+    private void readPort() {
         try {
-            byte tabbyte [] = sp.readBytes(1,100);
-            if (tabbyte != null) {
-                wrk.showMessage(new String(tabbyte));                
-            }
-        } catch (SerialPortException ex) {
-            System.out.println(ex);
-        } catch (SerialPortTimeoutException ex) {            
-        } 
+            String message_distant = in.readLine();
+            wrk.envoyerMsg(message_distant);
+        } catch (IOException e) {
+
+            e.printStackTrace();
+        }
     }
 
     public boolean isIsReading() {
@@ -52,10 +59,8 @@ public class LireMessageWrk extends Thread{
     public void setIsReading(boolean isReading) {
         this.isReading = isReading;
     }
-    
-    
-    
-    private SerialPort sp;
+
+    private BufferedReader in;
     private boolean isReading;
     private Wrk wrk;
 }
