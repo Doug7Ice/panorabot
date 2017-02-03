@@ -5,6 +5,7 @@
  */
 package wrk;
 
+import ctrl.Ctrl;
 import jssc.SerialPort;
 import jssc.SerialPortException;
 
@@ -38,6 +39,10 @@ public class Wrk {
         
     }
     
+    public void showMessage(String msg){
+       
+    }
+    
     
     //SETTERS AND GETTERS
     public EcrireMessageWrk getWrkWrite() {
@@ -55,11 +60,22 @@ public class Wrk {
     public void setWrkRead(LireMessageWrk wrkRead) {
         this.wrkRead = wrkRead;
     }
+
+    public Ctrl getRefCtrl() {
+        return refCtrl;
+    }
+
+    public void setRefCtrl(Ctrl refCtrl) {
+        this.refCtrl = refCtrl;
+    }
+
+    
     
     //VARIABLES
     private SerialPort serialPort;
     private EcrireMessageWrk wrkWrite;
     private LireMessageWrk wrkRead;
+    private Ctrl refCtrl;
 }
 
 

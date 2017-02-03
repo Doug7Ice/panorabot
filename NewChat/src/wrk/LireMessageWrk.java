@@ -6,6 +6,8 @@
 package wrk;
 
 import jssc.SerialPort;
+import jssc.SerialPortException;
+import jssc.SerialPortTimeoutException;
 
 /**
  *
@@ -23,8 +25,20 @@ public class LireMessageWrk extends Thread{
     public void run(){
         isReading = true;
         while(isReading){
-            
+            readPort();
         }
+    }
+    
+    private void readPort(){
+        try {
+            byte tabbyte [] = sp.readBytes(1,100);
+            if (tabbyte != null) {
+                wrk.showMessage(new String(tabbyte));                
+            }
+        } catch (SerialPortException ex) {
+            System.out.println(ex);
+        } catch (SerialPortTimeoutException ex) {            
+        } 
     }
     
     private SerialPort sp;
