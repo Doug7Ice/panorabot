@@ -9,11 +9,6 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.Socket;
 import java.util.Scanner;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import jssc.SerialPort;
-import jssc.SerialPortException;
-
 /**
  *
  * @author Nathan
@@ -32,9 +27,9 @@ public class EcrireMessageWrk {
     }
 
     public void writeMessage(String message) {
-        sc = new Scanner(System.in);
+        
         System.out.println("Votre message :");
-        message = sc.nextLine();
+        
         out.println(message);
         out.flush();
 
