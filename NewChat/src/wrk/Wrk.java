@@ -20,7 +20,7 @@ public class Wrk {
     public Wrk() {
         ouvrirPort();
         wrkWrite = new EcrireMessageWrk(serialPort, this);
-        wrkRead = new LireMessageWrk(serialPort, this);
+        wrkRead = new LireMessageWrk(serialPort, this, "Thread LireMessageWrk");
         wrkRead.start();
     }
     
