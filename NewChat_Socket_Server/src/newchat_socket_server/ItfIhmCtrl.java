@@ -14,4 +14,5 @@ import wrk.Wrk;
  */
 public interface ItfIhmCtrl {
      public void setRefIhm(ItfCtrlIhm refIhm);
+      public void lauchSocket();
 }

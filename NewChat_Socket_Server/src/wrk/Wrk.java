@@ -12,14 +12,19 @@ import ctrl.ItfCtrlWrk;
  *
  * @author Nathan
  */
-public class Wrk implements ItfCtrlWrk{
+public class Wrk implements ItfCtrlWrk {
 
     public Wrk(Ctrl refCtrl) {
         this.refCtrl = refCtrl;
         wrkSocket = new WrkSocket();
     }
 
-    
+    @Override
+    public void launchSocket() {
+        wrkSocket.launchSocket();
+    }
+
     private WrkSocket wrkSocket;
     private ItfWrkCtrl refCtrl;
+
 }

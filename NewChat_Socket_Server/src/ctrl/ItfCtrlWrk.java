@@ -10,5 +10,5 @@ package ctrl;
  * @author Nathan
  */
 public interface ItfCtrlWrk {
-    
+    public void launchSocket();
 }
