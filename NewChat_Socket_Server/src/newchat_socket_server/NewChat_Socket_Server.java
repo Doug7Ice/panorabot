@@ -13,7 +13,7 @@ import javafx.stage.Stage;
 
 /**
  *
- * @author ReyL03
+ * @author Nathan
  */
 public class NewChat_Socket_Server extends Application {
     

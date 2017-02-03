@@ -5,31 +5,31 @@
  */
 package newchat_socket_server;
 
+import ctrl.Ctrl;
+import ctrl.ItfCtrlIhm;
 import java.net.URL;
 import java.util.ResourceBundle;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Label;
+import javafx.scene.control.TextArea;
+import wrk.Wrk;
 
 /**
+ * FXML Controller class
  *
- * @author ReyL03
+ * @author Nathan
  */
-public class FXMLDocumentController implements Initializable {
-    
+public class FXMLDocumentController implements Initializable, ItfCtrlIhm {
     @FXML
-    private Label label;
-    
-    @FXML
-    private void handleButtonAction(ActionEvent event) {
-        System.out.println("You clicked me!");
-        label.setText("Hello World!");
-    }
-    
+    private TextArea txaConsole;
+
+    /**
+     * Initializes the controller class.
+     */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
+        ItfIhmCtrl ctrl = new Ctrl();
+        ctrl.setRefIhm(this);
     }    
     
 }
