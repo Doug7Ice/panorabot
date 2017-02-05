@@ -26,7 +26,7 @@ public class Wrk {
     
     
     public void ouvrirPort(){
-        this.serialPort = new SerialPort("COM7");
+        this.serialPort = new SerialPort("COM1");
         try {            
             serialPort.openPort();
             serialPort.setParams(SerialPort.BAUDRATE_57600,
