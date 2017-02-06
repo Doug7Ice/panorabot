@@ -5,20 +5,20 @@
  */
 package openimaj_socket_server.wrk;
 
-import java.io.BufferedInputStream;
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
+import java.io.ObjectInputStream;
 import java.io.PrintWriter;
 import java.net.Socket;
-import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import openimaj_socket_server.ctrl.ItfCtrlWrk;
 
 /**
  *
  * @author ReyL03
  */
-class WrkSocketStream extends Thread{
+class WrkSocketStream extends Thread {
+
     public WrkSocketStream(Socket socket, ItfCtrlWrk ctrl, WrkSocket wrkSocket) {
         this.socket = socket;
         this.refCtrl = ctrl;
@@ -28,13 +28,14 @@ class WrkSocketStream extends Thread{
     @Override
     public void run() {
         try {
-            in = new BufferedInputStream (socket.getInputStream());
+            in = new ObjectInputStream(socket.getInputStream());
             while (true) {
-                byte [] tab = new byte[Integer.MAX_VALUE];
-                int unByte = in.read(tab);
+                Byte[] tabBytes = (Byte[]) in.readObject();
             }
         } catch (IOException e) {
             refCtrl.afficheMessage("déconnection");
+        } catch (ClassNotFoundException ex) {
+            refCtrl.afficheMessage("Erreur lors de la lecture du fluc tabarnak");
         }
     }
 
@@ -49,8 +50,7 @@ class WrkSocketStream extends Thread{
 
     private ItfCtrlWrk refCtrl;
     private Socket socket;
-    private BufferedInputStream in;
+    private ObjectInputStream in;
     private PrintWriter out;
     private WrkSocket wrkSocket;
 }
-
