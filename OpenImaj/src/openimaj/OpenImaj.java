@@ -38,17 +38,5 @@ public class OpenImaj extends Application {
         launch(args);
     }
     
-     public static void displayTest() {
- 
-        Video<MBFImage> video;
-        Ihm ihm = new Ihm();
-        try {
-            video = new VideoCapture(1980, 1080);
-            VideoDisplay<MBFImage> display = ihm.displayVideo(video);
-            ihm.setVisible(true);      
-        } catch (Exception ex) {
-            System.out.println("displayTest : " + ex.toString());
-        }
-    }
     
 }
