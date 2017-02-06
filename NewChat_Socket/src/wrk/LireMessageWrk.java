@@ -57,6 +57,6 @@ public class LireMessageWrk extends Thread {
     }
 
     private BufferedReader in;
-    private boolean isReading;
+    private volatile boolean isReading;
     private Wrk wrk;
 }

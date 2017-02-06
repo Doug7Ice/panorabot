@@ -48,6 +48,7 @@ public class Wrk {
         try {
             wrkRead.setIsReading(false);
             socket.close();
+            
         } catch (IOException ex) {
             System.out.println(ex.getMessage());
         }
