@@ -26,6 +26,7 @@ public class OpenImaj_Socket_Server {
         ctrl.setRefIhm(ihm);
         ctrl.setRefWrk(wrk);
         ihm.setRefCtrl(ctrl);
+        ctrl.start();
     }
     
 }

@@ -13,9 +13,18 @@ import openimaj_socket_server.wrk.ItfWrkCtrl;
  *
  * @author ReyL03
  */
-public class Ctrl implements ItfCtrlIhm{
+public class Ctrl implements ItfCtrlIhm, ItfCtrlWrk{
 
     public Ctrl() {
+    }
+    
+    @Override
+    public void start() {
+        launchSocket();
+    }
+    
+    public void launchSocket(){
+        refWrk.launchSocket();
     }
 
     public ItfIhmCtrl getRefIhm() {
@@ -36,4 +45,10 @@ public class Ctrl implements ItfCtrlIhm{
     
     private ItfIhmCtrl refIhm;
     private ItfWrkCtrl refWrk;
+
+    @Override
+    public void afficheMessage(String msg) {
+        System.out.println(msg);
+    }
+
 }

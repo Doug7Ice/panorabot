@@ -3,14 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package openimaj_socket_server.wrk;
+package openimaj_socket_server.ctrl;
 
 /**
  *
  * @author ReyL03
  */
-public interface ItfWrkCtrl {
-
-    public void launchSocket();
-    
+public interface ItfCtrlWrk {
+    public void afficheMessage(String msg);
 }

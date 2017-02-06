@@ -5,10 +5,35 @@
  */
 package openimaj_socket_server.wrk;
 
+import java.io.IOException;
+import java.net.ServerSocket;
+import java.net.Socket;
+import openimaj_socket_server.ctrl.ItfCtrlWrk;
+
 /**
  *
  * @author ReyL03
  */
 public class Wrk implements ItfWrkCtrl{
-    
+
+    public Wrk() {
+    }
+
+    @Override
+    public void launchSocket() {
+        System.out.println("Lancement du socket ...");
+        try {
+            socketServer = new ServerSocket(2009);
+            Thread t = new WrkSocket(socketServer, refCtrl);
+            t.start();
+        } catch (IOException e) {
+
+            System.out.println("Erreur rencontrée : " + e);
+
+        }
+    }
+    private WrkSocket wrkSocket;
+    private ItfCtrlWrk refCtrl;
+    private ServerSocket socketServer;
+    private Socket socket;
 }

@@ -10,5 +10,6 @@ package openimaj_socket_server.ctrl;
  * @author ReyL03
  */
 public interface ItfCtrlIhm {
-    
+    public void start();
+    public void launchSocket();
 }
