@@ -38,8 +38,9 @@ public class Output extends Thread{
     public void run(){
         while(true){
             byte[] byteArr = video.getNextFrame().toByteImage();
+            int [] intArr = video.getNextFrame().toPackedARGBPixels();
             try {
-                out.writeObject(byteArr);
+                out.writeObject(intArr);
                 out.flush();
             } catch (IOException ex) {
                 System.out.println("erreur" + ex);

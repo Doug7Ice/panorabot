@@ -24,7 +24,7 @@ public class Ctrl implements ItfIhmCtrl, ItfWrkCtrl {
     public void launchVideoRecord() {
         try {
             Video<MBFImage> video;
-            video = new VideoCapture(1980, 1080);
+            video = new VideoCapture(1920, 1080);
             VideoDisplay<MBFImage> display = refIhm.displayVideo(video);
             refWrk.sendVideo(video);
         } catch (VideoCaptureException ex) {
