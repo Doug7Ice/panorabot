@@ -22,7 +22,7 @@ public class NewChat extends Application {
     
     @Override
     public void start(Stage stage) throws Exception {
-        System.out.println("Salut !!!");
+        System.out.println("Salute !!!");
         Parent root = FXMLLoader.load(getClass().getResource("FXMLDocument.fxml"));
         
         Scene scene = new Scene(root);
