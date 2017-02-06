@@ -9,3 +9,8 @@
 /JavaApplication8/build/
 /OpenImaj/nbproject/private/
 /OpenImaj_Jframe/nbproject/private/
+/OpenImaj_Socket_Server/nbproject/private/
+/OpenImaj_Socket_Client/dist/
+/ThreadsTests/build/
+/ThreadsTests/dist/
+/ThreadsTests/nbproject/private/
