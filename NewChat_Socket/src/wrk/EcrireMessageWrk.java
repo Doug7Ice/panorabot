@@ -28,9 +28,9 @@ public class EcrireMessageWrk {
 
     public void writeMessage(String message) {
         
-        System.out.println("Votre message :");
+        String msg = System.getProperty("user.name") +" à écrit : "+ message;
         
-        out.println(message);
+        out.println(msg);
         out.flush();
 
     }
