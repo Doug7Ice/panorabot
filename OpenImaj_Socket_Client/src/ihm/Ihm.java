@@ -14,7 +14,7 @@ import org.openimaj.video.VideoDisplay;
  *
  * @author Nathan
  */
-public class Ihm extends javax.swing.JFrame implements ItfCtrlIhm{
+public class Ihm extends javax.swing.JFrame implements ItfCtrlIhm {
 
     /**
      * Creates new form Ihm
@@ -33,6 +33,7 @@ public class Ihm extends javax.swing.JFrame implements ItfCtrlIhm{
     private void initComponents() {
 
         videoPanel = new javax.swing.JPanel();
+        onQuit = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -44,8 +45,15 @@ public class Ihm extends javax.swing.JFrame implements ItfCtrlIhm{
         );
         videoPanelLayout.setVerticalGroup(
             videoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 278, Short.MAX_VALUE)
+            .addGap(0, 235, Short.MAX_VALUE)
         );
+
+        onQuit.setText("Quitter");
+        onQuit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                onQuitActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -55,17 +63,28 @@ public class Ihm extends javax.swing.JFrame implements ItfCtrlIhm{
                 .addContainerGap()
                 .addComponent(videoPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
+            .addGroup(layout.createSequentialGroup()
+                .addGap(87, 87, 87)
+                .addComponent(onQuit, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(videoPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(videoPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(onQuit, javax.swing.GroupLayout.DEFAULT_SIZE, 32, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void onQuitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_onQuitActionPerformed
+        stopDispay();
+        refCtrl.quit();
+    }//GEN-LAST:event_onQuitActionPerformed
 
     /**
      * @param args the command line arguments
@@ -109,19 +128,23 @@ public class Ihm extends javax.swing.JFrame implements ItfCtrlIhm{
     public void setRefCtrl(ItfIhmCtrl refCtrl) {
         this.refCtrl = refCtrl;
     }
-    
+
     @Override
     public VideoDisplay<MBFImage> displayVideo(Video<MBFImage> video) {
         this.video = video;
         return VideoDisplay.createVideoDisplay(video, videoPanel);
     }
     
-    
+    @Override
+    public void stopDispay(){
+        video.close();
+    }
+
     private Video<MBFImage> video;
     private ItfIhmCtrl refCtrl;
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton onQuit;
     private javax.swing.JPanel videoPanel;
     // End of variables declaration//GEN-END:variables
 
-    
 }

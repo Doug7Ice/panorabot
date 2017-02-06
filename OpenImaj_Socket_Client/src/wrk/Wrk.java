@@ -38,7 +38,22 @@ public class Wrk implements ItfCtrlWrk {
         this.refCtrl = refCtrl;
     }
 
+    @Override
+    public void stopThreads() {
+        if (output != null) {
+            output.setRunning(false);
+        }
+        output = null;
+        try {
+            socket.close();
+        } catch (IOException ex) {
+            System.out.println("erreur : " + ex);
+        }
+        System.gc();
+    }
+
     private Socket socket;
     private ItfWrkCtrl refCtrl;
     private Output output;
+
 }

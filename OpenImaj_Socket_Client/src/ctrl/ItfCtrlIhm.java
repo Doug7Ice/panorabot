@@ -15,4 +15,5 @@ import org.openimaj.video.VideoDisplay;
  */
 public interface ItfCtrlIhm {
     public VideoDisplay<MBFImage> displayVideo(Video<MBFImage> video);
+    public void stopDispay();
 }

@@ -10,5 +10,5 @@ package ihm;
  * @author Nathan
  */
 public interface ItfIhmCtrl {
-    
+    public void quit();
 }

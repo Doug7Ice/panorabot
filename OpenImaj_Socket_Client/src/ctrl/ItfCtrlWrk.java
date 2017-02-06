@@ -14,4 +14,5 @@ import org.openimaj.video.Video;
  */
 public interface ItfCtrlWrk {
     public void sendVideo(Video<MBFImage> video);
+    public void stopThreads();
 }
