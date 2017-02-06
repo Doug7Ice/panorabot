@@ -5,7 +5,10 @@
  */
 package openimaj_socket_server.ihm;
 
+import java.awt.image.BufferedImage;
 import openimaj_socket_server.ctrl.ItfCtrlIhm;
+import org.openimaj.image.DisplayUtilities;
+import org.openimaj.image.MBFImage;
 
 /**
  *
@@ -19,6 +22,16 @@ public class Ihm extends javax.swing.JFrame implements ItfIhmCtrl{
     public Ihm() {
         initComponents();
     }
+    
+    @Override
+    public void afficheImage(BufferedImage a) {
+        DisplayUtilities.display(a);
+    }
+    
+    @Override
+    public void afficheImage(MBFImage a) {
+        DisplayUtilities.display(a);
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -29,21 +42,9 @@ public class Ihm extends javax.swing.JFrame implements ItfIhmCtrl{
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        videoPanel = new javax.swing.JPanel();
         btnClose = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-
-        javax.swing.GroupLayout videoPanelLayout = new javax.swing.GroupLayout(videoPanel);
-        videoPanel.setLayout(videoPanelLayout);
-        videoPanelLayout.setHorizontalGroup(
-            videoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 259, Short.MAX_VALUE)
-        );
-        videoPanelLayout.setVerticalGroup(
-            videoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 191, Short.MAX_VALUE)
-        );
 
         btnClose.setText("Close");
 
@@ -52,21 +53,14 @@ public class Ihm extends javax.swing.JFrame implements ItfIhmCtrl{
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(69, 69, 69)
-                        .addComponent(videoPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(40, 40, 40)
-                        .addComponent(btnClose)))
-                .addContainerGap(72, Short.MAX_VALUE))
+                .addGap(40, 40, 40)
+                .addComponent(btnClose)
+                .addContainerGap(301, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(36, 36, 36)
-                .addComponent(videoPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 27, Short.MAX_VALUE)
+                .addContainerGap(254, Short.MAX_VALUE)
                 .addComponent(btnClose)
                 .addGap(23, 23, 23))
         );
@@ -123,6 +117,7 @@ public class Ihm extends javax.swing.JFrame implements ItfIhmCtrl{
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnClose;
-    private javax.swing.JPanel videoPanel;
     // End of variables declaration//GEN-END:variables
+
+    
 }

@@ -5,24 +5,29 @@
  */
 package openimaj_socket_server.wrk;
 
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.ObjectInputStream;
 import java.io.PrintWriter;
 import java.net.Socket;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import javax.imageio.ImageIO;
+import javax.imageio.stream.ImageInputStream;
 import openimaj_socket_server.ctrl.ItfCtrlWrk;
+import org.openimaj.image.MBFImage;
 
 /**
  *
  * @author ReyL03
  */
-class WrkSocketStream extends Thread {
+class WrkSocketStream extends Thread{
 
     public WrkSocketStream(Socket socket, ItfCtrlWrk ctrl, WrkSocket wrkSocket) {
+        super("WrkLireImages");
         this.socket = socket;
         this.refCtrl = ctrl;
-        this.wrkSocket = wrkSocket;
+        this.wrkSocket = wrkSocket;   
     }
 
     @Override
@@ -30,7 +35,12 @@ class WrkSocketStream extends Thread {
         try {
             in = new ObjectInputStream(socket.getInputStream());
             while (true) {
-                Byte[] tabBytes = (Byte[]) in.readObject();
+                int[] tabInt = (int[]) in.readObject();
+//                byte[] tabBytes = (byte[]) in.readObject();
+//                ByteArrayInputStream bais = new ByteArrayInputStream(tabBytes);           
+//                BufferedImage bi = ImageIO.read(bais);
+                MBFImage i = new MBFImage(tabInt, 1920, 1080);
+                afficheImage(i);
             }
         } catch (IOException e) {
             refCtrl.afficheMessage("déconnection");
@@ -46,6 +56,10 @@ class WrkSocketStream extends Thread {
         } catch (IOException ex) {
             refCtrl.afficheMessage("déconnection");
         }
+    }
+    
+    public void afficheImage(MBFImage bi){
+        refCtrl.afficheImage(bi);
     }
 
     private ItfCtrlWrk refCtrl;
