@@ -10,6 +10,10 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import org.openimaj.image.MBFImage;
+import org.openimaj.video.Video;
+import org.openimaj.video.VideoDisplay;
+import org.openimaj.video.capture.VideoCapture;
 
 /**
  *
@@ -32,6 +36,19 @@ public class OpenImaj extends Application {
      */
     public static void main(String[] args) {
         launch(args);
+    }
+    
+     public static void displayTest() {
+ 
+        Video<MBFImage> video;
+        Ihm ihm = new Ihm();
+        try {
+            video = new VideoCapture(1980, 1080);
+            VideoDisplay<MBFImage> display = ihm.displayVideo(video);
+            ihm.setVisible(true);      
+        } catch (Exception ex) {
+            System.out.println("displayTest : " + ex.toString());
+        }
     }
     
 }
