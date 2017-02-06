@@ -5,7 +5,9 @@
  */
 package openimaj_socket_server.ihm;
 
+import java.awt.image.BufferedImage;
 import openimaj_socket_server.ctrl.ItfCtrlIhm;
+import org.openimaj.image.DisplayUtilities;
 
 /**
  *
@@ -18,6 +20,11 @@ public class Ihm extends javax.swing.JFrame implements ItfIhmCtrl{
      */
     public Ihm() {
         initComponents();
+    }
+    
+    @Override
+    public void afficheImage(BufferedImage a) {
+        DisplayUtilities.display(a);
     }
 
     /**
@@ -125,4 +132,6 @@ public class Ihm extends javax.swing.JFrame implements ItfIhmCtrl{
     private javax.swing.JButton btnClose;
     private javax.swing.JPanel videoPanel;
     // End of variables declaration//GEN-END:variables
+
+    
 }

@@ -5,10 +5,12 @@
  */
 package openimaj_socket_server.ihm;
 
+import java.awt.image.BufferedImage;
+
 /**
  *
  * @author ReyL03
  */
 public interface ItfIhmCtrl {
-    
+    public void afficheImage(BufferedImage a);
 }

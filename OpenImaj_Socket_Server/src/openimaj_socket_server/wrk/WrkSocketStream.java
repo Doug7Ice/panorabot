@@ -5,13 +5,17 @@
  */
 package openimaj_socket_server.wrk;
 
+import java.awt.Image;
+import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.PrintWriter;
 import java.net.Socket;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.imageio.ImageIO;
 import openimaj_socket_server.ctrl.ItfCtrlWrk;
+import org.openimaj.image.MBFImage;
 
 /**
  *
@@ -30,7 +34,9 @@ class WrkSocketStream extends Thread {
         try {
             in = new ObjectInputStream(socket.getInputStream());
             while (true) {
-                Byte[] tabBytes = (Byte[]) in.readObject();
+                byte[] tabBytes = (byte[]) in.readObject();
+                BufferedImage bi = ImageIO.read(in);
+                
             }
         } catch (IOException e) {
             refCtrl.afficheMessage("déconnection");
@@ -46,6 +52,10 @@ class WrkSocketStream extends Thread {
         } catch (IOException ex) {
             refCtrl.afficheMessage("déconnection");
         }
+    }
+    
+    public void afficheImage(BufferedImage bi){
+        refCtrl.afficheImage(bi);
     }
 
     private ItfCtrlWrk refCtrl;
