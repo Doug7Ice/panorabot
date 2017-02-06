@@ -32,6 +32,22 @@ public class Wrk implements ItfWrkCtrl{
 
         }
     }
+
+    public WrkSocket getWrkSocket() {
+        return wrkSocket;
+    }
+
+    public void setWrkSocket(WrkSocket wrkSocket) {
+        this.wrkSocket = wrkSocket;
+    }
+
+    public ItfCtrlWrk getRefCtrl() {
+        return refCtrl;
+    }
+
+    public void setRefCtrl(ItfCtrlWrk refCtrl) {
+        this.refCtrl = refCtrl;
+    }
     private WrkSocket wrkSocket;
     private ItfCtrlWrk refCtrl;
     private ServerSocket socketServer;

@@ -21,11 +21,13 @@ public class OpenImaj_Socket_Server {
     public static void main(String[] args) {
         Ctrl ctrl = new Ctrl();
         Ihm ihm = new Ihm();
+        ihm.setVisible(true);
         Wrk wrk = new Wrk();
         
         ctrl.setRefIhm(ihm);
         ctrl.setRefWrk(wrk);
         ihm.setRefCtrl(ctrl);
+        wrk.setRefCtrl(ctrl);
         ctrl.start();
     }
     
