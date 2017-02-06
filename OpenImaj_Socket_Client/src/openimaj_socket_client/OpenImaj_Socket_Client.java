@@ -5,6 +5,10 @@
  */
 package openimaj_socket_client;
 
+import ctrl.Ctrl;
+import ihm.Ihm;
+import wrk.Wrk;
+
 /**
  *
  * @author Nathan
@@ -15,7 +19,17 @@ public class OpenImaj_Socket_Client {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        // TODO code application logic here
+        Ctrl ctrl = new Ctrl();
+        Wrk wrk = new Wrk();
+        Ihm ihm = new Ihm();
+        
+        ctrl.setRefIhm(ihm);
+        ctrl.setRefWrk(wrk);
+        wrk.setRefCtrl(ctrl);
+        ihm.setRefCtrl(ctrl);
+        
+        ihm.setVisible(true);
+        ctrl.launchVideoRecord();
     }
     
 }
