@@ -6,6 +6,7 @@
 package openimaj_socket_server.ihm;
 
 import java.awt.image.BufferedImage;
+import org.openimaj.image.MBFImage;
 
 /**
  *
@@ -13,4 +14,6 @@ import java.awt.image.BufferedImage;
  */
 public interface ItfIhmCtrl {
     public void afficheImage(BufferedImage a);
+    public void afficheImage(MBFImage a);
+    
 }

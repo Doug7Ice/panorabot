@@ -8,27 +8,27 @@ package openimaj_socket_server.ctrl;
 import java.awt.image.BufferedImage;
 import openimaj_socket_server.ihm.ItfIhmCtrl;
 import openimaj_socket_server.wrk.ItfWrkCtrl;
-
+import org.openimaj.image.MBFImage;
 
 /**
  *
  * @author ReyL03
  */
-public class Ctrl implements ItfCtrlIhm, ItfCtrlWrk{
+public class Ctrl implements ItfCtrlIhm, ItfCtrlWrk {
 
     public Ctrl() {
     }
-    
+
     @Override
     public void start() {
         launchSocket();
     }
-    
-    public void launchSocket(){
+
+    public void launchSocket() {
         refWrk.launchSocket();
     }
 
-     @Override
+    @Override
     public void afficheMessage(String msg) {
         System.out.println(msg);
     }
@@ -37,8 +37,12 @@ public class Ctrl implements ItfCtrlIhm, ItfCtrlWrk{
     public void afficheImage(BufferedImage a) {
         refIhm.afficheImage(a);
     }
-    
-    
+
+    @Override
+    public void afficheImage(MBFImage a) {
+        refIhm.afficheImage(a);
+    }
+
     public ItfIhmCtrl getRefIhm() {
         return refIhm;
     }
@@ -54,10 +58,8 @@ public class Ctrl implements ItfCtrlIhm, ItfCtrlWrk{
     public void setRefWrk(ItfWrkCtrl refWrk) {
         this.refWrk = refWrk;
     }
-    
+
     private ItfIhmCtrl refIhm;
     private ItfWrkCtrl refWrk;
-
-   
 
 }

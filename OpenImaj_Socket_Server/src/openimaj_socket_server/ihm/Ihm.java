@@ -8,6 +8,7 @@ package openimaj_socket_server.ihm;
 import java.awt.image.BufferedImage;
 import openimaj_socket_server.ctrl.ItfCtrlIhm;
 import org.openimaj.image.DisplayUtilities;
+import org.openimaj.image.MBFImage;
 
 /**
  *
@@ -24,6 +25,11 @@ public class Ihm extends javax.swing.JFrame implements ItfIhmCtrl{
     
     @Override
     public void afficheImage(BufferedImage a) {
+        DisplayUtilities.display(a);
+    }
+    
+    @Override
+    public void afficheImage(MBFImage a) {
         DisplayUtilities.display(a);
     }
 
