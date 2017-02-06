@@ -7,14 +7,15 @@ package openimaj_socket_server.wrk;
 
 import java.io.IOException;
 import java.net.ServerSocket;
-import java.net.Socket;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import openimaj_socket_server.ctrl.ItfCtrlWrk;
 
 /**
  *
  * @author ReyL03
  */
-public class Wrk implements ItfWrkCtrl{
+public class Wrk implements ItfWrkCtrl {
 
     public Wrk() {
     }
@@ -24,8 +25,8 @@ public class Wrk implements ItfWrkCtrl{
         System.out.println("Lancement du socket ...");
         try {
             socketServer = new ServerSocket(2009);
-            Thread t = new WrkSocket(socketServer, refCtrl);
-            t.start();
+            wrkSocket = new WrkSocket(socketServer, refCtrl);
+            wrkSocket.start();
         } catch (IOException e) {
 
             System.out.println("Erreur rencontrée : " + e);
@@ -51,5 +52,19 @@ public class Wrk implements ItfWrkCtrl{
     private WrkSocket wrkSocket;
     private ItfCtrlWrk refCtrl;
     private ServerSocket socketServer;
-    private Socket socket;
+    private WrkSocketStream t2;
+
+    @Override
+    public void close() {
+        System.out.println("On ferme !");
+        try {
+            wrkSocket.setReadStreamThread(false);
+            wrkSocket.setRead(false);          
+            wrkSocket.join(); 
+            wrkSocket = null;
+            System.gc();
+        } catch (InterruptedException ex) {
+            Logger.getLogger(Wrk.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
 }

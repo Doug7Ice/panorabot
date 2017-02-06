@@ -62,4 +62,9 @@ public class Ctrl implements ItfCtrlIhm, ItfCtrlWrk {
     private ItfIhmCtrl refIhm;
     private ItfWrkCtrl refWrk;
 
+    @Override
+    public void close() {
+        refWrk.close();
+    }
+
 }

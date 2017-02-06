@@ -12,4 +12,5 @@ package openimaj_socket_server.ctrl;
 public interface ItfCtrlIhm {
     public void start();
     public void launchSocket();
+    public void close();
 }
