@@ -12,5 +12,5 @@ package openimaj_socket_server.wrk;
 public interface ItfWrkCtrl {
 
     public void launchSocket();
-    
+    public void close();
 }

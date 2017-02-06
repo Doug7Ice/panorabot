@@ -15,6 +15,8 @@ import java.net.Socket;
 import javax.imageio.ImageIO;
 import javax.imageio.stream.ImageInputStream;
 import openimaj_socket_server.ctrl.ItfCtrlWrk;
+import org.openimaj.image.DisplayUtilities;
+import org.openimaj.image.ImageUtilities;
 import org.openimaj.image.MBFImage;
 
 /**
@@ -34,18 +36,20 @@ class WrkSocketStream extends Thread{
     public void run() {
         try {
             in = new ObjectInputStream(socket.getInputStream());
-            while (true) {
+            read = true;
+            while (read) {
                 int[] tabInt = (int[]) in.readObject();
 //                byte[] tabBytes = (byte[]) in.readObject();
 //                ByteArrayInputStream bais = new ByteArrayInputStream(tabBytes);           
 //                BufferedImage bi = ImageIO.read(bais);
-                MBFImage i = new MBFImage(tabInt, 1920, 1080);
-                afficheImage(i);
+                MBFImage i = new MBFImage(tabInt, 320, 180);
+                BufferedImage bi = ImageUtilities.createBufferedImage(i);
+                afficheImage(bi);
             }
         } catch (IOException e) {
             refCtrl.afficheMessage("déconnection");
         } catch (ClassNotFoundException ex) {
-            refCtrl.afficheMessage("Erreur lors de la lecture du fluc tabarnak");
+            refCtrl.afficheMessage("Erreur lors de la lecture du flux tabarnak");
         }
     }
 
@@ -58,8 +62,12 @@ class WrkSocketStream extends Thread{
         }
     }
     
-    public void afficheImage(MBFImage bi){
+    public void afficheImage(BufferedImage bi){
         refCtrl.afficheImage(bi);
+    }
+    
+    public void setRead(boolean a){
+        read = a;
     }
 
     private ItfCtrlWrk refCtrl;
@@ -67,4 +75,5 @@ class WrkSocketStream extends Thread{
     private ObjectInputStream in;
     private PrintWriter out;
     private WrkSocket wrkSocket;
+    private volatile boolean read;
 }
