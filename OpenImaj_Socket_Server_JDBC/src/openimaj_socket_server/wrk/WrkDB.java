@@ -9,6 +9,7 @@ import com.mysql.jdbc.Connection;
 import com.mysql.jdbc.PreparedStatement;
 import com.mysql.jdbc.Statement;
 import java.awt.image.BufferedImage;
+import java.io.InputStream;
 import java.sql.Blob;
 import java.sql.Date;
 import java.sql.DriverManager;
@@ -26,21 +27,21 @@ public class WrkDB {
 
     public WrkDB() {
         try {
-            this.dbConnection = (Connection) DriverManager.getConnection("jdbc:mysql://192.168.2.1:3306/dblob", "root", "");
+            this.dbConnection = (Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/dblob", "root", "");
         } catch (SQLException ex) {
             Logger.getLogger(WrkDB.class.getName()).log(Level.SEVERE, null, ex);
             System.out.println(ex);
         }
     }
 
-    public void toDB(BufferedImage bi) {
+    public void toDB(InputStream bi) {
         System.out.println("On moins, on y est...");
         Statement statement;
         int nb = 0;
         try {
             String prep = "insert t_blobfish set image = ?";
             PreparedStatement ps = (PreparedStatement) dbConnection.prepareStatement(prep);
-            ps.setBlob(1, (Blob) bi);
+            ps.setBlob(1, bi);
             statement = (Statement) dbConnection.createStatement();
             nb = ps.executeUpdate();
             statement.close();

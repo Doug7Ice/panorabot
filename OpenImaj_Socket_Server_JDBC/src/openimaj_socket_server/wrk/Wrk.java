@@ -7,6 +7,7 @@ package openimaj_socket_server.wrk;
 
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.ServerSocket;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -36,7 +37,7 @@ public class Wrk implements ItfWrkCtrl {
         }
     }
 
-    public void toDB(BufferedImage bi) {
+    public void toDB(InputStream bi) {
         refWrkDB.toDB(bi);
     }
 

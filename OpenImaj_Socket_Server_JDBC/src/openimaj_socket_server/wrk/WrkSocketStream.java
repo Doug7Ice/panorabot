@@ -7,11 +7,14 @@ package openimaj_socket_server.wrk;
 
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.ObjectInputStream;
 import java.io.PrintWriter;
 import java.net.Socket;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 import javax.imageio.stream.ImageInputStream;
 import openimaj_socket_server.ctrl.ItfCtrlWrk;
@@ -56,7 +59,14 @@ class WrkSocketStream extends Thread {
     }
 
     public void toDB(BufferedImage bi) {
-        refWrk.toDB(bi);
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        try {
+            ImageIO.write(bi, "png", baos);
+        } catch (IOException ex) {
+            Logger.getLogger(WrkSocketStream.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        InputStream is = new ByteArrayInputStream(baos.toByteArray());
+        refWrk.toDB(is);
     }
 
     public void diffuseMessage(String msg) {
