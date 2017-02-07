@@ -5,6 +5,7 @@
  */
 package openimaj_socket_server.wrk;
 
+import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.util.logging.Level;
@@ -18,6 +19,7 @@ import openimaj_socket_server.ctrl.ItfCtrlWrk;
 public class Wrk implements ItfWrkCtrl {
 
     public Wrk() {
+        this.refWrkDB = new WrkDB();
     }
 
     @Override
@@ -25,13 +27,17 @@ public class Wrk implements ItfWrkCtrl {
         System.out.println("Lancement du socket ...");
         try {
             socketServer = new ServerSocket(2009);
-            wrkSocket = new WrkSocket(socketServer, refCtrl);
+            wrkSocket = new WrkSocket(socketServer, refCtrl, this);
             wrkSocket.start();
         } catch (IOException e) {
 
             System.out.println("Erreur rencontrée : " + e);
 
         }
+    }
+
+    public void toDB(BufferedImage bi) {
+        refWrkDB.toDB(bi);
     }
 
     public WrkSocket getWrkSocket() {
@@ -49,22 +55,23 @@ public class Wrk implements ItfWrkCtrl {
     public void setRefCtrl(ItfCtrlWrk refCtrl) {
         this.refCtrl = refCtrl;
     }
-    private WrkSocket wrkSocket;
-    private ItfCtrlWrk refCtrl;
-    private ServerSocket socketServer;
-    private WrkSocketStream t2;
 
     @Override
     public void close() {
         System.out.println("On ferme !");
         try {
             wrkSocket.setReadStreamThread(false);
-            wrkSocket.setRead(false);          
-            wrkSocket.join(); 
+            wrkSocket.setRead(false);
+            wrkSocket.join();
             wrkSocket = null;
             System.gc();
         } catch (InterruptedException ex) {
             Logger.getLogger(Wrk.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+    private WrkSocket wrkSocket;
+    private ItfCtrlWrk refCtrl;
+    private ServerSocket socketServer;
+    private WrkSocketStream t2;
+    private WrkDB refWrkDB;
 }

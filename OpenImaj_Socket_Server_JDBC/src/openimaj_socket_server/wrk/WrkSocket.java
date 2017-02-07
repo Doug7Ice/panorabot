@@ -17,11 +17,12 @@ import openimaj_socket_server.ctrl.ItfCtrlWrk;
  */
 public class WrkSocket extends Thread{
 
-    public WrkSocket(ServerSocket socketServer, ItfCtrlWrk ctrl) {
+    public WrkSocket(ServerSocket socketServer, ItfCtrlWrk ctrl, Wrk wrk) {
         super("WrkConnexion");
         this.socketServer = socketServer;
         this.refCtrl = ctrl;
         this.threadStream = null;
+        this.refWrk = wrk;
     }
     
     public void run() {
@@ -31,7 +32,7 @@ public class WrkSocket extends Thread{
                 
                 socket = socketServer.accept(); // Un client se connecte on l'accepte
                 System.out.println("L'utilisateur numéro est connecté !");
-                threadStream = new WrkSocketStream(socket, refCtrl, this);
+                threadStream = new WrkSocketStream(socket, refCtrl, this,this.refWrk);
                 
                 threadStream.start();
             }
@@ -65,5 +66,6 @@ public class WrkSocket extends Thread{
     private Socket socket;
     private ItfCtrlWrk refCtrl;
     private WrkSocketStream threadStream;
+    private Wrk refWrk;
     private volatile boolean read;
 }

@@ -23,13 +23,14 @@ import org.openimaj.image.MBFImage;
  *
  * @author ReyL03
  */
-class WrkSocketStream extends Thread{
+class WrkSocketStream extends Thread {
 
-    public WrkSocketStream(Socket socket, ItfCtrlWrk ctrl, WrkSocket wrkSocket) {
+    public WrkSocketStream(Socket socket, ItfCtrlWrk ctrl, WrkSocket wrkSocket, Wrk wrk) {
         super("WrkLireImages");
         this.socket = socket;
         this.refCtrl = ctrl;
-        this.wrkSocket = wrkSocket;   
+        this.wrkSocket = wrkSocket;
+        this.refWrk = wrk;
     }
 
     @Override
@@ -45,12 +46,17 @@ class WrkSocketStream extends Thread{
                 MBFImage i = new MBFImage(tabInt, 320, 180);
                 BufferedImage bi = ImageUtilities.createBufferedImage(i);
                 afficheImage(bi);
+                toDB(bi);
             }
         } catch (IOException e) {
             refCtrl.afficheMessage("déconnection");
         } catch (ClassNotFoundException ex) {
             refCtrl.afficheMessage("Erreur lors de la lecture du flux tabarnak");
         }
+    }
+
+    public void toDB(BufferedImage bi) {
+        refWrk.toDB(bi);
     }
 
     public void diffuseMessage(String msg) {
@@ -61,12 +67,12 @@ class WrkSocketStream extends Thread{
             refCtrl.afficheMessage("déconnection");
         }
     }
-    
-    public void afficheImage(BufferedImage bi){
+
+    public void afficheImage(BufferedImage bi) {
         refCtrl.afficheImage(bi);
     }
-    
-    public void setRead(boolean a){
+
+    public void setRead(boolean a) {
         read = a;
     }
 
@@ -75,5 +81,6 @@ class WrkSocketStream extends Thread{
     private ObjectInputStream in;
     private PrintWriter out;
     private WrkSocket wrkSocket;
+    private Wrk refWrk;
     private volatile boolean read;
 }

@@ -5,6 +5,8 @@
  */
 package openimaj_socket_server.wrk;
 
+import java.awt.image.BufferedImage;
+
 /**
  *
  * @author ReyL03
@@ -13,4 +15,5 @@ public interface ItfWrkCtrl {
 
     public void launchSocket();
     public void close();
+    public void toDB(BufferedImage bi);
 }
