@@ -59,11 +59,11 @@ public class WrkDB {
         PreparedStatement pstmt = null;
         String query = "SELECT image FROM t_blobfish WHERE pk_blobfish = ?";
         try {
-            PreparedStatement ps = (PreparedStatement) dbConnection.prepareStatement(query);
-            ps.setInt(1, pk);
+            pstmt = (PreparedStatement) dbConnection.prepareStatement(query);
+            pstmt.setInt(1, pk);
             rs = pstmt.executeQuery();
             rs.next();
-            Blob blob = rs.getBlob("photo");
+            Blob blob = rs.getBlob("image");
             // materialize BLOB onto client
             InputStream is = (ByteArrayInputStream) blob.getBinaryStream();
             img = ImageIO.read(is);

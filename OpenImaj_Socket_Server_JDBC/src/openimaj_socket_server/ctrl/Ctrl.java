@@ -59,12 +59,17 @@ public class Ctrl implements ItfCtrlIhm, ItfCtrlWrk {
         this.refWrk = refWrk;
     }
 
-    private ItfIhmCtrl refIhm;
-    private ItfWrkCtrl refWrk;
-
     @Override
     public void close() {
         refWrk.close();
     }
+
+    @Override
+    public BufferedImage afficheImageDB(int pkDb) {
+        return refWrk.getImage(pkDb);
+    }
+
+    private ItfIhmCtrl refIhm;
+    private ItfWrkCtrl refWrk;
 
 }

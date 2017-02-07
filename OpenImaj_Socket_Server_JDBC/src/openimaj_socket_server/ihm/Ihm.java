@@ -46,6 +46,7 @@ public class Ihm extends javax.swing.JFrame implements ItfIhmCtrl{
 
         btnClose = new javax.swing.JButton();
         videoPanel = new javax.swing.JPanel();
+        btnOuvrirImage = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -67,6 +68,13 @@ public class Ihm extends javax.swing.JFrame implements ItfIhmCtrl{
             .addGap(0, 175, Short.MAX_VALUE)
         );
 
+        btnOuvrirImage.setText("Ouvrir image");
+        btnOuvrirImage.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnOuvrirImageActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -74,6 +82,8 @@ public class Ihm extends javax.swing.JFrame implements ItfIhmCtrl{
             .addGroup(layout.createSequentialGroup()
                 .addGap(40, 40, 40)
                 .addComponent(btnClose)
+                .addGap(18, 18, 18)
+                .addComponent(btnOuvrirImage)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(77, Short.MAX_VALUE)
@@ -86,7 +96,9 @@ public class Ihm extends javax.swing.JFrame implements ItfIhmCtrl{
                 .addGap(42, 42, 42)
                 .addComponent(videoPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGap(37, 37, 37)
-                .addComponent(btnClose)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnClose)
+                    .addComponent(btnOuvrirImage))
                 .addGap(23, 23, 23))
         );
 
@@ -96,6 +108,11 @@ public class Ihm extends javax.swing.JFrame implements ItfIhmCtrl{
     private void btnCloseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCloseActionPerformed
         refCtrl.close();
     }//GEN-LAST:event_btnCloseActionPerformed
+
+    private void btnOuvrirImageActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOuvrirImageActionPerformed
+        BufferedImage bi = refCtrl.afficheImageDB(1);
+         DisplayUtilities.display(bi);
+    }//GEN-LAST:event_btnOuvrirImageActionPerformed
 
     /**
      * @param args the command line arguments
@@ -146,6 +163,7 @@ public class Ihm extends javax.swing.JFrame implements ItfIhmCtrl{
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnClose;
+    private javax.swing.JButton btnOuvrirImage;
     private javax.swing.JPanel videoPanel;
     // End of variables declaration//GEN-END:variables
 

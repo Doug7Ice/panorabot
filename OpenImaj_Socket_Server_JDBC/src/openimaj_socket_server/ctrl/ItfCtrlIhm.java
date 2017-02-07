@@ -5,6 +5,8 @@
  */
 package openimaj_socket_server.ctrl;
 
+import java.awt.image.BufferedImage;
+
 /**
  *
  * @author ReyL03
@@ -13,4 +15,5 @@ public interface ItfCtrlIhm {
     public void start();
     public void launchSocket();
     public void close();
+    public BufferedImage afficheImageDB(int pkDb);
 }
