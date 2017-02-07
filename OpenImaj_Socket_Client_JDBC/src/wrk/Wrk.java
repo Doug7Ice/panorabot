@@ -22,7 +22,7 @@ public class Wrk implements ItfCtrlWrk {
     @Override
     public void sendVideo(Video<MBFImage> video) {
         try {
-            this.socket = new Socket("192.168.2.2", 2009);
+            this.socket = new Socket("localhost", 2009);
         } catch (IOException ex) {
             System.out.println("erreur : " + ex);
         }
