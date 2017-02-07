@@ -17,4 +17,5 @@ public interface ItfWrkCtrl {
     public void launchSocket();
     public void close();
     public void toDB(InputStream bi);
+    public BufferedImage getImage(int pk);
 }

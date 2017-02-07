@@ -9,15 +9,17 @@ import com.mysql.jdbc.Connection;
 import com.mysql.jdbc.PreparedStatement;
 import com.mysql.jdbc.Statement;
 import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
 import java.io.InputStream;
 import java.sql.Blob;
-import java.sql.Date;
 import java.sql.DriverManager;
+import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.imageio.ImageIO;
+import org.openimaj.image.Image;
 
 /**
  *
@@ -50,5 +52,36 @@ public class WrkDB {
             System.out.println(erreur);
         }
     }
+
+    public BufferedImage getImage(int pk) {
+        BufferedImage img = null;
+        ResultSet rs = null;
+        PreparedStatement pstmt = null;
+        String query = "SELECT image FROM t_blobfish WHERE pk_blobfish = ?";
+        try {
+            PreparedStatement ps = (PreparedStatement) dbConnection.prepareStatement(query);
+            ps.setInt(1, pk);
+            rs = pstmt.executeQuery();
+            rs.next();
+            Blob blob = rs.getBlob("photo");
+            // materialize BLOB onto client
+            InputStream is = (ByteArrayInputStream) blob.getBinaryStream();
+            img = ImageIO.read(is);
+        }catch (SQLException e){
+            System.out.println(e);
+        }catch (IOException ex){
+            System.out.println(ex);
+        } finally {
+            try {
+                rs.close();
+                pstmt.close();
+                dbConnection.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(WrkDB.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        return img;
+    }
+
     private Connection dbConnection;
 }

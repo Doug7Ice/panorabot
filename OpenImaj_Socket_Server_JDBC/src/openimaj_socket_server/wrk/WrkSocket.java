@@ -46,6 +46,7 @@ public class WrkSocket extends Thread{
         this.read = read;
     }
     public void setReadStreamThread(boolean read){
+        if (threadStream != null){
         threadStream.setRead(read);
         if (read){
             try{
@@ -55,6 +56,7 @@ public class WrkSocket extends Thread{
             catch (Exception e){
                 System.out.println(e);
             }
+        }
         }
     }
     

@@ -40,6 +40,11 @@ public class Wrk implements ItfWrkCtrl {
     public void toDB(InputStream bi) {
         refWrkDB.toDB(bi);
     }
+    
+    @Override
+    public BufferedImage getImage(int pk) {
+        return refWrkDB.getImage(pk);
+    }
 
     public WrkSocket getWrkSocket() {
         return wrkSocket;
@@ -59,6 +64,7 @@ public class Wrk implements ItfWrkCtrl {
 
     @Override
     public void close() {
+        if (wrkSocket != null){
         System.out.println("On ferme !");
         try {
             wrkSocket.setReadStreamThread(false);
@@ -69,9 +75,12 @@ public class Wrk implements ItfWrkCtrl {
         } catch (InterruptedException ex) {
             Logger.getLogger(Wrk.class.getName()).log(Level.SEVERE, null, ex);
         }
+        }
     }
     private WrkSocket wrkSocket;
     private ItfCtrlWrk refCtrl;
     private ServerSocket socketServer;
     private WrkDB refWrkDB;
+
+    
 }
