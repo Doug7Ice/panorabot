@@ -72,6 +72,5 @@ public class Wrk implements ItfWrkCtrl {
     private WrkSocket wrkSocket;
     private ItfCtrlWrk refCtrl;
     private ServerSocket socketServer;
-    private WrkSocketStream t2;
     private WrkDB refWrkDB;
 }
