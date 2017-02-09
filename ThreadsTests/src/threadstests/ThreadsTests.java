@@ -21,6 +21,7 @@ public class ThreadsTests {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
+        System.out.println("");
         Thread t1 = new MonThreadExtends("Thread Extends");
         Thread t2 = new Thread(new MonThreadImplements(),
                 "Thread Implements");
