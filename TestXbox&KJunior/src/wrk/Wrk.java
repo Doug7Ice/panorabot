@@ -21,7 +21,9 @@ public class Wrk {
         ouvrirPort();
         wrkWrite = new EcrireMessageWrk(serialPort, this);
         wrkRead = new LireMessageWrk(serialPort, this);
+        wrkXbox = new ManetteWrk(true, this);
         wrkRead.start();
+        wrkXbox.start();
     }
     
     
@@ -89,6 +91,7 @@ public class Wrk {
     private EcrireMessageWrk wrkWrite;
     private LireMessageWrk wrkRead;
     private Ctrl refCtrl;
+    private ManetteWrk wrkXbox;
 }
 
 
