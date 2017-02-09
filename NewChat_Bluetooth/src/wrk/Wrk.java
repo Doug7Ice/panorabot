@@ -26,13 +26,13 @@ public class Wrk {
     
     
     public void ouvrirPort(){
-        this.serialPort = new SerialPort("COM1");
+        this.serialPort = new SerialPort("COM6");
         try {            
             serialPort.openPort();
             serialPort.setParams(SerialPort.BAUDRATE_57600,
                     SerialPort.DATABITS_8,
-                    SerialPort.STOPBITS_2,
-                    SerialPort.PARITY_EVEN);//Set params. Also you can set params by this string: serialPort.setParams(9600, 8, 1, 0);
+                    SerialPort.STOPBITS_1,
+                    SerialPort.PARITY_NONE);//Set params. Also you can set params by this string: serialPort.setParams(9600, 8, 1, 0);
         } catch (SerialPortException ex) {
            System.out.println("erreur = " + ex);
            wrkRead.setIsReading(false);

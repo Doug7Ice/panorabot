@@ -23,7 +23,8 @@ public class EcrireMessageWrk {
     }
     
     public void writeMessage(String message){
-        String msg = name + " -- " + message +"\n";
+        String msg = message +"\n";
+        //String msg = name + " -- " + message +"\n";
         try {
             sp.writeBytes(msg.getBytes());//Write data to port
             wrk.showMessage(msg);
