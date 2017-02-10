@@ -39,6 +39,19 @@ public class ManetteWrk {
 
             public void dpad(int direction, boolean pressed) {
                 System.out.println("dir " + direction + " p " + pressed);
+                if (direction == 2 && pressed == true) {
+                    tournerADroite();
+                    isTurning = true;
+                } else if (direction == 2 && pressed == false) {
+                    stopperDrone();
+                    isTurning = false;
+                } else if (direction == 6 && pressed == true) {
+                    tournerAGauche();
+                    isTurning = true;
+                } else if (direction == 6 && pressed == false) {
+                    stopperDrone();
+                    isTurning = false;
+                }
             }
 
             public void buttonB(boolean pressed) {
@@ -73,26 +86,44 @@ public class ManetteWrk {
             public void leftTrigger(double value) {
 //                leftVibrate = (int) (65535 * value * value);
 //                xc.vibrate(leftVibrate, rightVibrate);
-                  avancerDrone(valueOn20(-value));
-                System.out.println("L " + leftVibrate + " R " + rightVibrate);
+                if (!isTurning) {
+                    avancerDrone(valueOn20(-value));
+                    System.out.println("L " + leftVibrate + " R " + rightVibrate);
+                }
             }
 
             public void rightTrigger(double value) {
 //                rightVibrate = (int) (65535 * value * value);
 //                xc.vibrate(leftVibrate, rightVibrate);
-                avancerDrone(valueOn20(value));
-                System.out.println("L " + leftVibrate + " R " + rightVibrate);
+                if (!isTurning) {
+                    avancerDrone(valueOn20(value));
+                    System.out.println("L " + leftVibrate + " R " + rightVibrate);
+                }
+
             }
         });
 
     }
 
     public void avancerDrone(int value) {
-        refSender.writeMessage("D," + value  + "," + value);
+        refSender.writeMessage("D," + value + "," + value);
+        System.out.println("AVANCER AVEC UNE VITESSE DE " + value);
     }
-    
-    public int valueOn20(double value){
-        return (int)(value * 20 + 1);
+
+    public void tournerADroite() {
+        refSender.writeMessage("D,14,-14");
+    }
+
+    public void tournerAGauche() {
+        refSender.writeMessage("D,-14,14");
+    }
+
+    public void stopperDrone() {
+        refSender.writeMessage("D,0,0");
+    }
+
+    public int valueOn20(double value) {
+        return (int) (value * 20 + 1);
     }
 
     public void setRunning(boolean running) {
@@ -109,4 +140,5 @@ public class ManetteWrk {
     private XboxController xc;
     private int leftVibrate = 0;
     private int rightVibrate = 0;
+    private boolean isTurning;
 }
