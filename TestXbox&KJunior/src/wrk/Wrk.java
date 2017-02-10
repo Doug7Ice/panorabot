@@ -23,7 +23,6 @@ public class Wrk {
         wrkRead = new LireMessageWrk(serialPort, this);
         wrkXbox = new ManetteWrk(true, this,wrkWrite);
         wrkRead.start();
-        wrkXbox.start();
     }
     
     
@@ -53,11 +52,13 @@ public class Wrk {
         try {
             wrkRead.setIsReading(false);
             wrkXbox.setRunning(false);
+            wrkXbox.close();
             serialPort.closePort();     
             
             wrkRead = null;
             wrkXbox = null;
             System.gc();
+            System.exit(0);
         } catch (SerialPortException ex) {
             Logger.getLogger(Wrk.class.getName()).log(Level.SEVERE, null, ex);
         }       
