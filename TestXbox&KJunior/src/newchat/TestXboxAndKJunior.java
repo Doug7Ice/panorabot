@@ -17,7 +17,7 @@ import wrk.Wrk;
  *
  * @author ReyL03
  */
-public class NewChat extends Application {
+public class TestXboxAndKJunior extends Application {
     
     @Override
     public void start(Stage stage) throws Exception {
