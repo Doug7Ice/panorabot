@@ -43,35 +43,65 @@ public class IhmLoginController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        try {
-            Parent root = FXMLLoader.load(getClass().getResource("IhmRobot.fxml"));
-            Scene scene = new Scene(root);
-            stageRobotIhm = new Stage();
-            stageRobotIhm.setScene(scene);
-
-            Ctrl ctrl = new Ctrl();
-            Wrk wrk = new Wrk();
-
-            ctrl.setWrk(wrk);
-            ctrl.setIhmRobot((ItfIhmRobotCtrl) root);
-            wrk.setCtrl(ctrl);
-            refCtrl = ctrl;
-            
-        } catch (IOException ex) {
-            Logger.getLogger(IhmLoginController.class.getName()).log(Level.SEVERE, null, ex);
-        }
+//        try {
+//            Parent root = FXMLLoader.load(getClass().getResource("IhmRobot.fxml"));
+//            Scene scene = new Scene(root);
+//            stageRobotIhm = new Stage();
+//            stageRobotIhm.setScene(scene);
+//
+//            Ctrl ctrl = new Ctrl();
+//            Wrk wrk = new Wrk();
+//
+//            ctrl.setWrk(wrk);
+//            wrk.setCtrl(ctrl);
+//            refCtrl = ctrl;
+//            
+//        } catch (IOException ex) {
+//            Logger.getLogger(IhmLoginController.class.getName()).log(Level.SEVERE, null, ex);
+//        }
     }
 
     @FXML
     private void btnConnexionOnAction(ActionEvent event) {
-        boolean connexionOk = refCtrl.connecter(txtUser.getText(), txtPassword.getText());
-        if (connexionOk) {
-            stageRobotIhm.show();
-            
-        }
+        stage.setScene(sceneRobot);
+//        boolean connexionOk = refCtrl.connecter(txtUser.getText(), txtPassword.getText());
+//        if (connexionOk) {
+//            stage.setScene(sceneRobot);
+//            stage.show();
+//        }
+        refCtrl.lancerSocket();
+    }
+
+    void setSceneLogin(Scene scene) {
+        this.sceneLogin = scene;
+    }
+
+    void setSceneRobot(Scene scene) {
+        this.sceneRobot = scene;
+    }
+
+    public ItfCtrlIhmLogin getRefCtrl() {
+        return refCtrl;
+    }
+
+    public void setRefCtrl(ItfCtrlIhmLogin refCtrl) {
+        this.refCtrl = refCtrl;
+    }
+    
+    
+
+    void quitter() {
+        System.out.println("a quitté");
+    }
+
+    void setStage(Stage stage) {
+        this.stage = stage;
     }
 
     private ItfCtrlIhmLogin refCtrl;
     private IhmRobotController ihmRobotCtrl;
-    private Stage stageRobotIhm;
+    private Stage stage;
+    private Scene sceneLogin;
+    private Scene sceneRobot;
+
 }

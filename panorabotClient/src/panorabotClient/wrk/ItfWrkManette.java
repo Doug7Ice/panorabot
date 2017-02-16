@@ -16,4 +16,7 @@ public interface ItfWrkManette {
     public void stopperRobot();
     public void tournerADroite();
     public void tournerAGauche();
+    public void augmenterRayon();
+    public void reduireRayon();
+    
 }

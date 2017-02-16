@@ -10,5 +10,8 @@ package panorabotClient.ctrl;
  * @author Nathan
  */
 public interface ItfCtrlWrk {
+
+    public void augmenterRayon();
+    public void reduireRayon();
     
 }

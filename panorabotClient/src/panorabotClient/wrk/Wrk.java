@@ -14,19 +14,17 @@ import panorabotClient.ctrl.ItfCtrlWrk;
 public class Wrk implements ItfWrkCtrl, ItfWrkManette {
 
     public Wrk() {
-        refWrkManette = new WrkManette(this);
-        refWrkSocket = new WrkSocket(this);
+
         refWrkConversion = new WrkConversion();
         refWrkOutputFile = new WrkOutputFile();
         isRobotTurning = false;
-        refWrkSocket.start();
     }
 
     @Override
     public boolean connecter(String user, String mdp) {
         return false;
     }
-    
+
     //Methods implemented from ItfWrkCtrl
     @Override
     public void stopperRobotDUrgence() {
@@ -68,6 +66,24 @@ public class Wrk implements ItfWrkCtrl, ItfWrkManette {
     public void lancerScan(double rayon) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+    
+    @Override
+    public void augmenterRayon() {
+        refCtrl.augmenterRayon();
+    }
+    
+    @Override
+    public void reduireRayon() {
+        refCtrl.reduireRayon();
+    }
+
+
+    @Override
+    public void lancerSocket() {
+        refWrkSocket = new WrkSocket(this);
+        refWrkSocket.start();
+        refWrkManette = new WrkManette(this);
+    }
 
     //Setters and Getters
     public ItfCtrlWrk getCtrl() {
@@ -86,5 +102,4 @@ public class Wrk implements ItfWrkCtrl, ItfWrkManette {
     private boolean isRobotTurning;
 
     
-
 }

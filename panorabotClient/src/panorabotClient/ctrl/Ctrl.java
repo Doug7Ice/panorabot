@@ -23,6 +23,20 @@ public class Ctrl implements ItfCtrlIhmLogin, ItfCtrlIhmRobot, ItfCtrlWrk {
     public void stopperDroneDUrgence() {
         refWrk.stopperRobotDUrgence();
     }
+    
+     @Override
+    public void lancerSocket() {
+        refWrk.lancerSocket();
+    }
+    
+    @Override
+    public void augmenterRayon() {
+        ihmRobot.augmenterRayon();
+    }
+    
+    public void reduireRayon(){
+        ihmRobot.reduireRayon();
+    }
 
     public ItfWrkCtrl getWrk() {
         return refWrk;
@@ -44,6 +58,10 @@ public class Ctrl implements ItfCtrlIhmLogin, ItfCtrlIhmRobot, ItfCtrlWrk {
 
     private ItfWrkCtrl refWrk;
     private ItfIhmRobotCtrl ihmRobot;
+
+    
+
+   
 
     
 }

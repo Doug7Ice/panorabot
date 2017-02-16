@@ -8,6 +8,7 @@ package panorabotClient.wrk;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.io.PrintWriter;
 import java.net.Socket;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -16,64 +17,73 @@ import java.util.logging.Logger;
  *
  * @author Nathan
  */
-public class WrkSocket extends Thread{
+public class WrkSocket extends Thread {
 
     public WrkSocket(Wrk refWrk) {
         this.refWrk = refWrk;
         running = false;
-        try {
-            socket = new Socket("192.168.1.1", 8080);
-            out = new ObjectOutputStream(socket.getOutputStream());
-        } catch (IOException ex) {
-            Logger.getLogger(WrkSocket.class.getName()).log(Level.SEVERE, null, ex);
+        boolean tryConnect = true;
+        while (tryConnect) {
+            tryConnect = !connecterSocket();
+            if (tryConnect == true) {
+                System.out.println("connexion impossible réessais dans 2 sec");
+                try {
+                    Thread.sleep(2000);
+                } catch (InterruptedException ex) {
+                    Logger.getLogger(WrkSocket.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
         }
     }
-    
+
     @Override
-    public void run(){
+    public void run() {
         running = true;
 //        while(running){
 //            
 //        }
     }
-    
-    
-    public void avancerRobotTCP(int vitesse){
+
+    public boolean connecterSocket() {
         try {
-            out.writeChars("D," + vitesse + "," + vitesse);
+            socket = new Socket("192.168.2.1", 2009);
+            out = new PrintWriter(socket.getOutputStream());
+            return true;
         } catch (IOException ex) {
-            Logger.getLogger(WrkSocket.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
         }
     }
-   
-    public void stopperRobotTCP(){
-        try {
-            out.writeChars("D,0,0");
-        } catch (IOException ex) {
-            Logger.getLogger(WrkSocket.class.getName()).log(Level.SEVERE, null, ex);
-        }
+
+    public void avancerRobotTCP(int vitesse) {
+        out.println("D," + vitesse + "," + vitesse);
+        out.flush();
     }
-    
-    public void tournerADroiteTCP(){
-        try {
-            out.writeChars("D,14,-14");
-        } catch (IOException ex) {
-            Logger.getLogger(WrkSocket.class.getName()).log(Level.SEVERE, null, ex);
-        }
+
+    public void stopperRobotTCP() {
+        out.println("D,0,0");
+        out.flush();
     }
-    
-    public void tournerAGaucheTCP(){
-        try {
-            out.writeChars("D,-14,14");
-        } catch (IOException ex) {
-            Logger.getLogger(WrkSocket.class.getName()).log(Level.SEVERE, null, ex);
-        }
+
+    public void tournerADroiteTCP() {
+        out.println("D,14,-14");
+        out.flush();
+
     }
-    
+
+    public void tournerAGaucheTCP() {
+        out.println("D,-14,14");
+        out.flush();
+    }
+
+    public void lancerScanTCP(double rayon) {
+        out.println("S," + rayon);
+        out.flush();
+    }
+
     private Wrk refWrk;
     private String actualPath;
     private ObjectInputStream in;
-    private ObjectOutputStream out;
+    private PrintWriter out;
     private boolean running;
     private Socket socket;
 }

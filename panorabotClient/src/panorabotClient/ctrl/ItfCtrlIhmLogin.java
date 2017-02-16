@@ -11,4 +11,6 @@ package panorabotClient.ctrl;
  */
 public interface ItfCtrlIhmLogin {
     public boolean connecter(String user, String mdp);
+
+    public void lancerSocket();
 }

@@ -12,4 +12,5 @@ package panorabotClient.wrk;
 public interface ItfWrkCtrl {
     public boolean connecter(String user, String mdp);
     public void stopperRobotDUrgence();
+    public void lancerSocket();
 }

@@ -10,5 +10,8 @@ package panorabotClient.ihm;
  * @author Nathan
  */
 public interface ItfIhmRobotCtrl {
+
+    public void augmenterRayon();
+    public void reduireRayon();
     
 }
