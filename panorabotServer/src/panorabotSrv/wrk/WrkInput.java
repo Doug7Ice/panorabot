@@ -1,5 +1,8 @@
 package panorabotSrv.wrk;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.io.ObjectInputStream;
 import java.net.Socket;
 
@@ -10,13 +13,14 @@ import java.net.Socket;
  */
 public class WrkInput extends Thread {
 
-	private ObjectInputStream in;
+	private BufferedReader in;
 	private volatile boolean read;
 	private Socket socket;
 	public Wrk refWrk;
 
-	public WrkInput(Wrk wrk){
+	public WrkInput(Wrk wrk,Socket sock){
             this.refWrk = wrk;
+            this.socket = sock;
 	}
 
 	public void finalize() throws Throwable {
@@ -36,7 +40,17 @@ public class WrkInput extends Thread {
 	}
 
 	public void run(){
-
+            try {
+            in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+            while (true) {
+                String msg = in.readLine();
+                if (msg != null) {
+                    System.out.println("message envoyé : " + msg);
+                }
+            }
+        } catch (IOException e) {
+                System.out.println("Erreur");
+        }
 	}
 
     public boolean isRead() {

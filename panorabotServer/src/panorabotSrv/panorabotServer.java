@@ -10,6 +10,9 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import panorabotSrv.ctrl.Ctrl;
+import panorabotSrv.ihm.Ihm;
+import panorabotSrv.wrk.Wrk;
 
 /**
  *
@@ -31,6 +34,14 @@ public class panorabotServer extends Application {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
+        Ctrl ctrl = new Ctrl();
+        Wrk wrk = new Wrk();
+        Ihm ihm = new Ihm();
+        
+        ctrl.setRefIhm(ihm);
+        ctrl.setRefWrk(wrk);
+        wrk.setRefCtrl(ctrl);
+        ihm.setRefCtrl(ctrl);
         launch(args);
     }
     

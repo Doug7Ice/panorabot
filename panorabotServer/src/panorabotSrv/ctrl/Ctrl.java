@@ -9,8 +9,8 @@ import panorabotSrv.wrk.ItfWrkCtrl;
  */
 public class Ctrl implements ItfCtrlIhm, ItfCtrlWrk {
 
-	public ItfIhmCtrl m_ItfIhmCtrl;
-	public ItfWrkCtrl m_ItfWrkCtrl;
+	public ItfIhmCtrl refIhm;
+	public ItfWrkCtrl refWrk;
 
 	public Ctrl(){
 
@@ -54,4 +54,13 @@ public class Ctrl implements ItfCtrlIhm, ItfCtrlWrk {
 	public void afficheStatutConnectionRobot(boolean statutRobot){
 
 	}
+
+    public void setRefIhm(ItfIhmCtrl refIhm) {
+        this.refIhm = refIhm;
+    }
+
+    public void setRefWrk(ItfWrkCtrl refWrk) {
+        this.refWrk = refWrk;
+    }
+        
 }//end Ctrl

@@ -5,6 +5,7 @@
  */
 package panorabotSrv.wrk;
 
+import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
 
@@ -16,25 +17,30 @@ public class WrkSocket extends Thread{
     private volatile boolean on;
     private Socket socket;
     private ServerSocket socketServeur;
+    private Wrk refWrk;
 
-    public WrkSocket(Socket socket, ServerSocket socketServeur) {
-        this.socket = socket;
+    public WrkSocket(ServerSocket socketServeur,Wrk wrk) {
         this.socketServeur = socketServeur;
+        this.refWrk = wrk;
     }
     
     
     
     public void run(){
-        
+        try {
+            on = true;
+            while (this.on) {
+                
+                socket = socketServeur.accept(); // Un client se connecte on l'accepte
+                System.out.println("L'utilisateur est connecté !");
+                refWrk.lauchWrkInput(socket);
+            }
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
     
-    private void bougeLeRobot(String commande){
-        
-    }
-    
-    private void lanceCapture(double rayon){
-        
-    }
 
     public boolean isOn() {
         return on;
