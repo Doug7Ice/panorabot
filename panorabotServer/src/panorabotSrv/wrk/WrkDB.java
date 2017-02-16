@@ -1,5 +1,10 @@
 package panorabotSrv.wrk;
 
+import java.awt.image.BufferedImage;
+import java.io.InputStream;
+import java.sql.Connection;
+import java.util.ArrayList;
+
 /**
  * @author ReyL03
  * @version 1.0

@@ -1,5 +1,7 @@
 package panorabotSrv.wrk;
 
+import jssc.SerialPort;
+
 /**
  * @author ReyL03
  * @version 1.0

@@ -1,5 +1,8 @@
 package panorabotSrv.wrk;
 
+import java.io.ObjectOutputStream;
+import java.net.Socket;
+
 /**
  * @author ReyL03
  * @version 1.0
