@@ -29,6 +29,7 @@ public class WrkSocket extends Thread{
     public void run(){
         try {
             on = true;
+            refWrk.afficheMessageConsole("DO YOU SEE ME ???");
             while (this.on) {
                 
                 socket = socketServeur.accept(); // Un client se connecte on l'accepte

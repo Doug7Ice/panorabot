@@ -7,20 +7,6 @@ import java.net.Socket;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import panorabotSrv.ctrl.ItfCtrlWrk;
-import panorabotSrv.wrk.ItfWrkCtrl;
-import panorabotSrv.wrk.ItfWrkCtrl;
-import panorabotSrv.wrk.WrkDB;
-import panorabotSrv.wrk.WrkDB;
-import panorabotSrv.wrk.WrkInput;
-import panorabotSrv.wrk.WrkInput;
-import panorabotSrv.wrk.WrkKJunior;
-import panorabotSrv.wrk.WrkKJunior;
-import panorabotSrv.wrk.WrkKjuniorCam;
-import panorabotSrv.wrk.WrkKjuniorCam;
-import panorabotSrv.wrk.WrkOutput;
-import panorabotSrv.wrk.WrkOutput;
-import panorabotSrv.wrk.WrkSocket;
-import panorabotSrv.wrk.WrkSocket;
 
 public class Wrk implements ItfWrkCtrl {
 
@@ -32,10 +18,12 @@ public class Wrk implements ItfWrkCtrl {
     public WrkOutput refWrkOutput;
     public WrkDB refWrkDB;
 
-    public Wrk() {
+    public Wrk() {       
+        this.refWrkKjunior = new WrkKJunior();
         lauchSocket();
     }
 
+    
     public void lauchSocket() {
         try {
             ServerSocket socketServer = new ServerSocket(2009);
@@ -60,7 +48,7 @@ public class Wrk implements ItfWrkCtrl {
      * @param msg
      */
     public void afficheMessageConsole(String msg) {
-
+        refCtrl.afficheMessageConsole(msg);
     }
 
     /**
@@ -93,7 +81,7 @@ public class Wrk implements ItfWrkCtrl {
      * @param moteurDroite
      */
     public void bougeLeRobot(String commande) {
-
+        refWrkKjunior.commandeLeRobot(commande);
     }
 
     public void fermeLesThreads() {

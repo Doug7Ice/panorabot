@@ -1,6 +1,7 @@
 package panorabotSrv.wrk;
 
 import jssc.SerialPort;
+import jssc.SerialPortException;
 
 /**
  * @author ReyL03
@@ -9,33 +10,45 @@ import jssc.SerialPort;
  */
 public class WrkKJunior {
 
-	private SerialPort serialPort;
+    private SerialPort serialPort;
 
-	public WrkKJunior(SerialPort sp){
-            this.serialPort = sp;
-	}
+    public WrkKJunior() {
+        ouvrirPort();
+    }
 
-	public void finalize() throws Throwable {
+    public void finalize() throws Throwable {
 
-	}
-	/**
-	 * 
-	 * @param moteurGauche
-	 * @param moteurDroite
-	 */
-	public void bougeLeRobo(int moteurGauche, int moteurDroite){
+    }
 
-	}
+    /**
+     *
+     * @param moteurGauche
+     * @param moteurDroite
+     */
 
-	/**
-	 * 
-	 * @param commande
-	 */
-	public void commande(String commande){
+    /**
+     *
+     * @param commande
+     */
+    public void commandeLeRobot(String commande) {
+        String msg = commande + "\n";
+        try {
+            serialPort.writeBytes(msg.getBytes());//Write data to port
+        } catch (SerialPortException ex) {
 
-	}
+        }
+    }
 
-	public void ouvrirPort(){
-
-	}
+    public void ouvrirPort() {
+        this.serialPort = new SerialPort("COM6");
+        try {            
+            serialPort.openPort();
+            serialPort.setParams(SerialPort.BAUDRATE_57600,
+                    SerialPort.DATABITS_8,
+                    SerialPort.STOPBITS_1,
+                    SerialPort.PARITY_NONE);//Set params. Also you can set params by this string: serialPort.setParams(9600, 8, 1, 0);
+        } catch (SerialPortException ex) {
+           System.out.println("erreur = " + ex);
+        }
+    }
 }//end WrkKJunior

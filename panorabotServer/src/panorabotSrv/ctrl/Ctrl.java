@@ -28,7 +28,7 @@ public class Ctrl implements ItfCtrlIhm, ItfCtrlWrk {
 	 * @param msg
 	 */
 	public void afficheMessageConsole(String msg){
-
+            refIhm.afficheMessageConsole(msg);
 	}
 
 	/**

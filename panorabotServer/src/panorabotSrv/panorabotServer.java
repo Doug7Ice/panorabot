@@ -6,14 +6,14 @@
 package panorabotSrv;
 
 import javafx.application.Application;
+import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 import panorabotSrv.ctrl.Ctrl;
-import panorabotSrv.ihm.Ihm;
 import panorabotSrv.wrk.Wrk;
-
 /**
  *
  * @author ReyL03
@@ -28,20 +28,17 @@ public class panorabotServer extends Application {
         
         stage.setScene(scene);
         stage.show();
+        stage.setOnCloseRequest(new EventHandler<WindowEvent>(){
+            public void handle(WindowEvent we){
+                System.out.println("TAMER");
+            }
+        });
     }
 
     /**
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        Ctrl ctrl = new Ctrl();
-        Wrk wrk = new Wrk();
-        Ihm ihm = new Ihm();
-        
-        ctrl.setRefIhm(ihm);
-        ctrl.setRefWrk(wrk);
-        wrk.setRefCtrl(ctrl);
-        ihm.setRefCtrl(ctrl);
         launch(args);
     }
     
