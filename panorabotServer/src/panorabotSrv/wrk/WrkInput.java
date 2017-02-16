@@ -13,10 +13,10 @@ public class WrkInput extends Thread {
 	private ObjectInputStream in;
 	private volatile boolean read;
 	private Socket socket;
-	public Wrk m_Wrk;
+	public Wrk refWrk;
 
-	public WrkInput(){
-
+	public WrkInput(Wrk wrk){
+            this.refWrk = wrk;
 	}
 
 	public void finalize() throws Throwable {
@@ -27,15 +27,33 @@ public class WrkInput extends Thread {
 	 * @param moteurGauche
 	 * @param moteurDroit
 	 */
-	public void bougeRobot(int moteurGauche, int moteurDroit){
+	private void bougeRobot(String commande){
 
 	}
 
-	public void lanceCapture(){
+	private void lanceCapture(double rayon){
 
 	}
 
 	public void run(){
 
 	}
+
+    public boolean isRead() {
+        return read;
+    }
+
+    public void setRead(boolean read) {
+        this.read = read;
+    }
+
+    public Socket getSocket() {
+        return socket;
+    }
+
+    public void setSocket(Socket socket) {
+        this.socket = socket;
+    }
+        
+        
 }//end WrkInput

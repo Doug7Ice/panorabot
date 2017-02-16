@@ -1,4 +1,6 @@
 package panorabotSrv.ihm;
+import javafx.fxml.FXML;
+import javafx.scene.control.Label;
 import panorabotSrv.ctrl.ItfCtrlIhm;
 
 /**
@@ -9,6 +11,8 @@ import panorabotSrv.ctrl.ItfCtrlIhm;
 public class Ihm implements ItfIhmCtrl {
 
 	public ItfCtrlIhm m_ItfCtrlIhm;
+    @FXML
+    private Label label;
 
 	public Ihm(){
 

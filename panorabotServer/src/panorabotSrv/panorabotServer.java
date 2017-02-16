@@ -15,7 +15,7 @@ import javafx.stage.Stage;
  *
  * @author ReyL03
  */
-public class Panorapute extends Application {
+public class panorabotServer extends Application {
     
     @Override
     public void start(Stage stage) throws Exception {

@@ -13,8 +13,8 @@ public class WrkOutput {
 	private ObjectOutputStream out;
 	private Socket socket;
 
-	public WrkOutput(){
-
+	public WrkOutput(Socket socket){
+            this.socket = socket;
 	}
 
 	public void finalize() throws Throwable {

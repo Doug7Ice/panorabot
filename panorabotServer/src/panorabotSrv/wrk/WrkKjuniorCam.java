@@ -1,5 +1,10 @@
 package panorabotSrv.wrk;
 
+import java.io.IOException;
+import java.io.ObjectOutputStream;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /**
  * @author ReyL03
  * @version 1.0
@@ -7,17 +12,43 @@ package panorabotSrv.wrk;
  */
 public class WrkKjuniorCam extends Thread {
 
-	private volatile boolean on;
-	public Wrk m_Wrk;
+    private ObjectOutputStream out;
+    private volatile boolean on;
+    public Wrk refWrk;
 
-	public WrkKjuniorCam(){
+    public WrkKjuniorCam(Wrk wrk) {
+        this.refWrk = wrk;
+    }
 
-	}
+    public void finalize() throws Throwable {
+        super.finalize();
+    }
 
-	public void finalize() throws Throwable {
-		super.finalize();
-	}
-	public void run(){
+    public void run() {
 
-	}
+    }
+
+    private void sendPrintScreen(int[] intArr) {
+        try {
+            out.writeObject(intArr);
+            out.flush();
+        } catch (IOException ex) {
+            System.out.println("erreur" + ex);
+        }
+        try {
+            Thread.sleep(100);
+        } catch (InterruptedException ex) {
+            Logger.getLogger(WrkKjuniorCam.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    public boolean isOn() {
+        return on;
+    }
+
+    public void setOn(boolean on) {
+        this.on = on;
+    }
+    
+    
 }//end WrkKjuniorCam

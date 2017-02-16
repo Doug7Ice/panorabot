@@ -11,8 +11,8 @@ public class WrkKJunior {
 
 	private SerialPort serialPort;
 
-	public WrkKJunior(){
-
+	public WrkKJunior(SerialPort sp){
+            this.serialPort = sp;
 	}
 
 	public void finalize() throws Throwable {

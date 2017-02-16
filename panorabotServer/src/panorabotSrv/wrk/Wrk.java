@@ -18,17 +18,21 @@ import panorabotSrv.wrk.WrkSocket;
 
 public class Wrk implements ItfWrkCtrl {
 
-	public ItfCtrlWrk m_ItfCtrlWrk;
-	public WrkKJunior m_WrkKJunior;
-	public WrkKjuniorCam m_WrkKjuniorCam;
-	public WrkSocket m_WrkSocket;
-	public WrkInput m_WrkInput;
-	public WrkOutput m_WrkOutput;
-	public WrkDB m_WrkDB;
+	public ItfCtrlWrk refCtrl;
+	public WrkKJunior refWrkKjunior;
+	public WrkKjuniorCam refWrkKjuniorCam;
+	public WrkSocket refWrkSocket;
+	public WrkInput refWrkInput;
+	public WrkOutput refWrkOutput;
+	public WrkDB refWrkDB;
 
 	public Wrk(){
 
 	}
+        
+        public void creeLesThreads(){
+            
+        }
 
 	public void finalize() throws Throwable {
 
@@ -70,7 +74,7 @@ public class Wrk implements ItfWrkCtrl {
 	 * @param moteurGauche
 	 * @param moteurDroite
 	 */
-	public void bougeLeRobot(int moteurGauche, int moteurDroite){
+	public void bougeLeRobot(String commande){
 
 	}
 
@@ -78,7 +82,7 @@ public class Wrk implements ItfWrkCtrl {
 
 	}
 
-	public void lanceCapture(){
+	public void lanceCapture(double rayon){
 
 	}
 
