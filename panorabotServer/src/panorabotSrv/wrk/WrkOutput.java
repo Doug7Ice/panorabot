@@ -7,7 +7,7 @@ import java.net.Socket;
  * Envoie les images au client.
  * @author ReyL03
  * @version 1.0
- * @updated 17-févr.-2017 14:54:37
+ * @updated 17-fevr.-2017 14:54:37
  */
 public class WrkOutput {
 

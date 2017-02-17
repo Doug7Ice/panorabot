@@ -9,14 +9,14 @@ import java.net.Socket;
  * Cette classe permet de gerer les communications envoyes par le client.
  * @author ReyL03
  * @version 1.0
- * @updated 17-févr.-2017 14:54:37
+ * @updated 17-fevr.-2017 14:54:37
  */
 public class WrkInput extends Thread {
 
 	private BufferedReader in;
 	private volatile boolean read;
 	private Socket socket;
-	public Wrk refWrk;
+	public ItfWrkWrkInput refWrk;
 
 	public WrkInput(Wrk wrk,Socket sock){
             super("Input");

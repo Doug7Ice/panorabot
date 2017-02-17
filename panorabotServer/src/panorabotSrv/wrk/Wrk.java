@@ -14,7 +14,7 @@ import panorabotSrv.ctrl.ItfCtrlWrk;
  * @version 1.0
  * @updated 17-f�vr.-2017 14:54:37
  */
-public class Wrk implements ItfWrkCtrl {
+public class Wrk implements ItfWrkCtrl, ItfWrkWrkDB, ItfWrkWrkInput {
 
     public ItfCtrlWrk refCtrl;
     public WrkKJunior refWrkKjunior;
@@ -25,7 +25,7 @@ public class Wrk implements ItfWrkCtrl {
     public WrkDB refWrkDB;
 
     public Wrk() {
-        this.refWrkKjunior = new WrkKJunior();
+        this.refWrkKjunior = new WrkKJunior(this);
         lauchSocket();
     }
 

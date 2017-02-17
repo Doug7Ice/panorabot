@@ -1,25 +1,29 @@
 package panorabotSrv.ihm;
 
+import javafx.scene.paint.Color;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TextArea;
-import panorabotSrv.ctrl.Ctrl;
+import javafx.scene.shape.Rectangle;
 import panorabotSrv.ctrl.ItfCtrlIhm;
-import panorabotSrv.wrk.Wrk;
 
 /**
  * Ihm pour l'application Panorabot version serveur. Modelise avec JavaFX8
  * @author ReyL03
  * @version 1.0
- * @updated 17-févr.-2017 14:54:37
+ * @updated 17-fevr.-2017 14:54:37
  */
 public class Ihm implements ItfIhmCtrl, Initializable {
 
     public ItfCtrlIhm refCtrl;
     @FXML
     private TextArea txaConsole;
+    @FXML
+    private Rectangle etatClient;
+    @FXML
+    private Rectangle etatRobot;
 
     public Ihm() {
 
@@ -27,13 +31,8 @@ public class Ihm implements ItfIhmCtrl, Initializable {
     
      @Override
     public void initialize(URL location, ResourceBundle resources) {
-//        Ctrl ctrl = new Ctrl();
-//        Wrk wrk = new Wrk();
-//        
-//        ctrl.setRefIhm(this);
-//        ctrl.setRefWrk(wrk);
-//        wrk.setRefCtrl(ctrl);
-//        this.setRefCtrl(ctrl);
+         afficheStatutConnectionClient(false);
+         afficheStatutConnectionRobot(false);
     }
 
     public void finalize() throws Throwable {
@@ -63,7 +62,12 @@ public class Ihm implements ItfIhmCtrl, Initializable {
 	 * @param statutClient    statutClient
 	 */
     public void afficheStatutConnectionClient(boolean statutClient) {
-
+        if (statutClient){
+            etatClient.setFill(Color.LIGHTGREEN);
+        }
+        else{
+            etatClient.setFill(Color.LIGHTCORAL);
+        }
     }
 
     /**
@@ -72,7 +76,12 @@ public class Ihm implements ItfIhmCtrl, Initializable {
 	 * @param statutRobot    statutRobot
 	 */
     public void afficheStatutConnectionRobot(boolean statutRobot) {
-
+        if (statutRobot){
+            etatRobot.setFill(Color.LIGHTGREEN);
+        }
+        else{
+            etatRobot.setFill(Color.LIGHTCORAL);
+        }
     }
     
 	/**

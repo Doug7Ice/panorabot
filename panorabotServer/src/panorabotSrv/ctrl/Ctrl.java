@@ -6,7 +6,7 @@ import panorabotSrv.wrk.ItfWrkCtrl;
  * Controller de l'application Panorabot Serveur
  * @author ReyL03
  * @version 1.0
- * @updated 17-févr.-2017 14:54:36
+ * @updated 17-fevr.-2017 14:54:36
  */
 public class Ctrl implements ItfCtrlIhm, ItfCtrlWrk {
 

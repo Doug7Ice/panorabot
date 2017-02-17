@@ -15,7 +15,7 @@ import java.util.logging.Logger;
  * Cree le socket et scanne les requetes de connexion des clients.
  * @author ReyL03
  * @version 1.0
- * @updated 17-févr.-2017 14:54:38
+ * @updated 17-fevr.-2017 14:54:38
  */
 public class WrkSocket extends Thread {
 
@@ -36,9 +36,9 @@ public class WrkSocket extends Thread {
     public void run() {
         try {
             on = true;
-            refWrk.afficheMessageConsole("DO YOU SEE ME ???");
             while (on) {
                 socket = socketServeur.accept(); // Un client se connecte on l'accepte
+                refWrk.afficheStatutClient(socket.isConnected());
                 System.out.println("L'utilisateur est connectÃ© !");
                 refWrk.lauchWrkInput(socket);
             }

@@ -9,7 +9,7 @@ import java.util.logging.Logger;
  * Sous-worker permettant de controller la camera du KJunior.
  * @author ReyL03
  * @version 1.0
- * @updated 17-févr.-2017 14:54:37
+ * @updated 17-fevr.-2017 14:54:37
  */
 public class WrkKjuniorCam extends Thread {
 
