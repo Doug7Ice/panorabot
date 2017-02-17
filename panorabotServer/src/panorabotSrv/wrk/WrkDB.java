@@ -6,9 +6,10 @@ import java.sql.Connection;
 import java.util.ArrayList;
 
 /**
+ * Wrk permettant de controller la BD.
  * @author ReyL03
  * @version 1.0
- * @created 14-fÃ©vr.-2017 10:50:33
+ * @updated 17-févr.-2017 14:54:37
  */
 public class WrkDB {
 
@@ -22,25 +23,29 @@ public class WrkDB {
 
 	}
 	/**
+	 * Permet d'ajouter un log dans la base de donnees.
 	 * 
-	 * @param log
+	 * @param log    log
 	 */
 	public void addLog(String log){
 
 	}
 
 	/**
+	 * Receptionne les images d'une capture dans la BD. La capture peut etre trouvee
+	 * grace au numero de l'User ainsi que du Scan.
 	 * 
 	 * @param pkUser
-	 * @param pkScan
+	 * @param pkScan    pkScan
 	 */
 	public ArrayList<BufferedImage> getImages(int pkUser, int pkScan){
 		return null;
 	}
 
 	/**
+	 * Envoie dans la BD un Blob.
 	 * 
-	 * @param stream
+	 * @param stream    stream
 	 */
 	public boolean put(InputStream stream){
 		return false;

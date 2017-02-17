@@ -10,11 +10,12 @@ import panorabotSrv.ctrl.ItfCtrlIhm;
 import panorabotSrv.wrk.Wrk;
 
 /**
+ * Ihm pour l'application Panorabot version serveur. Modelise avec JavaFX8
  * @author ReyL03
  * @version 1.0
- * @created 14-fï¿½vr.-2017 10:50:33
+ * @updated 17-févr.-2017 14:54:37
  */
-public class Ihm implements ItfIhmCtrl,Initializable {
+public class Ihm implements ItfIhmCtrl, Initializable {
 
     public ItfCtrlIhm refCtrl;
     @FXML
@@ -37,40 +38,46 @@ public class Ihm implements ItfIhmCtrl,Initializable {
 
     public void finalize() throws Throwable {
     }
-
     /**
-     *
-     * @param msg
-     */
+	 * Affiche un message dans la console.
+	 * 
+	 * @param msg    msg
+	 */
     @Override
     public void afficheMessageConsole(String msg) {
         txaConsole.appendText(msg + "\n");
     }
 
     /**
-     *
-     * @param error
-     */
+	 * Affiche un popup lors d'une erreur. Le string contient le message d'erreur.
+	 * 
+	 * @param error    error
+	 */
     public void affichePopupError(String error) {
 
     }
 
     /**
-     *
-     * @param statutClient
-     */
+	 * Affiche le statut de la connexion avec le client.
+	 * 
+	 * @param statutClient    statutClient
+	 */
     public void afficheStatutConnectionClient(boolean statutClient) {
 
     }
 
     /**
-     *
-     * @param statutRobot
-     */
+	 * Affiche le statut de la connexion avec le robot.
+	 * 
+	 * @param statutRobot    statutRobot
+	 */
     public void afficheStatutConnectionRobot(boolean statutRobot) {
 
     }
     
+	/**
+	 * Ferme les threads lors de la fermeture de l'application.
+	 */
     public void quitter(){
         refCtrl.fermeLesThreads();
     }

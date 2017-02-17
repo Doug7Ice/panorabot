@@ -4,9 +4,10 @@ import jssc.SerialPort;
 import jssc.SerialPortException;
 
 /**
+ * Worker permettant de communiquer avec le KJunior.
  * @author ReyL03
  * @version 1.0
- * @created 14-fÃ©vr.-2017 10:50:33
+ * @updated 17-févr.-2017 14:54:37
  */
 public class WrkKJunior {
 
@@ -27,9 +28,10 @@ public class WrkKJunior {
      */
 
     /**
-     *
-     * @param commande
-     */
+	 * Envoie une commande au robot.
+	 * 
+	 * @param commande    commande
+	 */
     public void commandeLeRobot(String commande) {
         String msg = commande + "\n";
         try {
@@ -39,6 +41,9 @@ public class WrkKJunior {
         }
     }
 
+	/**
+	 * Ouvre le port COM pour communiquer avec le robot.
+	 */
     public void ouvrirPort() {
         this.serialPort = new SerialPort("COM6");
         try {            

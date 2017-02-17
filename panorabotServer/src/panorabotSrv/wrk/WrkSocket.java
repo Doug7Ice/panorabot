@@ -12,8 +12,10 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- *
+ * Cree le socket et scanne les requetes de connexion des clients.
  * @author ReyL03
+ * @version 1.0
+ * @updated 17-févr.-2017 14:54:38
  */
 public class WrkSocket extends Thread {
 
@@ -28,6 +30,9 @@ public class WrkSocket extends Thread {
         this.refWrk = wrk;
     }
 
+	/**
+	 * Scanne les requetes envoyes par le client.
+	 */
     public void run() {
         try {
             on = true;
@@ -67,6 +72,9 @@ public class WrkSocket extends Thread {
         this.socketServeur = socketServeur;
     }
 
+	/**
+	 * Ferme les sockets.
+	 */
     public void closeSockets() {
         try {
             if (socket != null && socket.isConnected()) {

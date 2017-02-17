@@ -6,9 +6,10 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
+ * Sous-worker permettant de controller la camera du KJunior.
  * @author ReyL03
  * @version 1.0
- * @created 14-fÃ©vr.-2017 10:50:33
+ * @updated 17-févr.-2017 14:54:37
  */
 public class WrkKjuniorCam extends Thread {
 
@@ -25,10 +26,18 @@ public class WrkKjuniorCam extends Thread {
         super.finalize();
     }
 
+	/**
+	 * Recpetionne les images provenant de la camera du KJunior.
+	 */
     public void run() {
 
     }
 
+	/**
+	 * Envoie les images au Wrk afin qu'elles soient stocke dans la DB.
+	 * 
+	 * @param intArr
+	 */
     private void sendPrintScreen(int[] intArr) {
         try {
             out.writeObject(intArr);

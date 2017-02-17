@@ -4,9 +4,10 @@ import java.io.ObjectOutputStream;
 import java.net.Socket;
 
 /**
+ * Envoie les images au client.
  * @author ReyL03
  * @version 1.0
- * @created 14-fÃ©vr.-2017 10:50:33
+ * @updated 17-févr.-2017 14:54:37
  */
 public class WrkOutput {
 
@@ -21,8 +22,9 @@ public class WrkOutput {
 
 	}
 	/**
+	 * Envoye les images aux clients.
 	 * 
-	 * @param array
+	 * @param array    array
 	 */
 	public void envoieLesImages(int[] array){
 
