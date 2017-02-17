@@ -18,6 +18,7 @@ public class WrkInput extends Thread {
 	public Wrk refWrk;
 
 	public WrkInput(Wrk wrk,Socket sock){
+            super("Input");
             this.refWrk = wrk;
             this.socket = sock;
             this.read = true;

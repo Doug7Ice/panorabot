@@ -17,6 +17,7 @@ public class WrkKjuniorCam extends Thread {
     public Wrk refWrk;
 
     public WrkKjuniorCam(Wrk wrk) {
+        super("KjuniorCam");
         this.refWrk = wrk;
     }
 

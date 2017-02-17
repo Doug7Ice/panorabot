@@ -20,7 +20,7 @@ public class Ctrl implements ItfCtrlIhm, ItfCtrlWrk {
 
 	}
 	public void fermeLesThreads(){
-
+            refWrk.fermeLesThreads();
 	}
 
 	/**

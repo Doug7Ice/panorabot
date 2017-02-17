@@ -26,13 +26,13 @@ public class Ihm implements ItfIhmCtrl,Initializable {
     
      @Override
     public void initialize(URL location, ResourceBundle resources) {
-        Ctrl ctrl = new Ctrl();
-        Wrk wrk = new Wrk();
-        
-        ctrl.setRefIhm(this);
-        ctrl.setRefWrk(wrk);
-        wrk.setRefCtrl(ctrl);
-        this.setRefCtrl(ctrl);
+//        Ctrl ctrl = new Ctrl();
+//        Wrk wrk = new Wrk();
+//        
+//        ctrl.setRefIhm(this);
+//        ctrl.setRefWrk(wrk);
+//        wrk.setRefCtrl(ctrl);
+//        this.setRefCtrl(ctrl);
     }
 
     public void finalize() throws Throwable {
@@ -70,10 +70,15 @@ public class Ihm implements ItfIhmCtrl,Initializable {
     public void afficheStatutConnectionRobot(boolean statutRobot) {
 
     }
+    
+    public void quitter(){
+        refCtrl.fermeLesThreads();
+    }
 
     public void setRefCtrl(ItfCtrlIhm refCtrl) {
         this.refCtrl = refCtrl;
     }
+    
     
     
 }//end Ihm

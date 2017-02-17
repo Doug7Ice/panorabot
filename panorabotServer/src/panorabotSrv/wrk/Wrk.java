@@ -18,12 +18,11 @@ public class Wrk implements ItfWrkCtrl {
     public WrkOutput refWrkOutput;
     public WrkDB refWrkDB;
 
-    public Wrk() {       
+    public Wrk() {
         this.refWrkKjunior = new WrkKJunior();
         lauchSocket();
     }
 
-    
     public void lauchSocket() {
         try {
             ServerSocket socketServer = new ServerSocket(2009);
@@ -85,7 +84,21 @@ public class Wrk implements ItfWrkCtrl {
     }
 
     public void fermeLesThreads() {
-
+        System.out.println("L'application ainsi que ses Threads se ferment");
+        if (refWrkKjuniorCam != null) {
+            refWrkKjuniorCam.setOn(false);
+            refWrkKjuniorCam = null;
+        }
+        if (refWrkSocket != null) {
+            refWrkSocket.setOn(false);
+            refWrkSocket.closeSockets();
+            refWrkSocket = null;
+        }
+        if (refWrkInput != null) {
+            refWrkInput.setRead(false);
+            refWrkInput = null;
+        }
+        System.gc();
     }
 
     public void lanceCapture(double rayon) {
