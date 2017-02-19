@@ -22,9 +22,9 @@ public class WrkSocket extends Thread {
     private volatile boolean on;
     private Socket socket;
     private ServerSocket socketServeur;
-    private Wrk refWrk;
+    private ItfWrkWrkSocket refWrk;
 
-    public WrkSocket(ServerSocket socketServeur, Wrk wrk) {
+    public WrkSocket(ServerSocket socketServeur, ItfWrkWrkSocket wrk) {
         super("Socket");
         this.socketServeur = socketServeur;
         this.refWrk = wrk;

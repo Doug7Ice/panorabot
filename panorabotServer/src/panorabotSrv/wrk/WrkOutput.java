@@ -13,6 +13,7 @@ public class WrkOutput {
 
 	private ObjectOutputStream out;
 	private Socket socket;
+        private ItfWrkWrkOutput refWrk;
 
 	public WrkOutput(Socket socket){
             this.socket = socket;

@@ -11,13 +11,13 @@ import java.util.logging.Logger;
  * @version 1.0
  * @updated 17-fevr.-2017 14:54:37
  */
-public class WrkKjuniorCam extends Thread {
+public class WrkKJuniorCam extends Thread {
 
     private ObjectOutputStream out;
     private volatile boolean on;
-    public Wrk refWrk;
+    public ItfWrkWrkKJuniorCam refWrk;
 
-    public WrkKjuniorCam(Wrk wrk) {
+    public WrkKJuniorCam(ItfWrkWrkKJuniorCam wrk) {
         super("KjuniorCam");
         this.refWrk = wrk;
     }
@@ -48,7 +48,7 @@ public class WrkKjuniorCam extends Thread {
         try {
             Thread.sleep(100);
         } catch (InterruptedException ex) {
-            Logger.getLogger(WrkKjuniorCam.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(WrkKJuniorCam.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 

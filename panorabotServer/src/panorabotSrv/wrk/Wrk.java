@@ -12,13 +12,13 @@ import panorabotSrv.ctrl.ItfCtrlWrk;
  * Worker de l'application Panorabot Serveur.
  * @author ReyL03
  * @version 1.0
- * @updated 17-f�vr.-2017 14:54:37
+ * @updated 17-fevr.-2017 14:54:37
  */
-public class Wrk implements ItfWrkCtrl, ItfWrkWrkDB, ItfWrkWrkInput {
+public class Wrk implements ItfWrkCtrl, ItfWrkWrkDB, ItfWrkWrkInput, ItfWrkWrkKJunior, ItfWrkWrkKJuniorCam, ItfWrkWrkOutput, ItfWrkWrkSocket {
 
     public ItfCtrlWrk refCtrl;
     public WrkKJunior refWrkKjunior;
-    public WrkKjuniorCam refWrkKjuniorCam;
+    public WrkKJuniorCam refWrkKjuniorCam;
     public WrkSocket refWrkSocket;
     public WrkInput refWrkInput;
     public WrkOutput refWrkOutput;

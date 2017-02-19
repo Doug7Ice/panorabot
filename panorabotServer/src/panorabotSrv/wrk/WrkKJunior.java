@@ -12,9 +12,9 @@ import jssc.SerialPortException;
 public class WrkKJunior {
 
     private SerialPort serialPort;
-    private Wrk refWrk;
+    private ItfWrkWrkKJunior refWrk;
 
-    public WrkKJunior(Wrk wrk) {
+    public WrkKJunior(ItfWrkWrkKJunior wrk) {
         this.refWrk = wrk;
         ouvrirPort();
     }
