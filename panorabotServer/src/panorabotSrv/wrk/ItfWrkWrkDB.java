@@ -11,4 +11,5 @@ package panorabotSrv.wrk;
  */
 public interface ItfWrkWrkDB {
     public void afficheMessageConsole(String msg);
+    public void affichePopupError(String error);
 }

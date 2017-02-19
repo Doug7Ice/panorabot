@@ -11,4 +11,5 @@ package panorabotSrv.wrk;
  */
 public interface ItfWrkWrkKJunior {
     public void afficheStatutKJunior(boolean robot);
+    public void affichePopupError(String error);
 }

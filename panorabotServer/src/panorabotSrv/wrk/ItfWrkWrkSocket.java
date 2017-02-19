@@ -14,4 +14,5 @@ import java.net.Socket;
 public interface ItfWrkWrkSocket {
     public void afficheStatutClient(boolean client);
     public void lauchWrkInput(Socket socket);
+    public void affichePopupError(String error);
 }

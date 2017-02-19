@@ -13,4 +13,5 @@ import java.io.InputStream;
  */
 public interface ItfWrkWrkKJuniorCam {
     public void stockeImagesDB(InputStream stream);
+    public void affichePopupError(String error);
 }
