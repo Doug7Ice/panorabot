@@ -33,8 +33,8 @@ public class WrkSocket extends Thread {
             refWrk.afficheMessage("Connexion au serveur en cours", "info");
             tryConnect = !connecterSocket();
             if (tryConnect == true) {
-                refWrk.afficheMessage("La connexion au serveur a échoué, réessai dans 2 secondes...", "error");
-                System.out.println("connexion impossible réessais dans 2 sec");
+                refWrk.afficheMessage("La connexion au serveur a echoue, reessai dans 2 secondes...", "error");
+                System.out.println("connexion impossible reessais dans 2 sec");
                 try {
                     Thread.sleep(2000);
                 } catch (InterruptedException ex) {
@@ -42,7 +42,7 @@ public class WrkSocket extends Thread {
                 }
             } 
         }
-        refWrk.afficheMessage("Connexion au serveur effectuée !", "success");
+        refWrk.afficheMessage("Connexion au serveur effectuee !", "success");
 //        while(running){
 //            
 //        }

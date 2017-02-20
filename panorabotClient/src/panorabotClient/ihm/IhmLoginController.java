@@ -5,24 +5,17 @@
  */
 package panorabotClient.ihm;
 
-import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-import panorabotClient.ctrl.Ctrl;
 import panorabotClient.ctrl.ItfCtrlIhmLogin;
-import panorabotClient.wrk.Wrk;
 
 /**
  * FXML Controller class
@@ -91,7 +84,7 @@ public class IhmLoginController implements Initializable {
     
 
     void quitter() {
-        System.out.println("a quitté");
+        System.out.println("a quitte");
     }
 
     void setStage(Stage stage) {

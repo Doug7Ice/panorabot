@@ -83,7 +83,7 @@ public class IhmRobotController implements Initializable, ItfIhmRobotCtrl {
             popup.setHeaderText("Erreur");
         }else if(type.equals("success")){
             popup = new Alert(Alert.AlertType.CONFIRMATION);
-            popup.setHeaderText("SuccÃ¨s");
+            popup.setHeaderText("Succes");
         }
         popup.setContentText(message);
         popup.show();
