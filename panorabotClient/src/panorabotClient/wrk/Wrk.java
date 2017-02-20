@@ -11,7 +11,7 @@ import panorabotClient.ctrl.ItfCtrlWrk;
  *
  * @author Nathan
  */
-public class Wrk implements ItfWrkCtrl, ItfWrkManette {
+public class Wrk implements ItfWrkCtrl, ItfWrkManette, ItfWrkWrkConversion, ItfWrkWrkSocket, ItfWrkWrkOutputFile {
 
     public Wrk() {
 
@@ -84,6 +84,12 @@ public class Wrk implements ItfWrkCtrl, ItfWrkManette {
         refWrkSocket.start();
         refWrkManette = new WrkManette(this);
     }
+    
+    @Override
+    public void afficherErreur(String message) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
 
     //Setters and Getters
     public ItfCtrlWrk getCtrl() {
@@ -101,5 +107,6 @@ public class Wrk implements ItfWrkCtrl, ItfWrkManette {
     private WrkOutputFile refWrkOutputFile;
     private boolean isRobotTurning;
 
+    
     
 }
