@@ -45,6 +45,7 @@ public class WrkInput extends Thread {
 	 */
 	private void lanceCapture(String commande){
 //double rayon
+            refWrk.lanceCapture(0);
 	}
 
 	/**

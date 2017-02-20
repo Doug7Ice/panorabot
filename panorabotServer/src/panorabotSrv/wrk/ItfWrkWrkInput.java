@@ -13,4 +13,5 @@ public interface ItfWrkWrkInput {
     public void afficheMessageConsole(String msg);
     public void bougeLeRobot(String commande);
     public void affichePopupError(String error);
+    public void lanceCapture(double rayon);
 }

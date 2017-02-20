@@ -99,6 +99,7 @@ public class Wrk implements ItfWrkCtrl, ItfWrkWrkDB, ItfWrkWrkInput, ItfWrkWrkKJ
 	 */
     public void bougeLeRobot(String commande) {
         refWrkKjunior.commandeLeRobot(commande);
+        this.lanceCapture(0);
     }
 
 	/**
@@ -129,7 +130,13 @@ public class Wrk implements ItfWrkCtrl, ItfWrkWrkDB, ItfWrkWrkInput, ItfWrkWrkKJ
 	 * @param rayon
 	 */
     public void lanceCapture(double rayon) {
-
+        if (refWrkKjuniorCam != null){
+        refWrkKjuniorCam.start();
+        }
+        else{
+            refWrkKjuniorCam = new WrkKJuniorCam(this);
+            refWrkKjuniorCam.start();
+        }
     }
 
     /**
