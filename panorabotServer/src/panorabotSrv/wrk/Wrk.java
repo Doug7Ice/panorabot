@@ -134,7 +134,7 @@ public class Wrk implements ItfWrkCtrl, ItfWrkWrkDB, ItfWrkWrkInput, ItfWrkWrkKJ
         refWrkKjuniorCam.start();
         }
         else{
-            refWrkKjuniorCam = new WrkKJuniorCam(this);
+            refWrkKjuniorCam = new WrkKJuniorCam(this,refWrkSocket.getSocket());
             refWrkKjuniorCam.start();
         }
     }

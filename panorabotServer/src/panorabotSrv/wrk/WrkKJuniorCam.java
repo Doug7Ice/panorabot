@@ -3,6 +3,7 @@ package panorabotSrv.wrk;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
+import java.net.Socket;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.openimaj.image.DisplayUtilities;
@@ -25,7 +26,7 @@ public class WrkKJuniorCam extends Thread {
     private ItfWrkWrkKJuniorCam refWrk;
     private Video<MBFImage> video;
 
-    public WrkKJuniorCam(ItfWrkWrkKJuniorCam wrk) {
+    public WrkKJuniorCam(ItfWrkWrkKJuniorCam wrk,Socket socket) {
         super("KjuniorCam");
         try {
             video = new VideoCapture(320, 180);
@@ -33,6 +34,11 @@ public class WrkKJuniorCam extends Thread {
             Logger.getLogger(WrkKJuniorCam.class.getName()).log(Level.SEVERE, null, ex);
         }
         this.refWrk = wrk;
+        try {
+            out = new ObjectOutputStream(socket.getOutputStream());
+        } catch (IOException ex) {
+            Logger.getLogger(WrkKJuniorCam.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     public void finalize() throws Throwable {
@@ -47,6 +53,7 @@ public class WrkKJuniorCam extends Thread {
         while(on){
             int[] intArr = video.getNextFrame().toPackedARGBPixels();
             MBFImage img = new MBFImage(intArr, 320, 180);
+            sendPrintScreen(intArr);
             BufferedImage bf = ImageUtilities.createBufferedImage(img);
             DisplayUtilities.display(bf);
         }
@@ -77,6 +84,9 @@ public class WrkKJuniorCam extends Thread {
 
     public void setOn(boolean on) {
         this.on = on;
+    }
+    public void sendWebcam(){
+        
     }
     
     
