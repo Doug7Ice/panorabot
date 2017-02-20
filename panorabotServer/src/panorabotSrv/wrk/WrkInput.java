@@ -16,7 +16,7 @@ public class WrkInput extends Thread {
 	private BufferedReader in;
 	private volatile boolean read;
 	private Socket socket;
-	public ItfWrkWrkInput refWrk;
+	private ItfWrkWrkInput refWrk;
 
 	public WrkInput(Wrk wrk,Socket sock){
             super("Input");

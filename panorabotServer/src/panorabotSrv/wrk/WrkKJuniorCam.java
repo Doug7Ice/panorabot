@@ -15,7 +15,7 @@ public class WrkKJuniorCam extends Thread {
 
     private ObjectOutputStream out;
     private volatile boolean on;
-    public ItfWrkWrkKJuniorCam refWrk;
+    private ItfWrkWrkKJuniorCam refWrk;
 
     public WrkKJuniorCam(ItfWrkWrkKJuniorCam wrk) {
         super("KjuniorCam");

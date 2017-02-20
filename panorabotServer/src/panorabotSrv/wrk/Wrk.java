@@ -16,13 +16,13 @@ import panorabotSrv.ctrl.ItfCtrlWrk;
  */
 public class Wrk implements ItfWrkCtrl, ItfWrkWrkDB, ItfWrkWrkInput, ItfWrkWrkKJunior, ItfWrkWrkKJuniorCam, ItfWrkWrkOutput, ItfWrkWrkSocket {
 
-    public ItfCtrlWrk refCtrl;
-    public WrkKJunior refWrkKjunior;
-    public WrkKJuniorCam refWrkKjuniorCam;
-    public WrkSocket refWrkSocket;
-    public WrkInput refWrkInput;
-    public WrkOutput refWrkOutput;
-    public WrkDB refWrkDB;
+    private ItfCtrlWrk refCtrl;
+    private WrkKJunior refWrkKjunior;
+    private WrkKJuniorCam refWrkKjuniorCam;
+    private WrkSocket refWrkSocket;
+    private WrkInput refWrkInput;
+    private WrkOutput refWrkOutput;
+    private WrkDB refWrkDB;
 
     public Wrk() {
         this.refWrkKjunior = new WrkKJunior(this);
