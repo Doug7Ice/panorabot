@@ -15,7 +15,7 @@ import ch.aplu.xboxcontroller.XboxControllerAdapter;
 public class WrkManette {
 
     //Constructor
-    public WrkManette(Wrk refWrk) {
+    public WrkManette(ItfWrkManette refWrk) {
 
         this.refWrk = refWrk;
 

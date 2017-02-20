@@ -17,6 +17,7 @@ import javax.imageio.ImageIO;
  * @author Nathan
  */
 public class WrkOutputFile {
+    private ItfWrkWrkOutputFile refWrk;
 
     public boolean saveBufferedImageToJpg(BufferedImage bi, String path) {
         try {

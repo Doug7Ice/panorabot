@@ -19,7 +19,7 @@ import java.util.logging.Logger;
  */
 public class WrkSocket extends Thread {
 
-    public WrkSocket(Wrk refWrk) {
+    public WrkSocket(ItfWrkWrkSocket refWrk) {
         this.refWrk = refWrk;
         
     }
@@ -84,7 +84,7 @@ public class WrkSocket extends Thread {
         out.flush();
     }
 
-    private Wrk refWrk;
+    private ItfWrkWrkSocket refWrk;
     private String actualPath;
     private ObjectInputStream in;
     private PrintWriter out;

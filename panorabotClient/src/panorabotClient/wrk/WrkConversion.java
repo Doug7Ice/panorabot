@@ -10,6 +10,7 @@ package panorabotClient.wrk;
  * @author Nathan
  */
 public class WrkConversion{
+    private ItfWrkWrkConversion refWrk;
     public void launch2dTo3dConversion(String pathDirImages){
         
     }
