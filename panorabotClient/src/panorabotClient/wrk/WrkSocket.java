@@ -21,24 +21,28 @@ public class WrkSocket extends Thread {
 
     public WrkSocket(Wrk refWrk) {
         this.refWrk = refWrk;
+        
+    }
+
+    @Override
+    public void run() {
+        running = true;
         running = false;
         boolean tryConnect = true;
         while (tryConnect) {
+            refWrk.afficheMessage("Connexion au serveur en cours", "info");
             tryConnect = !connecterSocket();
             if (tryConnect == true) {
+                refWrk.afficheMessage("La connexion au serveur a échoué, réessai dans 2 secondes...", "error");
                 System.out.println("connexion impossible réessais dans 2 sec");
                 try {
                     Thread.sleep(2000);
                 } catch (InterruptedException ex) {
                     Logger.getLogger(WrkSocket.class.getName()).log(Level.SEVERE, null, ex);
                 }
-            }
+            } 
         }
-    }
-
-    @Override
-    public void run() {
-        running = true;
+        refWrk.afficheMessage("Connexion au serveur effectuée !", "success");
 //        while(running){
 //            
 //        }

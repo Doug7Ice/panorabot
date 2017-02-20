@@ -86,8 +86,8 @@ public class Wrk implements ItfWrkCtrl, ItfWrkManette, ItfWrkWrkConversion, ItfW
     }
     
     @Override
-    public void afficherErreur(String message) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void afficheMessage(String message, String type) {
+       refCtrl.afficherPopup(message, type);
     }
 
 
@@ -106,6 +106,9 @@ public class Wrk implements ItfWrkCtrl, ItfWrkManette, ItfWrkWrkConversion, ItfW
     private WrkConversion refWrkConversion;
     private WrkOutputFile refWrkOutputFile;
     private boolean isRobotTurning;
+
+
+
 
     
     

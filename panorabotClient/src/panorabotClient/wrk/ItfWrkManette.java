@@ -18,5 +18,6 @@ public interface ItfWrkManette {
     public void tournerAGauche();
     public void augmenterRayon();
     public void reduireRayon();
+    public void afficheMessage(String message, String type);
     
 }

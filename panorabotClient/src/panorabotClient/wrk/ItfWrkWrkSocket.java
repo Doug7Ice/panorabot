@@ -10,5 +10,5 @@ package panorabotClient.wrk;
  * @author Nathan
  */
 public interface ItfWrkWrkSocket {
-    public void afficherErreur(String message);
+    public void afficheMessage(String message, String type);
 }

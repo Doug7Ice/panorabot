@@ -13,5 +13,5 @@ public interface ItfIhmRobotCtrl {
 
     public void augmenterRayon();
     public void reduireRayon();
-    
+    public void afficherPopup(String message, String type);
 }

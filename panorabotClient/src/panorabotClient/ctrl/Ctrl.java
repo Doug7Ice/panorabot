@@ -34,6 +34,11 @@ public class Ctrl implements ItfCtrlIhmLogin, ItfCtrlIhmRobot, ItfCtrlWrk {
         ihmRobot.augmenterRayon();
     }
     
+    @Override
+    public void afficherPopup(String message, String type) {
+        ihmRobot.afficherPopup(message, type);
+    }
+    
     public void reduireRayon(){
         ihmRobot.reduireRayon();
     }
@@ -58,6 +63,8 @@ public class Ctrl implements ItfCtrlIhmLogin, ItfCtrlIhmRobot, ItfCtrlWrk {
 
     private ItfWrkCtrl refWrk;
     private ItfIhmRobotCtrl ihmRobot;
+
+    
 
     
 
