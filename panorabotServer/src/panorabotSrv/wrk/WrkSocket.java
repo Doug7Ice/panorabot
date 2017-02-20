@@ -8,31 +8,37 @@ package panorabotSrv.wrk;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
- *
+ * Cree le socket et scanne les requetes de connexion des clients.
  * @author ReyL03
+ * @version 1.0
+ * @updated 17-fevr.-2017 14:54:38
  */
-public class WrkSocket extends Thread{
+public class WrkSocket extends Thread {
+
     private volatile boolean on;
     private Socket socket;
     private ServerSocket socketServeur;
-    private Wrk refWrk;
+    private ItfWrkWrkSocket refWrk;
 
-    public WrkSocket(ServerSocket socketServeur,Wrk wrk) {
+    public WrkSocket(ServerSocket socketServeur, ItfWrkWrkSocket wrk) {
+        super("Socket");
         this.socketServeur = socketServeur;
         this.refWrk = wrk;
     }
-    
-    
-    
-    public void run(){
+
+	/**
+	 * Scanne les requetes envoyes par le client.
+	 */
+    public void run() {
         try {
             on = true;
-            refWrk.afficheMessageConsole("DO YOU SEE ME ???");
-            while (this.on) {
-                
+            while (on) {
                 socket = socketServeur.accept(); // Un client se connecte on l'accepte
+                refWrk.afficheStatutClient(socket.isConnected());
                 System.out.println("L'utilisateur est connecté !");
                 refWrk.lauchWrkInput(socket);
             }
@@ -41,7 +47,6 @@ public class WrkSocket extends Thread{
             e.printStackTrace();
         }
     }
-    
 
     public boolean isOn() {
         return on;
@@ -67,7 +72,19 @@ public class WrkSocket extends Thread{
         this.socketServeur = socketServeur;
     }
 
-    
-    
-    
+	/**
+	 * Ferme les sockets.
+	 */
+    public void closeSockets() {
+        try {
+            if (socket != null && socket.isConnected()) {
+                socket.close();
+            }
+            this.on = false;
+            socketServeur.close();
+        } catch (IOException ex) {
+            Logger.getLogger(WrkSocket.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
 }

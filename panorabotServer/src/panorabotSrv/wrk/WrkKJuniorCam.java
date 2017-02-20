@@ -6,17 +6,19 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
+ * Sous-worker permettant de controller la camera du KJunior.
  * @author ReyL03
  * @version 1.0
- * @created 14-févr.-2017 10:50:33
+ * @updated 17-fevr.-2017 14:54:37
  */
-public class WrkKjuniorCam extends Thread {
+public class WrkKJuniorCam extends Thread {
 
     private ObjectOutputStream out;
     private volatile boolean on;
-    public Wrk refWrk;
+    public ItfWrkWrkKJuniorCam refWrk;
 
-    public WrkKjuniorCam(Wrk wrk) {
+    public WrkKJuniorCam(ItfWrkWrkKJuniorCam wrk) {
+        super("KjuniorCam");
         this.refWrk = wrk;
     }
 
@@ -24,10 +26,18 @@ public class WrkKjuniorCam extends Thread {
         super.finalize();
     }
 
+	/**
+	 * Recpetionne les images provenant de la camera du KJunior.
+	 */
     public void run() {
 
     }
 
+	/**
+	 * Envoie les images au Wrk afin qu'elles soient stocke dans la DB.
+	 * 
+	 * @param intArr
+	 */
     private void sendPrintScreen(int[] intArr) {
         try {
             out.writeObject(intArr);
@@ -38,7 +48,7 @@ public class WrkKjuniorCam extends Thread {
         try {
             Thread.sleep(100);
         } catch (InterruptedException ex) {
-            Logger.getLogger(WrkKjuniorCam.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(WrkKJuniorCam.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 

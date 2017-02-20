@@ -6,18 +6,20 @@ import java.io.InputStreamReader;
 import java.net.Socket;
 
 /**
+ * Cette classe permet de gerer les communications envoyes par le client.
  * @author ReyL03
  * @version 1.0
- * @created 14-févr.-2017 10:50:33
+ * @updated 17-fevr.-2017 14:54:37
  */
 public class WrkInput extends Thread {
 
 	private BufferedReader in;
 	private volatile boolean read;
 	private Socket socket;
-	public Wrk refWrk;
+	public ItfWrkWrkInput refWrk;
 
 	public WrkInput(Wrk wrk,Socket sock){
+            super("Input");
             this.refWrk = wrk;
             this.socket = sock;
             this.read = true;
@@ -27,18 +29,27 @@ public class WrkInput extends Thread {
 		super.finalize();
 	}
 	/**
+	 * Demande au Wrk de bouger le robot.
 	 * 
-	 * @param moteurGauche
-	 * @param moteurDroit
+	 * @param commande
 	 */
 	private void bougeRobot(String commande){
             refWrk.bougeLeRobot(commande);
 	}
 
+	/**
+	 * Demande au robot de lancer la capture de l'objet en lui fournissant le rayon de
+	 * type double.
+	 * 
+	 * @param commande
+	 */
 	private void lanceCapture(String commande){
 //double rayon
 	}
 
+	/**
+	 * Scanne les commandes envoye par le client.
+	 */
 	public void run(){
             try {
             in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
