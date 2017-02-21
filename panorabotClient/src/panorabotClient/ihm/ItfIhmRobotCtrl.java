@@ -5,6 +5,8 @@
  */
 package panorabotClient.ihm;
 
+import java.awt.image.BufferedImage;
+
 /**
  *
  * @author Nathan
@@ -14,4 +16,7 @@ public interface ItfIhmRobotCtrl {
     public void augmenterRayon();
     public void reduireRayon();
     public void afficherPopup(String message, String type);
+    public int getActualRayon();
+    public void afficheImage(BufferedImage img);
+    
 }

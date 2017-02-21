@@ -52,17 +52,19 @@ public class IhmLoginController implements Initializable {
 //        } catch (IOException ex) {
 //            Logger.getLogger(IhmLoginController.class.getName()).log(Level.SEVERE, null, ex);
 //        }
+        
     }
 
     @FXML
     private void btnConnexionOnAction(ActionEvent event) {
-        stage.setScene(sceneRobot);
-//        boolean connexionOk = refCtrl.connecter(txtUser.getText(), txtPassword.getText());
-//        if (connexionOk) {
-//            stage.setScene(sceneRobot);
-//            stage.show();
-//        }
         refCtrl.lancerSocket();
+        boolean connexionOk = refCtrl.connecter(txtUser.getText(), txtPassword.getText());
+        if (connexionOk) {
+            stage.setScene(sceneRobot);
+            stage.show();
+        }else{
+            
+        }
     }
 
     void setSceneLogin(Scene scene) {
@@ -83,9 +85,7 @@ public class IhmLoginController implements Initializable {
     
     
 
-    void quitter() {
-        System.out.println("a quitte");
-    }
+    
 
     void setStage(Stage stage) {
         this.stage = stage;

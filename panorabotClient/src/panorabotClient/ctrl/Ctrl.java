@@ -5,6 +5,7 @@
  */
 package panorabotClient.ctrl;
 
+import java.awt.image.BufferedImage;
 import panorabotClient.ihm.ItfIhmRobotCtrl;
 import panorabotClient.wrk.ItfWrkCtrl;
 
@@ -39,6 +40,21 @@ public class Ctrl implements ItfCtrlIhmLogin, ItfCtrlIhmRobot, ItfCtrlWrk {
         ihmRobot.afficherPopup(message, type);
     }
     
+    @Override
+    public void afficheImage(BufferedImage img) {
+        ihmRobot.afficheImage(img);
+    }
+    
+    @Override
+    public int getActualRayon() {
+        return ihmRobot.getActualRayon();
+    }
+    
+    @Override
+    public void quit() {
+        refWrk.quit();
+    }
+    
     public void reduireRayon(){
         ihmRobot.reduireRayon();
     }
@@ -63,6 +79,12 @@ public class Ctrl implements ItfCtrlIhmLogin, ItfCtrlIhmRobot, ItfCtrlWrk {
 
     private ItfWrkCtrl refWrk;
     private ItfIhmRobotCtrl ihmRobot;
+
+    
+
+    
+
+    
 
     
 

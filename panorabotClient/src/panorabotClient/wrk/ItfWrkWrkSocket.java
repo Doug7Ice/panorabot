@@ -5,10 +5,13 @@
  */
 package panorabotClient.wrk;
 
+import java.awt.image.BufferedImage;
+
 /**
  *
  * @author Nathan
  */
 public interface ItfWrkWrkSocket {
     public void afficheMessage(String message, String type);
+    public void afficheImage(BufferedImage img);
 }

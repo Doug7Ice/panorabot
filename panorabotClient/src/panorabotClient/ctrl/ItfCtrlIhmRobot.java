@@ -11,4 +11,5 @@ package panorabotClient.ctrl;
  */
 public interface ItfCtrlIhmRobot {
     public void stopperDroneDUrgence();
+    public void quit();
 }

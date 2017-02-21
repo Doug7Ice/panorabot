@@ -61,8 +61,8 @@ public class panorabotClient extends Application {
 //        stage.setFullScreenExitKeyCombination(new KeyCodeCombination(KeyCode.X, KeyCombination.CONTROL_DOWN));
 //        stage.setFullScreen(true);
 //       
-        stage.setOnCloseRequest(e -> ihmLogin.quitter());
-
+        stage.setOnCloseRequest(e -> ihmRobot.quitter());
+        
     }
 
     /**

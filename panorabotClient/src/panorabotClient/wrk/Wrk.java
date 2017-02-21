@@ -5,6 +5,9 @@
  */
 package panorabotClient.wrk;
 
+import java.awt.image.BufferedImage;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import panorabotClient.ctrl.ItfCtrlWrk;
 
 /**
@@ -22,7 +25,7 @@ public class Wrk implements ItfWrkCtrl, ItfWrkManette, ItfWrkWrkConversion, ItfW
 
     @Override
     public boolean connecter(String user, String mdp) {
-        return false;
+        return refWrkSocket.login(user, mdp);
     }
 
     //Methods implemented from ItfWrkCtrl
@@ -63,8 +66,8 @@ public class Wrk implements ItfWrkCtrl, ItfWrkManette, ItfWrkWrkConversion, ItfW
     }
 
     @Override
-    public void lancerScan(double rayon) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void lancerScan() {
+        refWrkSocket.lancerScanTCP(refCtrl.getActualRayon());
     }
     
     @Override
@@ -75,6 +78,26 @@ public class Wrk implements ItfWrkCtrl, ItfWrkManette, ItfWrkWrkConversion, ItfW
     @Override
     public void reduireRayon() {
         refCtrl.reduireRayon();
+    }
+    
+     @Override
+    public void afficheImage(BufferedImage img) {
+        refCtrl.afficheImage(img);
+    }
+    
+    @Override
+    public void quit() {
+        if (refWrkSocket != null) {
+            try {
+                refWrkSocket.setRunning(false);
+                refWrkSocket.join();
+                refWrkSocket = null;
+            } catch (InterruptedException ex) {
+                refCtrl.afficherPopup("Erreur de thread", "error");
+            }
+        }
+        System.gc();
+        
     }
 
 
@@ -100,12 +123,17 @@ public class Wrk implements ItfWrkCtrl, ItfWrkManette, ItfWrkWrkConversion, ItfW
         this.refCtrl = ctrl;
     }
 
+    //Private variables
     private ItfCtrlWrk refCtrl;
     private WrkManette refWrkManette;
     private WrkSocket refWrkSocket;
     private WrkConversion refWrkConversion;
     private WrkOutputFile refWrkOutputFile;
     private boolean isRobotTurning;
+
+   
+
+    
 
 
 

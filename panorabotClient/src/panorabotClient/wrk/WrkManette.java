@@ -57,7 +57,7 @@ public class WrkManette {
 
             @Override
             public void buttonX(boolean pressed) {
-                System.out.println("X");
+                refWrk.lancerScan();
             }
 
             @Override
@@ -107,14 +107,14 @@ public class WrkManette {
             @Override
             public void leftShoulder(boolean pressed) {
                 if (pressed) {
-                    refWrk.augmenterRayon();
+                    refWrk.reduireRayon();
                 }
             }
 
             @Override
             public void rightShoulder(boolean pressed) {
                 if (pressed) {
-                    refWrk.reduireRayon();
+                    refWrk.augmenterRayon();
                 }
             }
 
