@@ -15,10 +15,15 @@ public interface ItfWrkWrkSocket {
 
     public void afficheStatutClient(boolean client);
 
-    public void lauchWrkInput(Socket socket);
-    public void lauchWrkOutput(Socket socket);
+    public void lauchWrkInput(Socket socketSendCamAndReceive,Socket socketSQLogin);
+
+    public void lauchWrkOutput(Socket socketSendCamAndReceive,Socket socketSendImgFromDB);
 
     public void affichePopupError(String error);
 
     public void showWebcam();
+
+    public void closeWebcam();
+    
+    public void closeWrkInput();
 }

@@ -21,7 +21,8 @@ public class Wrk implements ItfWrkCtrl, ItfWrkWrkDB, ItfWrkWrkInput, ItfWrkWrkKJ
     private WrkKJunior refWrkKjunior;
     private WrkKJuniorCam refWrkKjuniorCam;
     private WrkSocket refWrkSocket;
-    private WrkInput refWrkInput;
+    private WrkInputCommands refWrkInputCommand;
+    private WrkInputSQL refWrkInputSQL;
     private WrkOutput refWrkOutput;
     private WrkDB refWrkDB;
 
@@ -35,8 +36,10 @@ public class Wrk implements ItfWrkCtrl, ItfWrkWrkDB, ItfWrkWrkInput, ItfWrkWrkKJ
      */
     public void lauchSocket() {
         try {
-            ServerSocket socketServer = new ServerSocket(2009);
-            this.refWrkSocket = new WrkSocket(socketServer, this);
+            ServerSocket socketServerSendCamAndReceive = new ServerSocket(2009);
+            ServerSocket socketServerSendImgFromDB = new ServerSocket(2008);
+            ServerSocket socketServerSQLogin = new ServerSocket(2017);
+            this.refWrkSocket = new WrkSocket(socketServerSendCamAndReceive,socketServerSendImgFromDB,socketServerSQLogin, this);
             this.refWrkSocket.start();
         } catch (IOException ex) {
             Logger.getLogger(Wrk.class.getName()).log(Level.SEVERE, null, ex);
@@ -48,12 +51,25 @@ public class Wrk implements ItfWrkCtrl, ItfWrkWrkDB, ItfWrkWrkInput, ItfWrkWrkKJ
      *
      * @param socket
      */
-    public void lauchWrkInput(Socket socket) {
-        this.refWrkInput = new WrkInput(this, socket);
-        this.refWrkInput.start();
+    @Override
+    public void lauchWrkInput(Socket socketSendCamAndReceive,Socket socketSQLogin) {
+        if (refWrkInput == null) {
+            this.refWrkInput = new WrkInputCommands(this, socketSendCamAndReceive);
+            this.refWrkInput.start();
+            this.refWrkInput.setRead(true);
+        } else if (refWrkInput.isAlive()) {
+            this.refWrkInput.setRead(true);
+        } else {
+            this.refWrkInput.start();
+            this.refWrkInput.setRead(true);
+        }
+        
+        
     }
-     public void lauchWrkOutput(Socket socket) {
-        this.refWrkOutput = new WrkOutput(socket,this);
+
+    @Override
+    public void lauchWrkOutput(Socket socketSendCamAndReceive,Socket socketSendImgFromDB) {
+        this.refWrkOutput = new WrkOutput(socketSendCamAndReceive,socketSendImgFromDB, this);
     }
 
     public void finalize() throws Throwable {
@@ -65,6 +81,7 @@ public class Wrk implements ItfWrkCtrl, ItfWrkWrkDB, ItfWrkWrkInput, ItfWrkWrkKJ
      *
      * @param msg msg
      */
+    @Override
     public void afficheMessageConsole(String msg) {
         refCtrl.afficheMessageConsole(msg);
     }
@@ -74,6 +91,7 @@ public class Wrk implements ItfWrkCtrl, ItfWrkWrkDB, ItfWrkWrkInput, ItfWrkWrkKJ
      *
      * @param error error
      */
+    @Override
     public void affichePopupError(String error) {
 
     }
@@ -83,6 +101,7 @@ public class Wrk implements ItfWrkCtrl, ItfWrkWrkDB, ItfWrkWrkInput, ItfWrkWrkKJ
      *
      * @param client client
      */
+    @Override
     public void afficheStatutClient(boolean client) {
         refCtrl.afficheStatutConnectionClient(client);
     }
@@ -101,6 +120,7 @@ public class Wrk implements ItfWrkCtrl, ItfWrkWrkDB, ItfWrkWrkInput, ItfWrkWrkKJ
      *
      * @param commande
      */
+    @Override
     public void bougeLeRobot(String commande) {
         refWrkKjunior.commandeLeRobot(commande);
         this.lanceCapture(0);
@@ -109,6 +129,7 @@ public class Wrk implements ItfWrkCtrl, ItfWrkWrkDB, ItfWrkWrkInput, ItfWrkWrkKJ
     /**
      * Ferme les threads.
      */
+    @Override
     public void fermeLesThreads() {
         System.out.println("L'application ainsi que ses Threads se ferment");
         if (refWrkKjuniorCam != null) {
@@ -133,6 +154,7 @@ public class Wrk implements ItfWrkCtrl, ItfWrkWrkDB, ItfWrkWrkInput, ItfWrkWrkKJ
      *
      * @param rayon
      */
+    @Override
     public void lanceCapture(double rayon) {
 
     }
@@ -142,6 +164,7 @@ public class Wrk implements ItfWrkCtrl, ItfWrkWrkDB, ItfWrkWrkInput, ItfWrkWrkKJ
      *
      * @param stream stream
      */
+    @Override
     public void stockeImagesDB(InputStream stream) {
 
     }
@@ -155,21 +178,45 @@ public class Wrk implements ItfWrkCtrl, ItfWrkWrkDB, ItfWrkWrkInput, ItfWrkWrkKJ
      *
      * @param robot client
      */
+    @Override
     public void afficheStatutKJunior(boolean robot) {
         refCtrl.afficheStatutConnectionRobot(robot);
     }
-    
-    public void sendWebcam(int[] arrayImg){
-        if (refWrkOutput == null){
-            refWrkOutput = new WrkOutput(refWrkSocket.getSocket(), this);
+
+    @Override
+    public void sendWebcam(int[] arrayImg) {
+        if (refWrkOutput == null) {
+            refWrkOutput = new WrkOutput(refWrkSocket.getSocketCamAndReceive(),refWrkSocket.getSocketSendImgFromDB(), this);
         }
-        refWrkOutput.envoieLesImages(arrayImg);
+        refWrkOutput.envoieLesImagesCam(arrayImg);
     }
 
     @Override
     public void showWebcam() {
-        this.refWrkKjuniorCam = new WrkKJuniorCam(this);
-        this.refWrkKjuniorCam.start();
+        if (refWrkKjuniorCam == null) {
+            this.refWrkKjuniorCam = new WrkKJuniorCam(this);
+        }
+        if (refWrkKjuniorCam.isAlive()) {
+            refWrkKjuniorCam.setOn(true);
+        } else {
+            this.refWrkKjuniorCam.start();
+            refWrkKjuniorCam.setOn(true);
+        }
+
+    }
+
+    @Override
+    public void closeWebcam() {
+        if (refWrkKjuniorCam != null) {
+            refWrkKjuniorCam.setOn(false);
+        }
+    }
+
+    @Override
+    public void closeWrkInput() {
+        if (refWrkInput != null) {
+            refWrkInput.setRead(false);
+        }
     }
 
 }//end Wrk

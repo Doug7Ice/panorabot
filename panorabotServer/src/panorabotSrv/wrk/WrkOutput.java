@@ -14,15 +14,19 @@ import java.util.logging.Logger;
  */
 public class WrkOutput {
 
-	private ObjectOutputStream out;
-	private Socket socket;
+	private ObjectOutputStream outSendCam;
+        private ObjectOutputStream outSendImgFromDB;
+	private Socket socketSendCamAndReceive;
+        private Socket socketSendImgFromDB;
         private ItfWrkWrkOutput refWrk;
 
-	public WrkOutput(Socket socket,ItfWrkWrkOutput wrk ){
-            this.socket = socket;
+	public WrkOutput(Socket socketSendCamAndReceive,Socket socketSendImgFromDB,ItfWrkWrkOutput wrk ){
+            this.socketSendCamAndReceive = socketSendCamAndReceive;
+            this.socketSendImgFromDB = socketSendImgFromDB;
             this.refWrk = wrk;
             try {
-                out = new ObjectOutputStream(this.socket.getOutputStream());
+                outSendCam = new ObjectOutputStream(this.socketSendCamAndReceive.getOutputStream());
+                outSendImgFromDB = new ObjectOutputStream(this.socketSendImgFromDB.getOutputStream());
             } catch (IOException ex) {
                 Logger.getLogger(WrkOutput.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -36,10 +40,24 @@ public class WrkOutput {
 	 * 
 	 * @param array    array
 	 */
-	public void envoieLesImages(int[] array){
+	public void envoieLesImagesCam(int[] array){
             try {
-            out.writeObject(array);
-            out.flush();
+            outSendCam.writeObject(array);
+            outSendCam.flush();
+        } catch (IOException ex) {
+            System.out.println("erreur" + ex);
+        }
+        try {
+            Thread.sleep(100);
+        } catch (InterruptedException ex) {
+            Logger.getLogger(WrkKJuniorCam.class.getName()).log(Level.SEVERE, null, ex);
+        }
+	}
+        
+        public void envoieLesImagesBD(int[] array){
+            try {
+            outSendImgFromDB.writeObject(array);
+            outSendImgFromDB.flush();
         } catch (IOException ex) {
             System.out.println("erreur" + ex);
         }
