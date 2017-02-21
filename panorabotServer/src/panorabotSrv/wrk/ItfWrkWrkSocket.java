@@ -12,7 +12,13 @@ import java.net.Socket;
  * @author rosalina
  */
 public interface ItfWrkWrkSocket {
+
     public void afficheStatutClient(boolean client);
+
     public void lauchWrkInput(Socket socket);
+    public void lauchWrkOutput(Socket socket);
+
     public void affichePopupError(String error);
+
+    public void showWebcam();
 }

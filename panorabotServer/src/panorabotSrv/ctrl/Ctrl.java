@@ -51,7 +51,7 @@ public class Ctrl implements ItfCtrlIhm, ItfCtrlWrk {
 	 * @param statutClient    statutClient
 	 */
 	public void afficheStatutConnectionClient(boolean statutClient){
-
+            refIhm.afficheStatutConnectionClient(statutClient);
 	}
 
 	/**

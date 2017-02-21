@@ -21,21 +21,18 @@ import org.openimaj.video.capture.VideoCaptureException;
  */
 public class WrkKJuniorCam extends Thread {
 
-    private ObjectOutputStream out;
     private volatile boolean on;
     private ItfWrkWrkKJuniorCam refWrk;
     private Video<MBFImage> video;
+    private volatile boolean youHaveToSendScreenShotToDB;
 
-    public WrkKJuniorCam(ItfWrkWrkKJuniorCam wrk,Socket socket) {
+    public WrkKJuniorCam(ItfWrkWrkKJuniorCam wrk) {
         super("KjuniorCam");
+        this.refWrk = wrk;
         try {
             video = new VideoCapture(320, 180);
         } catch (VideoCaptureException ex) {
-            Logger.getLogger(WrkKJuniorCam.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        this.refWrk = wrk;
-        try {
-            out = new ObjectOutputStream(socket.getOutputStream());
+            Logger.getLogger(WrkKJuniorCam.class.getName()).log(Level.SEVERE, null, ex);          
         } catch (IOException ex) {
             Logger.getLogger(WrkKJuniorCam.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -65,17 +62,7 @@ public class WrkKJuniorCam extends Thread {
 	 * @param intArr
 	 */
     private void sendPrintScreen(int[] intArr) {
-        try {
-            out.writeObject(intArr);
-            out.flush();
-        } catch (IOException ex) {
-            System.out.println("erreur" + ex);
-        }
-        try {
-            Thread.sleep(100);
-        } catch (InterruptedException ex) {
-            Logger.getLogger(WrkKJuniorCam.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        refWrk.sendWebcam(intArr);
     }
 
     public boolean isOn() {

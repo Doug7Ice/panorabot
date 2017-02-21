@@ -10,6 +10,7 @@ import panorabotSrv.ctrl.ItfCtrlWrk;
 
 /**
  * Worker de l'application Panorabot Serveur.
+ *
  * @author ReyL03
  * @version 1.0
  * @updated 17-fevr.-2017 14:54:37
@@ -29,9 +30,9 @@ public class Wrk implements ItfWrkCtrl, ItfWrkWrkDB, ItfWrkWrkInput, ItfWrkWrkKJ
         lauchSocket();
     }
 
-	/**
-	 * Demarre le socket TCP.
-	 */
+    /**
+     * Demarre le socket TCP.
+     */
     public void lauchSocket() {
         try {
             ServerSocket socketServer = new ServerSocket(2009);
@@ -42,14 +43,17 @@ public class Wrk implements ItfWrkCtrl, ItfWrkWrkDB, ItfWrkWrkInput, ItfWrkWrkKJ
         }
     }
 
-	/**
-	 * Demarre le Thread WrkInput.
-	 * 
-	 * @param socket
-	 */
+    /**
+     * Demarre le Thread WrkInput.
+     *
+     * @param socket
+     */
     public void lauchWrkInput(Socket socket) {
         this.refWrkInput = new WrkInput(this, socket);
         this.refWrkInput.start();
+    }
+     public void lauchWrkOutput(Socket socket) {
+        this.refWrkOutput = new WrkOutput(socket,this);
     }
 
     public void finalize() throws Throwable {
@@ -57,54 +61,54 @@ public class Wrk implements ItfWrkCtrl, ItfWrkWrkDB, ItfWrkWrkInput, ItfWrkWrkKJ
     }
 
     /**
-	 * Affiche un message dans la console de l'Ihm.
-	 * 
-	 * @param msg    msg
-	 */
+     * Affiche un message dans la console de l'Ihm.
+     *
+     * @param msg msg
+     */
     public void afficheMessageConsole(String msg) {
         refCtrl.afficheMessageConsole(msg);
     }
 
     /**
-	 * Affiche un popup dans l'Ihm lors d'une erreur.
-	 * 
-	 * @param error    error
-	 */
+     * Affiche un popup dans l'Ihm lors d'une erreur.
+     *
+     * @param error error
+     */
     public void affichePopupError(String error) {
 
     }
 
     /**
-	 * Affiche le statut du client dans l'Ihm.
-	 * 
-	 * @param client    client
-	 */
+     * Affiche le statut du client dans l'Ihm.
+     *
+     * @param client client
+     */
     public void afficheStatutClient(boolean client) {
-
+        refCtrl.afficheStatutConnectionClient(client);
     }
 
     /**
-	 * Ajoute un log dans la base de donnees.
-	 * 
-	 * @param log    log
-	 */
+     * Ajoute un log dans la base de donnees.
+     *
+     * @param log log
+     */
     public void ajouteLog(String log) {
 
     }
 
     /**
-	 * Envoie une commande au robot. Utilise pour commander le robot.
-	 * 
-	 * @param commande
-	 */
+     * Envoie une commande au robot. Utilise pour commander le robot.
+     *
+     * @param commande
+     */
     public void bougeLeRobot(String commande) {
         refWrkKjunior.commandeLeRobot(commande);
         this.lanceCapture(0);
     }
 
-	/**
-	 * Ferme les threads.
-	 */
+    /**
+     * Ferme les threads.
+     */
     public void fermeLesThreads() {
         System.out.println("L'application ainsi que ses Threads se ferment");
         if (refWrkKjuniorCam != null) {
@@ -123,27 +127,21 @@ public class Wrk implements ItfWrkCtrl, ItfWrkWrkDB, ItfWrkWrkInput, ItfWrkWrkKJ
         System.gc();
     }
 
-	/**
-	 * Lance la capture. Elle demande au KJunior de bouger en cercle selon le rayon
-	 * donne en parametre. Active egalement la camera du KJunior
-	 * 
-	 * @param rayon
-	 */
+    /**
+     * Lance la capture. Elle demande au KJunior de bouger en cercle selon le
+     * rayon donne en parametre. Active egalement la camera du KJunior
+     *
+     * @param rayon
+     */
     public void lanceCapture(double rayon) {
-        if (refWrkKjuniorCam != null){
-        refWrkKjuniorCam.start();
-        }
-        else{
-            refWrkKjuniorCam = new WrkKJuniorCam(this,refWrkSocket.getSocket());
-            refWrkKjuniorCam.start();
-        }
+
     }
 
     /**
-	 * Stocke les images envoyer par la camera dans la BD.
-	 * 
-	 * @param stream    stream
-	 */
+     * Stocke les images envoyer par la camera dans la BD.
+     *
+     * @param stream stream
+     */
     public void stockeImagesDB(InputStream stream) {
 
     }
@@ -152,13 +150,26 @@ public class Wrk implements ItfWrkCtrl, ItfWrkWrkDB, ItfWrkWrkInput, ItfWrkWrkKJ
         this.refCtrl = refCtrl;
     }
 
-	/**
-	 * Affiche le statut du robot dans l'Ihm.
-	 * 
-	 * @param robot    client
-	 */
-	public void afficheStatutKJunior(boolean robot){
+    /**
+     * Affiche le statut du robot dans l'Ihm.
+     *
+     * @param robot client
+     */
+    public void afficheStatutKJunior(boolean robot) {
 
-	}
+    }
+    
+    public void sendWebcam(int[] arrayImg){
+        if (refWrkOutput == null){
+            refWrkOutput = new WrkOutput(refWrkSocket.getSocket(), this);
+        }
+        refWrkOutput.envoieLesImages(arrayImg);
+    }
+
+    @Override
+    public void showWebcam() {
+        this.refWrkKjuniorCam = new WrkKJuniorCam(this);
+        this.refWrkKjuniorCam.start();
+    }
 
 }//end Wrk

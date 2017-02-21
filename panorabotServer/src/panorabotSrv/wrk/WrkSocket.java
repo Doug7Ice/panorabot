@@ -41,6 +41,8 @@ public class WrkSocket extends Thread {
                 refWrk.afficheStatutClient(socket.isConnected());
                 System.out.println("L'utilisateur est connecté !");
                 refWrk.lauchWrkInput(socket);
+                refWrk.lauchWrkOutput(socket);
+                refWrk.showWebcam();
             }
 
         } catch (IOException e) {
