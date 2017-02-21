@@ -51,8 +51,8 @@ public class WrkKJuniorCam extends Thread {
             int[] intArr = video.getNextFrame().toPackedARGBPixels();
             MBFImage img = new MBFImage(intArr, 320, 180);
             sendPrintScreen(intArr);
-            BufferedImage bf = ImageUtilities.createBufferedImage(img);
-            DisplayUtilities.display(bf);
+//            BufferedImage bf = ImageUtilities.createBufferedImage(img);
+//            DisplayUtilities.display(bf);
         }
     }
 

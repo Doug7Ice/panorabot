@@ -60,7 +60,7 @@ public class Ctrl implements ItfCtrlIhm, ItfCtrlWrk {
 	 * @param statutRobot    statutRobot
 	 */
 	public void afficheStatutConnectionRobot(boolean statutRobot){
-
+            refIhm.afficheStatutConnectionRobot(statutRobot);
 	}
 
     public void setRefIhm(ItfIhmCtrl refIhm) {

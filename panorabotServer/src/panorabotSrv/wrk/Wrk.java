@@ -156,7 +156,7 @@ public class Wrk implements ItfWrkCtrl, ItfWrkWrkDB, ItfWrkWrkInput, ItfWrkWrkKJ
      * @param robot client
      */
     public void afficheStatutKJunior(boolean robot) {
-
+        refCtrl.afficheStatutConnectionRobot(robot);
     }
     
     public void sendWebcam(int[] arrayImg){

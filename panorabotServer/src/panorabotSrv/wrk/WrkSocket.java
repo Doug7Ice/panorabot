@@ -39,7 +39,6 @@ public class WrkSocket extends Thread {
             while (on) {
                 socket = socketServeur.accept(); // Un client se connecte on l'accepte
                 refWrk.afficheStatutClient(socket.isConnected());
-                System.out.println("L'utilisateur est connecté !");
                 refWrk.lauchWrkInput(socket);
                 refWrk.lauchWrkOutput(socket);
                 refWrk.showWebcam();

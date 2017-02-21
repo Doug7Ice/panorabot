@@ -58,8 +58,5 @@ public class WrkKJunior {
         } catch (SerialPortException ex) {
            System.out.println("erreur = " + ex);
         }
-        finally{
-            refWrk.afficheStatutKJunior(serialPort.isOpened());
-        }
     }
 }//end WrkKJunior
