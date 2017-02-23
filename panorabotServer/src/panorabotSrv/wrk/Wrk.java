@@ -218,8 +218,8 @@ public class Wrk implements ItfWrkCtrl, ItfWrkWrkDB, ItfWrkWrkInput, ItfWrkWrkKJ
         if (refWrkKjuniorCam.isAlive()) {
             refWrkKjuniorCam.setOn(true);
         } else {
-            this.refWrkKjuniorCam.start();
             refWrkKjuniorCam.setOn(true);
+            this.refWrkKjuniorCam.start();           
         }
 
     }

@@ -32,7 +32,7 @@ public class WrkOutput {
         try {
             outSendCam = new ObjectOutputStream(this.socketSendCamAndReceive.getOutputStream());
             outSendImgFromDB = new ObjectOutputStream(this.socketSendImgFromDB.getOutputStream());
-            outSendTxt = new PrintWriter(socketSendSQL.getOutputStream());
+            outSendTxt = new PrintWriter(this.socketSendSQL.getOutputStream());
         } catch (IOException ex) {
             Logger.getLogger(WrkOutput.class.getName()).log(Level.SEVERE, null, ex);
         }

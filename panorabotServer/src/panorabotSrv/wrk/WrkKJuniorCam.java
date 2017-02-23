@@ -28,6 +28,7 @@ public class WrkKJuniorCam extends Thread {
         } catch (VideoCaptureException ex) {
             Logger.getLogger(WrkKJuniorCam.class.getName()).log(Level.SEVERE, null, ex);          
         }
+        this.on = false;
     }
 
     public void finalize() throws Throwable {
@@ -38,7 +39,6 @@ public class WrkKJuniorCam extends Thread {
 	 * Recpetionne les images provenant de la camera du KJunior.
 	 */
     public void run() {
-        this.on = true;
         while(on){
             int[] intArr = video.getNextFrame().toPackedARGBPixels();
             MBFImage img = new MBFImage(intArr, 320, 180);

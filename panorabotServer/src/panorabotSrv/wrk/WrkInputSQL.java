@@ -27,7 +27,7 @@ public class WrkInputSQL extends Thread{
         this.socketServerSQLogin = socketServerSQLogin;
         refWrk.afficheMessageConsole(""+this.socketServerSQLogin.getLocalPort());       
         try {
-            inSQL = new BufferedReader(new InputStreamReader(socketServerSQLogin.getInputStream()));
+            inSQL = new BufferedReader(new InputStreamReader(this.socketServerSQLogin.getInputStream()));
         } catch (IOException ex) {
             Logger.getLogger(WrkInputSQL.class.getName()).log(Level.SEVERE, null, ex);
         }

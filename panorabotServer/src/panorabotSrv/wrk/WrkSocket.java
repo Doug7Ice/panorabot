@@ -54,8 +54,13 @@ public class WrkSocket extends Thread {
                                 
                 if (socketCamAndReceive.isConnected() && socketSendImgFromDB.isConnected() && socketSQLogin.isConnected()) {
                     refWrk.afficheStatutClient(true);
-                    refWrk.lauchWrkInput(socketCamAndReceive, socketSQLogin);
                     refWrk.lauchWrkOutput(socketCamAndReceive,socketSendImgFromDB,socketSQLogin);
+                    refWrk.lauchWrkInput(socketCamAndReceive, socketSQLogin);
+//                    try {
+//                        sleep(10000);
+//                    } catch (InterruptedException ex) {
+//                        Logger.getLogger(WrkSocket.class.getName()).log(Level.SEVERE, null, ex);
+//                    }                  
                     refWrk.showWebcam();
 
                 } else {
