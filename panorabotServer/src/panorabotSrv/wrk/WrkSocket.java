@@ -45,7 +45,7 @@ public class WrkSocket extends Thread {
         try {
             on = true;
             while (on) {
-                if (on = false) {
+                if (!on) {
                     break;
                 }
                 socketCamAndReceive = socketSendCamAndReceiveSrv.accept(); // Un client se connecte on l'accepte
@@ -55,7 +55,7 @@ public class WrkSocket extends Thread {
                 if (socketCamAndReceive.isConnected() && socketSendImgFromDB.isConnected() && socketSQLogin.isConnected()) {
                     refWrk.afficheStatutClient(true);
                     refWrk.lauchWrkInput(socketCamAndReceive, socketSQLogin);
-                    refWrk.lauchWrkOutput(socketCamAndReceive,socketSendImgFromDB);
+                    refWrk.lauchWrkOutput(socketCamAndReceive,socketSendImgFromDB,socketSQLogin);
                     refWrk.showWebcam();
 
                 } else {

@@ -15,7 +15,7 @@ import panorabotSrv.ctrl.ItfCtrlWrk;
  * @version 1.0
  * @updated 17-fevr.-2017 14:54:37
  */
-public class Wrk implements ItfWrkCtrl, ItfWrkWrkDB, ItfWrkWrkInput, ItfWrkWrkKJunior, ItfWrkWrkKJuniorCam, ItfWrkWrkOutput, ItfWrkWrkSocket {
+public class Wrk implements ItfWrkCtrl, ItfWrkWrkDB, ItfWrkWrkInput, ItfWrkWrkKJunior, ItfWrkWrkKJuniorCam, ItfWrkWrkOutput, ItfWrkWrkSocket, ItfWrkWrkInputSQL {
 
     private ItfCtrlWrk refCtrl;
     private WrkKJunior refWrkKjunior;
@@ -53,27 +53,42 @@ public class Wrk implements ItfWrkCtrl, ItfWrkWrkDB, ItfWrkWrkInput, ItfWrkWrkKJ
      */
     @Override
     public void lauchWrkInput(Socket socketSendCamAndReceive,Socket socketSQLogin) {
-        if (refWrkInput == null) {
-            this.refWrkInput = new WrkInputCommands(this, socketSendCamAndReceive);
-            this.refWrkInput.start();
-            this.refWrkInput.setRead(true);
-        } else if (refWrkInput.isAlive()) {
-            this.refWrkInput.setRead(true);
+        if (refWrkInputCommand == null) {
+            this.refWrkInputCommand = new WrkInputCommands(this, socketSendCamAndReceive);
+            this.refWrkInputCommand.setRead(true);
+            this.refWrkInputCommand.start();           
+        } else if (refWrkInputCommand.isAlive()) {
+            this.refWrkInputCommand.setRead(true);
         } else {
-            this.refWrkInput.start();
-            this.refWrkInput.setRead(true);
+            this.refWrkInputCommand.start();
+            this.refWrkInputCommand.setRead(true);
+        }
+        
+        if (refWrkInputSQL == null){
+            this.refWrkInputSQL = new WrkInputSQL(socketSQLogin, this);
+            this.refWrkInputSQL.setRead(true);
+            this.refWrkInputSQL.start();         
+        } else if (refWrkInputSQL.isAlive()) {
+            this.refWrkInputSQL.setRead(true);
+        } else {
+            this.refWrkInputSQL.start();
+            this.refWrkInputSQL.setRead(true);
         }
         
         
     }
 
     @Override
-    public void lauchWrkOutput(Socket socketSendCamAndReceive,Socket socketSendImgFromDB) {
-        this.refWrkOutput = new WrkOutput(socketSendCamAndReceive,socketSendImgFromDB, this);
+    public void lauchWrkOutput(Socket socketSendCamAndReceive,Socket socketSendImgFromDB, Socket socketSQL) {
+        this.refWrkOutput = new WrkOutput(socketSendCamAndReceive,socketSendImgFromDB,socketSQL, this);
     }
 
     public void finalize() throws Throwable {
 
+    }
+    
+    public void envoieTxtAuClient(String txt){
+        refWrkOutput.sendTxtClient(txt);
     }
 
     /**
@@ -136,15 +151,19 @@ public class Wrk implements ItfWrkCtrl, ItfWrkWrkDB, ItfWrkWrkInput, ItfWrkWrkKJ
             refWrkKjuniorCam.setOn(false);
             refWrkKjuniorCam = null;
         }
+        if (refWrkInputCommand != null) {
+            refWrkInputCommand.setRead(false);
+            refWrkInputCommand = null;
+        }
+         if (refWrkInputSQL != null) {
+            refWrkInputSQL.setRead(false);
+            refWrkInputSQL = null;
+        }
         if (refWrkSocket != null) {
             refWrkSocket.setOn(false);
             refWrkSocket.closeSockets();
             refWrkSocket = null;
-        }
-        if (refWrkInput != null) {
-            refWrkInput.setRead(false);
-            refWrkInput = null;
-        }
+        }  
         System.gc();
     }
 
@@ -186,7 +205,7 @@ public class Wrk implements ItfWrkCtrl, ItfWrkWrkDB, ItfWrkWrkInput, ItfWrkWrkKJ
     @Override
     public void sendWebcam(int[] arrayImg) {
         if (refWrkOutput == null) {
-            refWrkOutput = new WrkOutput(refWrkSocket.getSocketCamAndReceive(),refWrkSocket.getSocketSendImgFromDB(), this);
+            refWrkOutput = new WrkOutput(refWrkSocket.getSocketCamAndReceive(),refWrkSocket.getSocketSendImgFromDB(),refWrkSocket.getSocketSQLogin(), this);
         }
         refWrkOutput.envoieLesImagesCam(arrayImg);
     }
@@ -214,8 +233,11 @@ public class Wrk implements ItfWrkCtrl, ItfWrkWrkDB, ItfWrkWrkInput, ItfWrkWrkKJ
 
     @Override
     public void closeWrkInput() {
-        if (refWrkInput != null) {
-            refWrkInput.setRead(false);
+        if (refWrkInputCommand != null) {
+            refWrkInputCommand.setRead(false);
+        }
+        if (refWrkInputSQL != null) {
+            refWrkInputSQL.setRead(false);
         }
     }
 

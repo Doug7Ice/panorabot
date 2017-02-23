@@ -17,7 +17,7 @@ public interface ItfWrkWrkSocket {
 
     public void lauchWrkInput(Socket socketSendCamAndReceive,Socket socketSQLogin);
 
-    public void lauchWrkOutput(Socket socketSendCamAndReceive,Socket socketSendImgFromDB);
+    public void lauchWrkOutput(Socket socketSendCamAndReceive,Socket socketSendImgFromDB, Socket socketSQL);
 
     public void affichePopupError(String error);
 

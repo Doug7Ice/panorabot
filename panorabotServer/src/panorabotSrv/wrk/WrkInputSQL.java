@@ -6,20 +6,61 @@
 package panorabotSrv.wrk;
 
 import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.net.Socket;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
  * @author ReyL03
  */
-public class WrkInputSQL implements Runnable{
+public class WrkInputSQL extends Thread{
     private BufferedReader inSQL;
     private volatile boolean read;
     private Socket socketServerSQLogin;
-    private ItfWrkWrkInput refWrk;
+    private ItfWrkWrkInputSQL refWrk;
+
+    public WrkInputSQL(Socket socketServerSQLogin, ItfWrkWrkInputSQL refWrk) {
+        super("InputSQL");
+        this.socketServerSQLogin = socketServerSQLogin;
+        refWrk.afficheMessageConsole(""+this.socketServerSQLogin.getLocalPort());       
+        try {
+            inSQL = new BufferedReader(new InputStreamReader(socketServerSQLogin.getInputStream()));
+        } catch (IOException ex) {
+            Logger.getLogger(WrkInputSQL.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        this.refWrk = refWrk;
+        this.read = true;
+    }
+    
+    
     
     @Override
+    //L,login,mdp
     public void run() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        try {
+            while (read) {
+                String msg = inSQL.readLine();
+                if (msg != null) {
+                    refWrk.afficheMessageConsole(msg);
+                    refWrk.envoieTxtAuClient("true");
+                }
+                
+            }
+        } catch (IOException e) {
+            System.out.println("Déconnexion");
+        }
     }
+
+    public boolean isRead() {
+        return read;
+    }
+
+    public void setRead(boolean read) {
+        this.read = read;
+    }
+    
+    
 }
