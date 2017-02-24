@@ -5,6 +5,8 @@
  */
 package panorabotClient.wrk;
 
+import databeans.ImgCam;
+import databeans.InfosLogin;
 import java.awt.image.BufferedImage;
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -24,50 +26,38 @@ import org.openimaj.image.MBFImage;
  * @author Nathan
  */
 public class WrkSocket extends Thread {
+
     private final String ipServer = "192.168.2.1";
-    
-    
+
     public WrkSocket(ItfWrkWrkSocket refWrk) {
         super("THREAD - WrkSocket");
         this.refWrk = refWrk;
-        connecterSocket();
     }
 
     @Override
     public void run() {
         running = true;
-        boolean tryConnect = true;
-        while (running & tryConnect) {
-            System.out.println("running " + running);
-            refWrk.afficheMessage("Connexion au serveur en cours", "info");
-            tryConnect = !connecterSocket();
-            if (tryConnect == true) {
-                refWrk.afficheMessage("La connexion au serveur a echoue, reessai dans 2 secondes...", "error");
-                System.out.println("connexion impossible reessais dans 2 sec");
-                try {
-                    Thread.sleep(2000);
-                } catch (InterruptedException ex) {
-                    Logger.getLogger(WrkSocket.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
-        }
-
         try {
-            if (running) {
-                in = new ObjectInputStream(socketKJunior.getInputStream());
-                running = true;
-                while (running) {
-                    int[] tabInt = (int[]) in.readObject();
-//                byte[] tabBytes = (byte[]) in.readObject();
-//                ByteArrayInputStream bais = new ByteArrayInputStream(tabBytes);           
-//                BufferedImage bi = ImageIO.read(bais);
+            running = true;
+            while (running) {
+                Object receivedObject = in.readObject();
+                if (receivedObject instanceof ImgCam) {
+                    int[] tabInt = ((ImgCam) receivedObject).getImg();
                     MBFImage i = new MBFImage(tabInt, 320, 180);
                     BufferedImage bi = ImageUtilities.createBufferedImage(i);
                     refWrk.afficheImage(bi);
+                } else if (receivedObject instanceof String) {
+                    String receivedString = (String) receivedObject;
+                    refWrk.resultLogin(receivedString);
+//                    int[] tabInt = (int[]) in.readObject();
+//                byte[] tabBytes = (byte[]) in.readObject();
+//                ByteArrayInputStream bais = new ByteArrayInputStream(tabBytes);           
+//                BufferedImage bi = ImageIO.read(bais);
+
                 }
             }
         } catch (IOException e) {
-            refWrk.afficheMessage("déconnection", "error");
+            refWrk.afficheMessage("déconnexion", "error");
         } catch (ClassNotFoundException ex) {
             refWrk.afficheMessage("Erreur lors de la lecture du flux", "error");
         }
@@ -77,63 +67,91 @@ public class WrkSocket extends Thread {
 //        }
     }
 
-    public boolean connecterSocket() {
+    public void connecterSocket() {
         try {
-            socketKJunior = new Socket(ipServer, 2009);
-            outKJunior = new PrintWriter(socketKJunior.getOutputStream());
-            socketLoginBD = new Socket(ipServer, 2017);
-            outLogin = new PrintWriter(socketLoginBD.getOutputStream());
-            socketReceiveScansBD = new Socket(ipServer, 2008);
-            outScans = new PrintWriter(socketReceiveScansBD.getOutputStream());
+            socket = new Socket(ipServer, 2009);
+            //socket.setSoTimeout(5);
+            out = new ObjectOutputStream(socket.getOutputStream());
+            in = new ObjectInputStream(socket.getInputStream());
             refWrk.afficheMessage("Connexion au serveur effectuee !", "success");
-            return true;
         } catch (IOException ex) {
-            return false;
+            refWrk.afficheMessage("Erreur de connexion avec le serveur !", "error");
         }
 
     }
 
     public void avancerRobotTCP(int vitesse) {
-        outKJunior.println("D," + vitesse + "," + vitesse);
-        outKJunior.flush();
+        try {
+            out.writeObject("D," + vitesse + "," + vitesse);
+            out.flush();
+        } catch (IOException ex) {
+            Logger.getLogger(WrkSocket.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     public void stopperRobotTCP() {
-        outKJunior.println("D,0,0");
-        outKJunior.flush();
+        try {
+            out.writeObject("D,0,0");
+            out.flush();
+        } catch (IOException ex) {
+            Logger.getLogger(WrkSocket.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     public void tournerADroiteTCP() {
-        outKJunior.println("D,14,-14");
-        outKJunior.flush();
+        try {
+            out.writeObject("D,14,-14");
+            out.flush();
+        } catch (IOException ex) {
+            Logger.getLogger(WrkSocket.class.getName()).log(Level.SEVERE, null, ex);
+        }
 
     }
 
     public void tournerAGaucheTCP() {
-        outKJunior.println("D,-14,14");
-        outKJunior.flush();
+        try {
+            out.writeObject("D,-14,14");
+            out.flush();
+        } catch (IOException ex) {
+            Logger.getLogger(WrkSocket.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     public void lancerScanTCP(double rayon) {
-        outKJunior.println("S," + rayon);
-        outKJunior.flush();
-    }
-    
-    public boolean login(String user, String mdp){
-        boolean resultBool = false;
         try {
-            inLogin = new BufferedReader(new InputStreamReader(socketLoginBD.getInputStream()));
-            outLogin.println("L," + user + "," + mdp);
-            String result = inLogin.readLine();
-            if (result.equals("true")) {
-                resultBool = true;
-            }else{
-                resultBool = false;
-            }
+            out.writeObject("S," + rayon);
+            out.flush();
         } catch (IOException ex) {
-            refWrk.afficheMessage("Erreur de logon", "error");
+            Logger.getLogger(WrkSocket.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return resultBool;
+    }
+
+    public void login(String user, String mdp) {
+        try {
+            out.writeObject(new InfosLogin(user, mdp));
+            out.flush();
+        } catch (IOException ex) {
+            Logger.getLogger(WrkSocket.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    public void quit() {
+        try {
+            System.out.println("IL KILL LE SOCKET MON DIEU");
+            running = false;
+            if (in != null) {
+                in.close();
+            }
+            if (out != null) {
+                out.close();
+            }
+            if (socket != null) {
+                socket.close();
+            }
+
+        } catch (IOException ingnoredException) {
+
+        }
     }
 
     //Setters and Getters
@@ -148,12 +166,7 @@ public class WrkSocket extends Thread {
     private ItfWrkWrkSocket refWrk;
     private String actualPath;
     private ObjectInputStream in;
-    private PrintWriter outKJunior;
-    private PrintWriter outLogin;
-    private PrintWriter outScans;
+    private ObjectOutputStream out;
     private volatile boolean running;
-    private Socket socketKJunior;
-    private Socket socketReceiveScansBD;
-    private Socket socketLoginBD;
-    private BufferedReader inLogin;
+    private Socket socket;
 }

@@ -12,7 +12,7 @@ import java.awt.image.BufferedImage;
  * @author Nathan
  */
 public interface ItfCtrlWrk {
-
+    public void resultLogin(String result);
     public void augmenterRayon();
     public void reduireRayon();
     public void afficherPopup(String message, String type);

@@ -6,6 +6,7 @@
 package panorabotClient.ctrl;
 
 import java.awt.image.BufferedImage;
+import panorabotClient.ihm.ItfIhmLoginCtrl;
 import panorabotClient.ihm.ItfIhmRobotCtrl;
 import panorabotClient.wrk.ItfWrkCtrl;
 
@@ -16,8 +17,8 @@ import panorabotClient.wrk.ItfWrkCtrl;
 public class Ctrl implements ItfCtrlIhmLogin, ItfCtrlIhmRobot, ItfCtrlWrk {
 
     @Override
-    public boolean connecter(String user, String mdp) {
-        return refWrk.connecter(user, mdp);
+    public void connecter(String user, String mdp) {
+        refWrk.connecter(user, mdp);
     }
     
     @Override
@@ -55,6 +56,12 @@ public class Ctrl implements ItfCtrlIhmLogin, ItfCtrlIhmRobot, ItfCtrlWrk {
         refWrk.quit();
     }
     
+    @Override
+    public void resultLogin(String result) {
+        ihmLogin.resultLogin(result);
+    }
+
+    
     public void reduireRayon(){
         ihmRobot.reduireRayon();
     }
@@ -74,12 +81,23 @@ public class Ctrl implements ItfCtrlIhmLogin, ItfCtrlIhmRobot, ItfCtrlWrk {
     public void setIhmRobot(ItfIhmRobotCtrl ihmRobot) {
         this.ihmRobot = ihmRobot;
     }
+
+    public ItfIhmLoginCtrl getIhmLogin() {
+        return ihmLogin;
+    }
+
+    public void setIhmLogin(ItfIhmLoginCtrl ihmLogin) {
+        this.ihmLogin = ihmLogin;
+    }
+    
+    
     
     
 
     private ItfWrkCtrl refWrk;
     private ItfIhmRobotCtrl ihmRobot;
-
+    private ItfIhmLoginCtrl ihmLogin;
+    
     
 
     

@@ -10,7 +10,7 @@ package panorabotClient.ctrl;
  * @author Nathan
  */
 public interface ItfCtrlIhmLogin {
-    public boolean connecter(String user, String mdp);
-
+    public void connecter(String user, String mdp);
+    public void afficherPopup(String message, String type);
     public void lancerSocket();
 }

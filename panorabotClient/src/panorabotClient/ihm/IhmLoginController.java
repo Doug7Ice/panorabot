@@ -7,6 +7,7 @@ package panorabotClient.ihm;
 
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -22,7 +23,7 @@ import panorabotClient.ctrl.ItfCtrlIhmLogin;
  *
  * @author Nathan
  */
-public class IhmLoginController implements Initializable {
+public class IhmLoginController implements Initializable, ItfIhmLoginCtrl {
 
     @FXML
     private TextField txtUser;
@@ -55,16 +56,27 @@ public class IhmLoginController implements Initializable {
         
     }
 
+    @Override
+    public void resultLogin(String result) {
+        switch (result) {
+            case "Login:OK":
+                Platform.runLater(() ->stage.setScene(sceneRobot));
+                Platform.runLater(() ->stage.show());
+                break;
+            case "Login:KO":
+                refCtrl.afficherPopup("Login incorrect", "error");
+                break;
+            case "Login:DBout":
+                refCtrl.afficherPopup("Erreur avec la base de données", "error");
+                break;
+        }
+
+    }
+
     @FXML
     private void btnConnexionOnAction(ActionEvent event) {
         refCtrl.lancerSocket();
-        boolean connexionOk = refCtrl.connecter(txtUser.getText(), txtPassword.getText());
-        if (connexionOk) {
-            stage.setScene(sceneRobot);
-            stage.show();
-        }else{
-            
-        }
+        refCtrl.connecter(txtUser.getText(), txtPassword.getText());
     }
 
     void setSceneLogin(Scene scene) {
@@ -82,10 +94,6 @@ public class IhmLoginController implements Initializable {
     public void setRefCtrl(ItfCtrlIhmLogin refCtrl) {
         this.refCtrl = refCtrl;
     }
-    
-    
-
-    
 
     void setStage(Stage stage) {
         this.stage = stage;

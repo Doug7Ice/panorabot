@@ -43,6 +43,7 @@ public class panorabotClient extends Application {
 
         ctrl.setWrk(wrk);
         ctrl.setIhmRobot(ihmRobot);
+        ctrl.setIhmLogin(ihmLogin);
         wrk.setCtrl(ctrl);
         Scene sceneLogin = new Scene(rootIhmLogin);
         Scene sceneRobot = new Scene(rootIhmRobot);

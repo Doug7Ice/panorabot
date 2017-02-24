@@ -17,15 +17,15 @@ import panorabotClient.ctrl.ItfCtrlWrk;
 public class Wrk implements ItfWrkCtrl, ItfWrkManette, ItfWrkWrkConversion, ItfWrkWrkSocket, ItfWrkWrkOutputFile {
 
     public Wrk() {
-
+        refWrkSocket = new WrkSocket(this);
         refWrkConversion = new WrkConversion();
         refWrkOutputFile = new WrkOutputFile();
         isRobotTurning = false;
     }
 
     @Override
-    public boolean connecter(String user, String mdp) {
-        return refWrkSocket.login(user, mdp);
+    public void connecter(String user, String mdp) {
+        refWrkSocket.login(user, mdp);
     }
 
     //Methods implemented from ItfWrkCtrl
@@ -89,7 +89,7 @@ public class Wrk implements ItfWrkCtrl, ItfWrkManette, ItfWrkWrkConversion, ItfW
     public void quit() {
         if (refWrkSocket != null) {
             try {
-                refWrkSocket.setRunning(false);
+                refWrkSocket.quit();
                 refWrkSocket.join();
                 refWrkSocket = null;
             } catch (InterruptedException ex) {
@@ -103,7 +103,7 @@ public class Wrk implements ItfWrkCtrl, ItfWrkManette, ItfWrkWrkConversion, ItfW
 
     @Override
     public void lancerSocket() {
-        refWrkSocket = new WrkSocket(this);
+        refWrkSocket.connecterSocket();
         refWrkSocket.start();
         refWrkManette = new WrkManette(this);
     }
@@ -111,6 +111,11 @@ public class Wrk implements ItfWrkCtrl, ItfWrkManette, ItfWrkWrkConversion, ItfW
     @Override
     public void afficheMessage(String message, String type) {
        refCtrl.afficherPopup(message, type);
+    }
+    
+    @Override
+    public void resultLogin(String result) {
+        refCtrl.resultLogin(result);
     }
 
 
@@ -130,6 +135,8 @@ public class Wrk implements ItfWrkCtrl, ItfWrkManette, ItfWrkWrkConversion, ItfW
     private WrkConversion refWrkConversion;
     private WrkOutputFile refWrkOutputFile;
     private boolean isRobotTurning;
+
+    
 
    
 
