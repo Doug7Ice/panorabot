@@ -16,7 +16,7 @@ import panorabotSrv.ctrl.ItfCtrlWrk;
  * @version 1.0
  * @updated 17-fevr.-2017 14:54:37
  */
-public class Wrk implements ItfWrkCtrl, ItfWrkWrkDB, ItfWrkWrkInput, ItfWrkWrkKJunior, ItfWrkWrkKJuniorCam, ItfWrkWrkOutput, ItfWrkWrkSocket{
+public class Wrk implements ItfWrkCtrl, ItfWrkWrkDB, ItfWrkWrkInput, ItfWrkWrkKJunior, ItfWrkWrkKJuniorCam, ItfWrkWrkOutput, ItfWrkWrkSocket {
 
     private ItfCtrlWrk refCtrl;
     private WrkKJunior refWrkKjunior;
@@ -54,8 +54,9 @@ public class Wrk implements ItfWrkCtrl, ItfWrkWrkDB, ItfWrkWrkInput, ItfWrkWrkKJ
         this.refWrkInput = new WrkInput(this, socket);
         this.refWrkInput.start();
     }
-     public void lauchWrkOutput(Socket socket) {
-        this.refWrkOutput = new WrkOutput(socket,this);
+
+    public void lauchWrkOutput(Socket socket) {
+        this.refWrkOutput = new WrkOutput(socket, this);
     }
 
     public void finalize() throws Throwable {
@@ -88,16 +89,14 @@ public class Wrk implements ItfWrkCtrl, ItfWrkWrkDB, ItfWrkWrkInput, ItfWrkWrkKJ
     public void afficheStatutClient(boolean client) {
         refCtrl.afficheStatutConnectionClient(client);
     }
-    
+
     public void checkLogin(String username, String password) {
         int ok = refWrkDB.userConnection(username, password);
-        if (ok == 1){
+        if (ok == 1) {
             refWrkOutput.envoie("Login:OK");
-        }
-        else if (ok == 0){
+        } else if (ok == 0) {
             refWrkOutput.envoie("Login:KO");
-        }
-        else{
+        } else {
             refWrkOutput.envoie("Login:DBout");
         }
     }
@@ -118,7 +117,6 @@ public class Wrk implements ItfWrkCtrl, ItfWrkWrkDB, ItfWrkWrkInput, ItfWrkWrkKJ
      */
     public void bougeLeRobot(String commande) {
         refWrkKjunior.commandeLeRobot(commande);
-        this.lanceCapture(0);
     }
 
     /**
@@ -130,6 +128,9 @@ public class Wrk implements ItfWrkCtrl, ItfWrkWrkDB, ItfWrkWrkInput, ItfWrkWrkKJ
             refWrkKjuniorCam.setOn(false);
             refWrkKjuniorCam = null;
         }
+        if (refWrkDB != null) {
+            refWrkDB.close();
+        }
         if (refWrkInput != null) {
             refWrkInput.setRead(false);
             refWrkInput = null;
@@ -138,7 +139,7 @@ public class Wrk implements ItfWrkCtrl, ItfWrkWrkDB, ItfWrkWrkInput, ItfWrkWrkKJ
             refWrkSocket.setOn(false);
             refWrkSocket.closeSockets();
             refWrkSocket = null;
-        }  
+        }
         System.gc();
     }
 
@@ -149,7 +150,7 @@ public class Wrk implements ItfWrkCtrl, ItfWrkWrkDB, ItfWrkWrkInput, ItfWrkWrkKJ
      * @param rayon
      */
     public void lanceCapture(double rayon) {
-
+        refWrkKjuniorCam.setSendDB(true);
     }
 
     /**
@@ -158,7 +159,12 @@ public class Wrk implements ItfWrkCtrl, ItfWrkWrkDB, ItfWrkWrkInput, ItfWrkWrkKJ
      * @param stream stream
      */
     public void stockeImagesDB(InputStream stream) {
-
+        boolean dejaFait = false;
+        if (!dejaFait) {
+            refWrkDB.putCapture();
+            dejaFait = true;
+        }
+        refWrkDB.putPhoto(stream);
     }
 
     public void setRefCtrl(ItfCtrlWrk refCtrl) {
@@ -173,22 +179,22 @@ public class Wrk implements ItfWrkCtrl, ItfWrkWrkDB, ItfWrkWrkInput, ItfWrkWrkKJ
     public void afficheStatutKJunior(boolean robot) {
         refCtrl.afficheStatutConnectionRobot(robot);
     }
-    
-    public void sendWebcam(ImgCam cam){
-        if (refWrkOutput == null){
+
+    public void sendWebcam(ImgCam cam) {
+        if (refWrkOutput == null) {
             refWrkOutput = new WrkOutput(refWrkSocket.getSocket(), this);
         }
         refWrkOutput.envoie(cam);
     }
-    
-     public void sendTxtClient(String txt){
-         refWrkOutput.envoie(txt);
-     }
+
+    public void sendTxtClient(String txt) {
+        refWrkOutput.envoie(txt);
+    }
 
     @Override
     public void showWebcam() {
-        if (refWrkKjuniorCam == null){
-        this.refWrkKjuniorCam = new WrkKJuniorCam(this);
+        if (refWrkKjuniorCam == null) {
+            this.refWrkKjuniorCam = new WrkKJuniorCam(this);
         }
         this.refWrkKjuniorCam.start();
     }
@@ -197,11 +203,11 @@ public class Wrk implements ItfWrkCtrl, ItfWrkWrkDB, ItfWrkWrkInput, ItfWrkWrkKJ
     public boolean isUserConnected() {
         boolean ok = false;
         String user = refWrkDB.getUsernameConnecte();
-        if (user != null){
+        if (user != null) {
             ok = true;
         }
         return ok;
     }
-
+    
 
 }//end Wrk

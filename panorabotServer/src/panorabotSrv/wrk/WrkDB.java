@@ -25,6 +25,7 @@ public class WrkDB {
     private Connection dbConnection;
     private ItfWrkWrkDB refWrk;
     private String usernameConnecte;
+    private int nbCapture;
 
     public WrkDB() {
         try {
@@ -105,24 +106,57 @@ public class WrkDB {
         return ok;
     }
 
-    public void putCapture(InputStream bi) {
+    public void putCapture() {
         com.mysql.jdbc.Statement statement;
         int nb = 0;
         try {
-            String prep = "insert t_blobfish set image = ?";
-            com.mysql.jdbc.PreparedStatement ps = (com.mysql.jdbc.PreparedStatement) dbConnection.prepareStatement(prep);
-            ps.setBlob(1, bi);
             statement = (com.mysql.jdbc.Statement) dbConnection.createStatement();
-            nb = ps.executeUpdate();
+
+            String prepCapture = "INSERT INTO T_Capture (date,FK_User) VALUES (?,?)";
+            //com.mysql.jdbc.PreparedStatement psCapture = (com.mysql.jdbc.PreparedStatement) dbConnection.prepareStatement(prepCapture);
+            PreparedStatement psCapture = dbConnection.prepareStatement(prepCapture, Statement.RETURN_GENERATED_KEYS);
+            java.sql.Date date = new java.sql.Date(System.currentTimeMillis());
+            psCapture.setDate(1, date);
+            psCapture.setInt(2, 1);
+            psCapture.executeUpdate();         
+            ResultSet keys = psCapture.getGeneratedKeys();
+            keys.next();
+            nbCapture = keys.getInt(1);
+
             statement.close();
         } catch (SQLException ex) {
-            String erreur = "upodaaatePerson - " + ex.toString();
+            String erreur = "erreur - " + ex.toString();
             System.out.println(erreur);
         }
     }
 
     public String getUsernameConnecte() {
         return usernameConnecte;
+    }
+
+    public void putPhoto(InputStream bi) {
+        int nb = 0;
+        com.mysql.jdbc.Statement statement;
+        try {
+            statement = (com.mysql.jdbc.Statement) dbConnection.createStatement();
+            String prepPhoto = "INSERT INTO T_Photo (photo,FK_Capture) VALUES (?,?)";
+            com.mysql.jdbc.PreparedStatement psPhoto;
+            psPhoto = (com.mysql.jdbc.PreparedStatement) dbConnection.prepareStatement(prepPhoto);
+            psPhoto.setBlob(1, bi);
+            psPhoto.setInt(2, nbCapture);
+            nb = psPhoto.executeUpdate();
+            statement.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(WrkDB.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    public void close() {
+        try {
+            this.dbConnection.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(WrkDB.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
 }//end WrkDB

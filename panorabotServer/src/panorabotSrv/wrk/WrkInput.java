@@ -55,11 +55,14 @@ public class WrkInput extends Thread {
     /**
      * Demande au robot de lancer la capture de l'objet en lui fournissant le
      * rayon de type double.
+     * 
      *
      * @param commande
      */
     private void lanceCapture(String commande) {
-        refWrk.lanceCapture(0);
+        String[] cmd = commande.split(",");
+        //choper le rayon
+        refWrk.lanceCapture(Double.parseDouble(cmd[1]));
     }
 
     private void checkUser(InfosLogin infos) {
@@ -78,7 +81,15 @@ public class WrkInput extends Thread {
                 Object objet = in.readObject();
                 if (objet instanceof String) {
                     String cmd = (String) objet;
-                    bougeRobot(cmd);
+                    if (cmd.startsWith("D")){
+                        bougeRobot(cmd);
+                    }
+                    else if (cmd.startsWith("S")){
+                        lanceCapture(cmd);
+                        refWrk.afficheMessageConsole("lancement du scan");
+                        refWrk.sendTxtClient("S,start");
+                    }
+                    
                 }
                 if (objet instanceof InfosLogin) {
                     InfosLogin infos = (InfosLogin) objet;

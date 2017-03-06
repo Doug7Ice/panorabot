@@ -15,4 +15,5 @@ public interface ItfWrkWrkInput {
     public void affichePopupError(String error);
     public void lanceCapture(double rayon);
     public void checkLogin(String username, String password);
+    public void sendTxtClient(String txt);
 }
