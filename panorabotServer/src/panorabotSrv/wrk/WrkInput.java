@@ -1,17 +1,11 @@
 package panorabotSrv.wrk;
 
 import databeans.InfosLogin;
-import java.awt.image.BufferedImage;
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.io.ObjectInputStream;
 import java.net.Socket;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import org.openimaj.image.ImageUtilities;
-import org.openimaj.image.MBFImage;
-
 /**
  * Cette classe permet de gerer les communications envoyes par le client.
  *
@@ -20,24 +14,26 @@ import org.openimaj.image.MBFImage;
  * @updated 17-fevr.-2017 14:54:37
  */
 public class WrkInput extends Thread {
-
+    
     private ObjectInputStream in;
     private volatile boolean read;
     private Socket socket;
     private ItfWrkWrkInput refWrk;
-
+    private volatile boolean captureEnCours;
+    
     public WrkInput(Wrk wrk, Socket sock) {
         super("Input");
         this.refWrk = wrk;
         this.socket = sock;
         this.read = true;
+        this.captureEnCours = false;
         try {
             in = new ObjectInputStream(socket.getInputStream());
         } catch (IOException ex) {
             Logger.getLogger(WrkInput.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-
+    
     public void finalize() throws Throwable {
         super.finalize();
     }
@@ -56,16 +52,28 @@ public class WrkInput extends Thread {
      * Demande au robot de lancer la capture de l'objet en lui fournissant le
      * rayon de type double.
      *
+     *
      * @param commande
      */
     private void lanceCapture(String commande) {
-        refWrk.lanceCapture(0);
+        String[] cmd = commande.split(",");
+        //choper le rayon
+        refWrk.lanceCapture(Double.parseDouble(cmd[1]));
     }
-
+    
     private void checkUser(InfosLogin infos) {
         String username = infos.getUsername();
         String pwd = infos.getPassword();
-        refWrk.checkLogin(username,pwd);
+        refWrk.checkLogin(username, pwd);
+    }
+    
+    private void envoiePhotosDeLaCaptureAuClient(String cmd) {
+        refWrk.envoiePhotosDeLaCaptureAuClient();
+    }
+    
+    private void gestionScan(boolean a) {
+        refWrk.envoiDB(a);
+        refWrk.gestionCam(a);
     }
 
     /**
@@ -78,7 +86,34 @@ public class WrkInput extends Thread {
                 Object objet = in.readObject();
                 if (objet instanceof String) {
                     String cmd = (String) objet;
-                    bougeRobot(cmd);
+                    if (cmd.startsWith("D")) {
+                        if (captureEnCours) {
+                            refWrk.afficheMessageConsole("arret scan");
+                            gestionScan(false);
+                        }
+                        bougeRobot(cmd);
+                    } else if (cmd.startsWith("S")) {                       
+                        if (!captureEnCours) {
+                            lanceCapture(cmd);
+                            gestionScan(true);                           
+                            captureEnCours = true;
+                            refWrk.afficheMessageConsole("lancement du scan");
+                            
+                        } else {
+                            gestionScan(captureEnCours);
+                            //a faire
+                        }
+                        //Thread.sleep(10000);
+                        // refWrk.sendTxtClient("S,stop");
+                        //refWrk.arreteCapture();
+                    } else if (cmd.startsWith("C")) {
+                        refWrk.sendTxtClient("S,start");
+                        gestionScan(false);
+                        bougeRobot("D,0,0");
+                        envoiePhotosDeLaCaptureAuClient(cmd);
+                        refWrk.sendTxtClient("S,stop");
+                    }
+                    
                 }
                 if (objet instanceof InfosLogin) {
                     InfosLogin infos = (InfosLogin) objet;
@@ -89,23 +124,26 @@ public class WrkInput extends Thread {
             refWrk.afficheMessageConsole("déconnection");
         } catch (ClassNotFoundException ex) {
             refWrk.afficheMessageConsole("Erreur lors de la lecture du flux tabarnak");
+//        } catch (InterruptedException ex) {
+//            Logger.getLogger(WrkInput.class.getName()).log(Level.SEVERE, null, ex);
+//        }
         }
     }
-
+    
     public boolean isRead() {
         return read;
     }
-
+    
     public void setRead(boolean read) {
         this.read = read;
     }
-
+    
     public Socket getSocket() {
         return socket;
     }
-
+    
     public void setSocket(Socket socket) {
         this.socket = socket;
     }
-
+    
 }//end WrkInput

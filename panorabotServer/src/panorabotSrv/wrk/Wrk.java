@@ -1,10 +1,12 @@
 package panorabotSrv.wrk;
 
 import databeans.ImgCam;
+import databeans.ImgCapture;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import panorabotSrv.ctrl.ItfCtrlWrk;
@@ -16,7 +18,7 @@ import panorabotSrv.ctrl.ItfCtrlWrk;
  * @version 1.0
  * @updated 17-fevr.-2017 14:54:37
  */
-public class Wrk implements ItfWrkCtrl, ItfWrkWrkDB, ItfWrkWrkInput, ItfWrkWrkKJunior, ItfWrkWrkKJuniorCam, ItfWrkWrkOutput, ItfWrkWrkSocket{
+public class Wrk implements ItfWrkCtrl, ItfWrkWrkDB, ItfWrkWrkInput, ItfWrkWrkKJunior, ItfWrkWrkKJuniorCam, ItfWrkWrkOutput, ItfWrkWrkSocket {
 
     private ItfCtrlWrk refCtrl;
     private WrkKJunior refWrkKjunior;
@@ -25,10 +27,12 @@ public class Wrk implements ItfWrkCtrl, ItfWrkWrkDB, ItfWrkWrkInput, ItfWrkWrkKJ
     private WrkInput refWrkInput;
     private WrkOutput refWrkOutput;
     private WrkDB refWrkDB;
+    private boolean dejaFait;
 
     public Wrk() {
         this.refWrkKjunior = new WrkKJunior(this);
         this.refWrkDB = new WrkDB();
+        dejaFait = false;
         lauchSocket();
     }
 
@@ -54,8 +58,14 @@ public class Wrk implements ItfWrkCtrl, ItfWrkWrkDB, ItfWrkWrkInput, ItfWrkWrkKJ
         this.refWrkInput = new WrkInput(this, socket);
         this.refWrkInput.start();
     }
-     public void lauchWrkOutput(Socket socket) {
-        this.refWrkOutput = new WrkOutput(socket,this);
+
+    /**
+     * Creer le wrk output.
+     *
+     * @param socket
+     */
+    public void lauchWrkOutput(Socket socket) {
+        this.refWrkOutput = new WrkOutput(socket, this);
     }
 
     public void finalize() throws Throwable {
@@ -88,16 +98,25 @@ public class Wrk implements ItfWrkCtrl, ItfWrkWrkDB, ItfWrkWrkInput, ItfWrkWrkKJ
     public void afficheStatutClient(boolean client) {
         refCtrl.afficheStatutConnectionClient(client);
     }
-    
+
+    /**
+     * Verifie l'identifiant et le mot de passe fournis par l'user. Si
+     * l'username et le mot de passe correspond à celui stocke dans la DB, la
+     * methode envoie "Login:OK" au client. Sinon elle envoie "Login:KO".
+     *
+     * Dans le cas ou l'acces a la DB est impossible, la methode envoie
+     * "Login:DBout".
+     *
+     * @param username
+     * @param password
+     */
     public void checkLogin(String username, String password) {
         int ok = refWrkDB.userConnection(username, password);
-        if (ok == 1){
+        if (ok == 1) {
             refWrkOutput.envoie("Login:OK");
-        }
-        else if (ok == 0){
+        } else if (ok == 0) {
             refWrkOutput.envoie("Login:KO");
-        }
-        else{
+        } else {
             refWrkOutput.envoie("Login:DBout");
         }
     }
@@ -118,17 +137,19 @@ public class Wrk implements ItfWrkCtrl, ItfWrkWrkDB, ItfWrkWrkInput, ItfWrkWrkKJ
      */
     public void bougeLeRobot(String commande) {
         refWrkKjunior.commandeLeRobot(commande);
-        this.lanceCapture(0);
     }
 
     /**
-     * Ferme les threads.
+     * Ferme les tous les threads. Ferme également les acces DB.
      */
     public void fermeLesThreads() {
         System.out.println("L'application ainsi que ses Threads se ferment");
         if (refWrkKjuniorCam != null) {
             refWrkKjuniorCam.setOn(false);
             refWrkKjuniorCam = null;
+        }
+        if (refWrkDB != null) {
+            refWrkDB.close();
         }
         if (refWrkInput != null) {
             refWrkInput.setRead(false);
@@ -138,27 +159,41 @@ public class Wrk implements ItfWrkCtrl, ItfWrkWrkDB, ItfWrkWrkInput, ItfWrkWrkKJ
             refWrkSocket.setOn(false);
             refWrkSocket.closeSockets();
             refWrkSocket = null;
-        }  
+        }
         System.gc();
     }
 
     /**
-     * Lance la capture. Elle demande au KJunior de bouger en cercle selon le
-     * rayon donne en parametre. Active egalement la camera du KJunior
+     * Lance la capture. Elle demande au WrkKJunior de faire bouger le robot en
+     * cercle selon le rayon donne en parametre. Demande egalement a
+     * WrkKjuniorCam d'envoyer les photos prisent à partir de maintenant dans la
+     * DB.
      *
      * @param rayon
      */
     public void lanceCapture(double rayon) {
+        int moteurGauche = (int) rayon * 20 / 60;
+        int moteurDroite = (int) (rayon + 10) * 20 / 60;
 
+        String commande = "D," + moteurGauche + "," + moteurDroite;
+        refWrkKjunior.commandeLeRobot(commande);
+        System.out.println(commande);
+
+        refWrkKjuniorCam.setSendDB(true);
     }
 
     /**
-     * Stocke les images envoyer par la camera dans la BD.
+     * Stocke les images envoye par la camera dans la BD.
      *
      * @param stream stream
      */
     public void stockeImagesDB(InputStream stream) {
 
+        if (!dejaFait) {
+            refWrkDB.putCapture();
+            dejaFait = true;
+        }
+        refWrkDB.putPhoto(stream);
     }
 
     public void setRefCtrl(ItfCtrlWrk refCtrl) {
@@ -173,22 +208,61 @@ public class Wrk implements ItfWrkCtrl, ItfWrkWrkDB, ItfWrkWrkInput, ItfWrkWrkKJ
     public void afficheStatutKJunior(boolean robot) {
         refCtrl.afficheStatutConnectionRobot(robot);
     }
-    
-    public void sendWebcam(ImgCam cam){
-        if (refWrkOutput == null){
+
+    /**
+     * Envoie les images de la webcam en "temps reel" au client.
+     *
+     * @param cam
+     */
+    public void sendWebcam(ImgCam cam) {
+        if (refWrkOutput == null) {
             refWrkOutput = new WrkOutput(refWrkSocket.getSocket(), this);
         }
         refWrkOutput.envoie(cam);
     }
-    
-     public void sendTxtClient(String txt){
-         refWrkOutput.envoie(txt);
-     }
 
     @Override
+    /**
+     * Cette methode demande a la base de donnees de lui fournir les images
+     * prisent lors de la derniere capture et les envoies au client.
+     */
+    public void envoiePhotosDeLaCaptureAuClient() {
+        ArrayList<ImgCapture> lesPhotos = refWrkDB.getImages(0, 0);
+        for (ImgCapture photo : lesPhotos) {
+            refWrkOutput.envoie(photo);
+        }
+    }
+
+    /**
+     * Arrete la reception des images du KJunior afin de ne pas surcharger le
+     * reseau.
+     */
+    public void gestionCam(boolean a) {
+        if (!a) {
+            refWrkKjuniorCam.setSendDB(false);
+            refWrkKjuniorCam.setOn(false);
+        } else {
+            refWrkKjuniorCam.setSendDB(true);
+            refWrkKjuniorCam.setOn(true);
+        }
+    }
+
+    /**
+     * Methode permettant d'envoyer un string au client.
+     *
+     * @param txt
+     */
+    public void sendTxtClient(String txt) {
+        refWrkOutput.envoie(txt);
+    }
+
+    /**
+     * Demarre le wkr de la camera afin d'envoyer au client les images.
+     */
+    @Override
     public void showWebcam() {
-        if (refWrkKjuniorCam == null){
-        this.refWrkKjuniorCam = new WrkKJuniorCam(this);
+        if (refWrkKjuniorCam == null) {
+            this.refWrkKjuniorCam = new WrkKJuniorCam(this);
         }
         this.refWrkKjuniorCam.start();
     }
@@ -197,11 +271,15 @@ public class Wrk implements ItfWrkCtrl, ItfWrkWrkDB, ItfWrkWrkInput, ItfWrkWrkKJ
     public boolean isUserConnected() {
         boolean ok = false;
         String user = refWrkDB.getUsernameConnecte();
-        if (user != null){
+        if (user != null) {
             ok = true;
         }
         return ok;
     }
 
+    @Override
+    public void envoiDB(boolean a) {
+        refWrkKjuniorCam.setSendDB(a);
+    }
 
 }//end Wrk

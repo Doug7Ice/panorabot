@@ -48,7 +48,7 @@ public class WrkKJunior {
 	 * Ouvre le port COM pour communiquer avec le robot.
 	 */
     public void ouvrirPort() {
-        this.serialPort = new SerialPort("COM7");
+        this.serialPort = new SerialPort("COM8");
         try {            
             serialPort.openPort();
             serialPort.setParams(SerialPort.BAUDRATE_57600,
