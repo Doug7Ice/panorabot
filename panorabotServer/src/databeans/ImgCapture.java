@@ -14,17 +14,17 @@ import java.io.Serializable;
  */
 public class ImgCapture implements Serializable{
     static final long serialVersionUID = 240220171402L;
-    private int[] img;
+    private byte[] img;
 
-    public ImgCapture(int[] img) {
+    public ImgCapture(byte[] img) {
         this.img = img;
     }
 
-    public int[] getImg() {
+    public byte[] getImg() {
         return img;
     }
 
-    public void setImg(int[] img) {
+    public void setImg(byte[] img) {
         this.img = img;
     }
 }

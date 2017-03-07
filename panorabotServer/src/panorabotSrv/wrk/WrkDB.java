@@ -1,7 +1,14 @@
 package panorabotSrv.wrk;
 
+import databeans.ImgCapture;
 import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.io.InputStream;
+import java.nio.ByteBuffer;
+import java.nio.ByteOrder;
+import java.nio.IntBuffer;
 import java.sql.Blob;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -12,6 +19,10 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.imageio.ImageIO;
+import org.openimaj.image.DisplayUtilities;
+import org.openimaj.image.ImageUtilities;
+import org.openimaj.image.MBFImage;
 
 /**
  * Wrk permettant de controller la BD.
@@ -54,9 +65,53 @@ public class WrkDB {
      *
      * @param pkUser
      * @param pkScan pkScan
+     * @return ImgCapture
      */
-    public ArrayList<BufferedImage> getImages(int pkUser, int pkScan) {
-        return null;
+    public ArrayList<ImgCapture> getImages(int pkUser, int pkScan) {
+        ArrayList<ImgCapture> lesPhotos = new ArrayList<ImgCapture>();
+        ResultSet rs = null;
+        com.mysql.jdbc.PreparedStatement pstmt = null;
+        String query = "SELECT * FROM T_Photo WHERE FK_Capture = ?";
+        try {
+            pstmt = (com.mysql.jdbc.PreparedStatement) dbConnection.prepareStatement(query);
+            pstmt.setInt(1, this.nbCapture);
+            rs = pstmt.executeQuery();          
+            while (rs.next()) {
+                Blob blob = rs.getBlob("photo");
+                BufferedImage img = null;
+                InputStream is = (ByteArrayInputStream) blob.getBinaryStream();
+                img = ImageIO.read(is);
+                ByteArrayOutputStream baos = new ByteArrayOutputStream();
+                ImageIO.write(img, "png", baos);
+                byte[] imageData = baos.toByteArray();
+
+//                InputStream a = new ByteArrayInputStream(imageData);
+//                BufferedImage bf = ImageIO.read(a);
+//                DisplayUtilities.display(bf);
+
+                lesPhotos.add(new ImgCapture(imageData));
+
+//                int bloblength = (int) blob.length();
+//                byte[] arrayPhotosBytes = blob.getBytes(1, bloblength);
+//                IntBuffer intBuf
+//                        = ByteBuffer.wrap(arrayPhotosBytes)
+//                        .order(ByteOrder.BIG_ENDIAN)
+//                        .asIntBuffer();
+//                int[] arrayPhotos = new int[intBuf.remaining()];
+//                intBuf.get(arrayPhotos);
+//                lesPhotos.add(new ImgCapture(arrayPhotos));               
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        } catch (IOException ex) {
+            Logger.getLogger(WrkDB.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+
+            //rs.close();
+            //pstmt.close();
+            //dbConnection.close();
+        }
+        return lesPhotos;
     }
 
     /**
@@ -118,16 +173,28 @@ public class WrkDB {
             java.sql.Date date = new java.sql.Date(System.currentTimeMillis());
             psCapture.setDate(1, date);
             psCapture.setInt(2, 1);
-            psCapture.executeUpdate();         
+            psCapture.executeUpdate();
             ResultSet keys = psCapture.getGeneratedKeys();
             keys.next();
-            nbCapture = keys.getInt(1);
+            //nbCapture = keys.getInt(1);
+            
+            nbCapture = getLastPK();
 
             statement.close();
         } catch (SQLException ex) {
             String erreur = "erreur - " + ex.toString();
             System.out.println(erreur);
         }
+    }
+
+    public int getLastPK() throws SQLException {
+        ResultSet rs = null;
+        Statement statement = (com.mysql.jdbc.Statement) dbConnection.createStatement();       
+        rs = statement.executeQuery("select max(pk_capture) as pkMAX from T_Capture");
+        rs.next();
+        String lastid = rs.getString("pkMAX");
+        
+        return Integer.parseInt(lastid);
     }
 
     public String getUsernameConnecte() {
