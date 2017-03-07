@@ -12,4 +12,7 @@ package panorabotClient.ctrl;
 public interface ItfCtrlIhmRobot {
     public void stopperDroneDUrgence();
     public void quit();
+    public void recupererImagesScan();
+
+    public void lancerConversion();
 }

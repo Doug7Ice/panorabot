@@ -11,7 +11,6 @@ package panorabotClient.wrk;
  */
 public interface ItfWrkManette {
     public void avancerRobot(int vitesse);
-    public void changerRayon(double rayon);
     public void lancerScan();
     public void stopperRobot();
     public void tournerADroite();

@@ -18,5 +18,5 @@ public interface ItfIhmRobotCtrl {
     public void afficherPopup(String message, String type);
     public int getActualRayon();
     public void afficheImage(BufferedImage img);
-    
+    public void bloquerBoutonConversion(boolean blocked);
 }

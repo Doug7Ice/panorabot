@@ -18,7 +18,7 @@ public class WrkManette {
     public WrkManette(ItfWrkManette refWrk) {
 
         this.refWrk = refWrk;
-
+        scanBlocked = false;
         xc = new XboxController();
         if (!xc.isConnected()) {
             xc.release();
@@ -33,12 +33,11 @@ public class WrkManette {
 
             @Override
             public void buttonA(boolean pressed) {
-                System.out.println("dasd");
+                
             }
 
             @Override
             public void dpad(int direction, boolean pressed) {
-                System.out.println("dir " + direction + " p " + pressed);
                 if (direction == 2 && pressed == true) {
                     refWrk.tournerADroite();
                 } else if (direction == 2 && pressed == false) {
@@ -52,37 +51,43 @@ public class WrkManette {
 
             @Override
             public void buttonB(boolean pressed) {
-                System.out.println("b");
+                
             }
 
             @Override
             public void buttonX(boolean pressed) {
-                refWrk.lancerScan();
+                if (!scanBlocked && pressed) {
+                    System.out.println("LANCER SCAN");
+                    refWrk.lancerScan();
+                }else{
+                    System.out.println("SCAN BLOCKED");
+                }
+
             }
 
             @Override
             public void buttonY(boolean pressed) {
-                System.out.println("Y");
+                
             }
 
             @Override
             public void leftThumbDirection(double direction) {
-                System.out.println("LEFT DIRECTION: " + direction);
+                
             }
 
             @Override
             public void leftThumbMagnitude(double magnitude) {
-                System.out.println("LEFT MAGN : " + magnitude);
+                
             }
 
             @Override
             public void rightThumbMagnitude(double magnitude) {
-                System.out.println("Magn: " + magnitude);
+                
             }
 
             @Override
             public void rightThumbDirection(double direction) {
-                System.out.println("direction : " + direction);
+                
             }
 
             @Override
@@ -122,7 +127,7 @@ public class WrkManette {
     }
 
     public int valueOn20(double value) {
-        return (int) (value * 20 + 1);
+        return (int) (value * 20);
     }
 
     //Setters and Getters
@@ -134,6 +139,15 @@ public class WrkManette {
         this.refWrk = refWrk;
     }
 
+    public boolean isScanBlocked() {
+        return scanBlocked;
+    }
+
+    public void setScanBlocked(boolean scanBlocked) {
+        this.scanBlocked = scanBlocked;
+    }
+
     private ItfWrkManette refWrk;
     private XboxController xc;
+    private boolean scanBlocked;
 }

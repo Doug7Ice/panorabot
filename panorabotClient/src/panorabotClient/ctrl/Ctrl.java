@@ -50,6 +50,20 @@ public class Ctrl implements ItfCtrlIhmLogin, ItfCtrlIhmRobot, ItfCtrlWrk {
     public int getActualRayon() {
         return ihmRobot.getActualRayon();
     }
+    @Override
+    public void recupererImagesScan() {
+        refWrk.recupererImagesScan();
+    }
+    
+    @Override
+    public void lancerConversion() {
+        refWrk.lancerConversion();
+    }
+    
+    @Override
+    public void bloquerBoutonConversion(boolean blocked) {
+        ihmRobot.bloquerBoutonConversion(blocked);
+    }
     
     @Override
     public void quit() {
@@ -97,6 +111,12 @@ public class Ctrl implements ItfCtrlIhmLogin, ItfCtrlIhmRobot, ItfCtrlWrk {
     private ItfWrkCtrl refWrk;
     private ItfIhmRobotCtrl ihmRobot;
     private ItfIhmLoginCtrl ihmLogin;
+
+    
+
+    
+
+    
     
     
 

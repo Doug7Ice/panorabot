@@ -60,14 +60,21 @@ public class Wrk implements ItfWrkCtrl, ItfWrkManette, ItfWrkWrkConversion, ItfW
         isRobotTurning = true;
     }
 
-    @Override
-    public void changerRayon(double rayon) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
 
     @Override
     public void lancerScan() {
+        refWrkOutputFile.incrementCurrentFolder();
         refWrkSocket.lancerScanTCP(refCtrl.getActualRayon());
+    }
+    
+    public void lancerConversion(){
+        refWrkConversion.launch2dTo3dConversion(refWrkOutputFile.getPath());
+    }
+    
+    @Override
+    public void recupererImagesScan() {
+        refWrkOutputFile.reinitialiserScan();
+        refWrkSocket.recupererImagesScanTCP();
     }
     
     @Override
@@ -83,6 +90,12 @@ public class Wrk implements ItfWrkCtrl, ItfWrkManette, ItfWrkWrkConversion, ItfW
      @Override
     public void afficheImage(BufferedImage img) {
         refCtrl.afficheImage(img);
+    }
+    
+    @Override
+    public void bloquerScan(boolean blocked) {
+        refCtrl.bloquerBoutonConversion(blocked);
+        refWrkManette.setScanBlocked(blocked);
     }
     
     @Override
@@ -117,6 +130,11 @@ public class Wrk implements ItfWrkCtrl, ItfWrkManette, ItfWrkWrkConversion, ItfW
     public void resultLogin(String result) {
         refCtrl.resultLogin(result);
     }
+    
+    @Override
+    public void sauverImageCapture(BufferedImage img) {
+        refWrkOutputFile.saveBufferedImageToJpg(img);
+    }
 
 
     //Setters and Getters
@@ -138,13 +156,6 @@ public class Wrk implements ItfWrkCtrl, ItfWrkManette, ItfWrkWrkConversion, ItfW
 
     
 
-   
-
-    
 
 
-
-
-    
-    
 }

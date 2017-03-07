@@ -13,5 +13,7 @@ public interface ItfWrkCtrl {
     public void connecter(String user, String mdp);
     public void stopperRobotDUrgence();
     public void lancerSocket();
+    public void recupererImagesScan();
+    public void lancerConversion();
     public void quit();
 }

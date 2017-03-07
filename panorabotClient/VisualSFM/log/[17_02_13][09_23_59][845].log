@@ -1,0 +1,52 @@
+0: IMG_20170210_102221
+image_size:	3200x2400
+#sift count:	6764
+
+1: IMG_20170210_102223
+image_size:	3200x2400
+#sift count:	7457
+
+2: IMG_20170210_102225
+image_size:	3200x2400
+#sift count:	7505
+
+3: IMG_20170210_102227
+image_size:	3200x2400
+#sift count:	8624
+
+4: IMG_20170210_102228
+image_size:	3200x2400
+#sift count:	8568
+
+5: IMG_20170210_102229
+image_size:	3200x2400
+#sift count:	7944
+
+6: IMG_20170210_102230
+image_size:	3200x2400
+#sift count:	9031
+
+7: IMG_20170210_102231
+image_size:	3200x2400
+#sift count:	9540
+
+8: IMG_20170210_102232
+image_size:	3200x2400
+#sift count:	9871
+
+9: IMG_20170210_102234
+image_size:	3200x2400
+#sift count:	8524
+
+10: IMG_20170210_102235
+image_size:	3200x2400
+#sift count:	10150
+
+Loading image pixel data ...done in 2s
+
+Compute Missing Pairwise Matching, begin...
+0 pairs to compute match
+----------------------------------------------------------------
+Compute Missing Pairwise Matching, finished
+Totally 0.000 seconds used
+

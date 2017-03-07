@@ -45,6 +45,10 @@ public class IhmRobotController implements Initializable, ItfIhmRobotCtrl {
     private Button btnDeconnexion;
     @FXML
     private TextField txtRayon;
+    @FXML
+    private Button btnConversion;
+    @FXML
+    private Button btnRecupererImages;
 
     /**
      * Initializes the controller class.
@@ -113,16 +117,22 @@ public class IhmRobotController implements Initializable, ItfIhmRobotCtrl {
     private void btnArretDUrgenceAction(ActionEvent event) {
 
     }
+    
+    @FXML
+    private void lancerConversion(ActionEvent event) {
+        refCtrl.lancerConversion();
+    }
+    
+    @FXML
+    private void recuperImagesDernierScan(ActionEvent event) {
+        refCtrl.recupererImagesScan();
+    }
 
     @FXML
     private void btnDecoOnAction(ActionEvent event) {
         stage.setScene(sceneLogin);
     }
     
-    @FXML
-    private void sliderRayonOnScroll(ScrollEvent event) {
-        
-    }
 
     public ItfCtrlIhmRobot getRefCtrl() {
         return refCtrl;
@@ -143,12 +153,18 @@ public class IhmRobotController implements Initializable, ItfIhmRobotCtrl {
 
     void quitter() {
         System.out.println("a quitte");
+        stage.close();
         refCtrl.quit();
     }
     
     @Override
     public int getActualRayon(){
         return this.actualRayon;
+    }
+    
+    @Override
+    public void bloquerBoutonConversion(boolean blocked) {
+        btnConversion.setDisable(blocked);
     }
 
     private Scene sceneLogin;
@@ -159,6 +175,12 @@ public class IhmRobotController implements Initializable, ItfIhmRobotCtrl {
 
     final int maxRayon = 50;
     final int minRayon = 10;
+
+    
+
+    
+
+    
 
     
 

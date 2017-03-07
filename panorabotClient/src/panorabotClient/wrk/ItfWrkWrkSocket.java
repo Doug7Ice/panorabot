@@ -14,5 +14,7 @@ import java.awt.image.BufferedImage;
 public interface ItfWrkWrkSocket {
     public void afficheMessage(String message, String type);
     public void afficheImage(BufferedImage img);
-    public void resultLogin(String result);
+    public void resultLogin(String result);  
+    public void bloquerScan(boolean blocked);
+    public void sauverImageCapture(BufferedImage img);
 }
