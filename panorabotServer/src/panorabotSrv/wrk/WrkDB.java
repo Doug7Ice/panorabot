@@ -42,8 +42,7 @@ public class WrkDB {
         try {
             this.dbConnection = (Connection) DriverManager.getConnection("jdbc:mysql://canzalin.emf-informatique.ch:3306/canzalin_PanoraBot_DB", "canzalin_panorabotAdmin", "Emf12345?");
         } catch (SQLException ex) {
-            Logger.getLogger(WrkDB.class.getName()).log(Level.SEVERE, null, ex);
-            System.out.println(ex);
+            refWrk.affichePopupError(WrkDB.class.getName()+" : "+ex.getMessage());
         }
     }
 
@@ -68,11 +67,13 @@ public class WrkDB {
      * @return ImgCapture
      */
     public ArrayList<ImgCapture> getImages(int pkUser, int pkScan) {
+        
         ArrayList<ImgCapture> lesPhotos = new ArrayList<ImgCapture>();
         ResultSet rs = null;
         com.mysql.jdbc.PreparedStatement pstmt = null;
         String query = "SELECT * FROM T_Photo WHERE FK_Capture = ?";
         try {
+            nbCapture = getLastPK();
             pstmt = (com.mysql.jdbc.PreparedStatement) dbConnection.prepareStatement(query);
             pstmt.setInt(1, this.nbCapture);
             rs = pstmt.executeQuery();          
@@ -82,29 +83,19 @@ public class WrkDB {
                 InputStream is = (ByteArrayInputStream) blob.getBinaryStream();
                 img = ImageIO.read(is);
                 ByteArrayOutputStream baos = new ByteArrayOutputStream();
-                ImageIO.write(img, "png", baos);
+                ImageIO.write(img, "jpg", baos);
                 byte[] imageData = baos.toByteArray();
 
-//                InputStream a = new ByteArrayInputStream(imageData);
-//                BufferedImage bf = ImageIO.read(a);
-//                DisplayUtilities.display(bf);
+                InputStream a = new ByteArrayInputStream(imageData);
+                BufferedImage bf = ImageIO.read(a);
+                DisplayUtilities.display(bf);
 
-                lesPhotos.add(new ImgCapture(imageData));
-
-//                int bloblength = (int) blob.length();
-//                byte[] arrayPhotosBytes = blob.getBytes(1, bloblength);
-//                IntBuffer intBuf
-//                        = ByteBuffer.wrap(arrayPhotosBytes)
-//                        .order(ByteOrder.BIG_ENDIAN)
-//                        .asIntBuffer();
-//                int[] arrayPhotos = new int[intBuf.remaining()];
-//                intBuf.get(arrayPhotos);
-//                lesPhotos.add(new ImgCapture(arrayPhotos));               
+                lesPhotos.add(new ImgCapture(imageData));             
             }
         } catch (SQLException e) {
-            System.out.println(e);
+            refWrk.affichePopupError(WrkDB.class.getName()+" : "+e.getMessage());
         } catch (IOException ex) {
-            Logger.getLogger(WrkDB.class.getName()).log(Level.SEVERE, null, ex);
+            refWrk.affichePopupError(WrkDB.class.getName()+" : "+ex.getMessage());
         } finally {
 
             //rs.close();
@@ -155,7 +146,7 @@ public class WrkDB {
             }
         } catch (SQLException ex) {
             ok = 3;
-            Logger.getLogger(WrkDB.class.getName()).log(Level.SEVERE, null, ex);
+            refWrk.affichePopupError(WrkDB.class.getName()+" : "+ex.getMessage());
         }
 
         return ok;
@@ -182,8 +173,7 @@ public class WrkDB {
 
             statement.close();
         } catch (SQLException ex) {
-            String erreur = "erreur - " + ex.toString();
-            System.out.println(erreur);
+            refWrk.affichePopupError(WrkDB.class.getName()+" : "+ex.getMessage());
         }
     }
 
@@ -214,7 +204,7 @@ public class WrkDB {
             nb = psPhoto.executeUpdate();
             statement.close();
         } catch (SQLException ex) {
-            Logger.getLogger(WrkDB.class.getName()).log(Level.SEVERE, null, ex);
+            refWrk.affichePopupError(WrkDB.class.getName()+" : "+ex.getMessage());
         }
     }
 
@@ -222,7 +212,7 @@ public class WrkDB {
         try {
             this.dbConnection.close();
         } catch (SQLException ex) {
-            Logger.getLogger(WrkDB.class.getName()).log(Level.SEVERE, null, ex);
+            refWrk.affichePopupError(WrkDB.class.getName()+" : "+ex.getMessage());
         }
     }
 

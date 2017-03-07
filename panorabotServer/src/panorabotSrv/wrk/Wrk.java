@@ -45,7 +45,7 @@ public class Wrk implements ItfWrkCtrl, ItfWrkWrkDB, ItfWrkWrkInput, ItfWrkWrkKJ
             this.refWrkSocket = new WrkSocket(socketServer, this);
             this.refWrkSocket.start();
         } catch (IOException ex) {
-            Logger.getLogger(Wrk.class.getName()).log(Level.SEVERE, null, ex);
+            affichePopupError(Wrk.class.getName()+" : "+ex.getMessage());
         }
     }
 
@@ -87,7 +87,7 @@ public class Wrk implements ItfWrkCtrl, ItfWrkWrkDB, ItfWrkWrkInput, ItfWrkWrkKJ
      * @param error error
      */
     public void affichePopupError(String error) {
-
+        refCtrl.affichePopupError(error);
     }
 
     /**
