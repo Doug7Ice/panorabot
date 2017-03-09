@@ -22,6 +22,7 @@ import java.net.Socket;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
+import org.openimaj.image.DisplayUtilities;
 import org.openimaj.image.ImageUtilities;
 import org.openimaj.image.MBFImage;
 
@@ -67,6 +68,7 @@ public class WrkSocket extends Thread {
                 } else if (receivedObject instanceof ImgCapture) {
                     InputStream in = new ByteArrayInputStream(((ImgCapture) receivedObject).getImg());
                     BufferedImage bImageFromConvert = ImageIO.read(in);
+                    DisplayUtilities.display(bImageFromConvert);
 //                    int[] tabInt = ((ImgCapture) receivedObject).getImg();
 //                    MBFImage i = new MBFImage(tabInt, 320, 180);
 //                    BufferedImage bi = ImageUtilities.createBufferedImage(i);
