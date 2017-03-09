@@ -51,7 +51,7 @@ public class WrkSocket extends Thread {
             }
 
         } catch (IOException e) {
-            e.printStackTrace();
+            refWrk.affichePopupError(WrkSocket.class.getName()+" : "+e.getMessage());
         }
     }
 
@@ -80,7 +80,7 @@ public class WrkSocket extends Thread {
             this.on = false;
             socketServer.close();
         } catch (IOException ex) {
-            Logger.getLogger(WrkSocket.class.getName()).log(Level.SEVERE, null, ex);
+            refWrk.affichePopupError(WrkSocket.class.getName()+" : "+ex.getMessage());
         }
     }
 

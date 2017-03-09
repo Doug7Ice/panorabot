@@ -42,7 +42,7 @@ public class Ctrl implements ItfCtrlIhm, ItfCtrlWrk {
 	 * @param error    error
 	 */
 	public void affichePopupError(String error){
-
+            refIhm.affichePopupError(error);
 	}
 
 	/**

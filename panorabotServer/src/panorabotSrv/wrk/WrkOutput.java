@@ -26,7 +26,7 @@ public class WrkOutput {
                 
                 out = new ObjectOutputStream(this.socket.getOutputStream());
             } catch (IOException ex) {
-                Logger.getLogger(WrkOutput.class.getName()).log(Level.SEVERE, null, ex);
+                refWrk.affichePopupError(WrkOutput.class.getName()+" : "+ex.getMessage());
             }
 	}
 
@@ -43,12 +43,12 @@ public class WrkOutput {
             out.writeObject(object);
             out.flush();
         } catch (IOException ex) {
-            System.out.println("erreur" + ex);
+             refWrk.affichePopupError(WrkOutput.class.getName()+" : "+ex.getMessage());
         }
         try {
             Thread.sleep(100);
         } catch (InterruptedException ex) {
-            Logger.getLogger(WrkKJuniorCam.class.getName()).log(Level.SEVERE, null, ex);
+             refWrk.affichePopupError(WrkOutput.class.getName()+" : "+ex.getMessage());
         }
 	}
 }//end WrkOutput

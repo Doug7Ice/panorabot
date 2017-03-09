@@ -30,7 +30,7 @@ public class WrkInput extends Thread {
         try {
             in = new ObjectInputStream(socket.getInputStream());
         } catch (IOException ex) {
-            Logger.getLogger(WrkInput.class.getName()).log(Level.SEVERE, null, ex);
+            refWrk.affichePopupError(WrkInput.class.getName()+" : "+ex.getMessage());
         }
     }
     
@@ -121,12 +121,9 @@ public class WrkInput extends Thread {
                 }
             }
         } catch (IOException e) {
-            refWrk.afficheMessageConsole("déconnection");
+            refWrk.affichePopupError("Deconnexion du client");
         } catch (ClassNotFoundException ex) {
-            refWrk.afficheMessageConsole("Erreur lors de la lecture du flux tabarnak");
-//        } catch (InterruptedException ex) {
-//            Logger.getLogger(WrkInput.class.getName()).log(Level.SEVERE, null, ex);
-//        }
+            refWrk.affichePopupError(WrkInput.class.getName()+" : "+ex.getMessage());
         }
     }
     

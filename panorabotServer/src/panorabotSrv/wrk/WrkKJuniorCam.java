@@ -6,12 +6,7 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.ObjectOutputStream;
-import java.net.Socket;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.imageio.ImageIO;
-import org.openimaj.image.DisplayUtilities;
 import org.openimaj.image.ImageUtilities;
 import org.openimaj.image.MBFImage;
 import org.openimaj.video.Video;
@@ -39,7 +34,7 @@ public class WrkKJuniorCam extends Thread {
         try {
             video = new VideoCapture(320, 180);
         } catch (VideoCaptureException ex) {
-            Logger.getLogger(WrkKJuniorCam.class.getName()).log(Level.SEVERE, null, ex);
+             refWrk.affichePopupError(WrkKJuniorCam.class.getName()+" : "+ex.getMessage());
         }
     }
 
@@ -94,9 +89,9 @@ public class WrkKJuniorCam extends Thread {
         BufferedImage bi = ImageUtilities.createBufferedImage(img);
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         try {
-            ImageIO.write(bi, "png", baos);
+            ImageIO.write(bi, "jpg", baos);
         } catch (IOException ex) {
-            Logger.getLogger(WrkKJuniorCam.class.getName()).log(Level.SEVERE, null, ex);
+            refWrk.affichePopupError(WrkKJuniorCam.class.getName()+" : "+ex.getMessage());
         }
         InputStream is = new ByteArrayInputStream(baos.toByteArray());
         refWrk.stockeImagesDB(is);
