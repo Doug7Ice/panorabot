@@ -37,6 +37,7 @@ public class WrkSocket extends Thread {
     public void run() {
         try {
             on = true;
+            //refWrk.affichePopupError("Tkt");
             while (on) {
                 if (!on){
                     break;
