@@ -5,6 +5,7 @@
  */
 package panorabotClient.wrk;
 
+import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -43,7 +44,7 @@ public class WrkOutputFile {
             if (!outPutFile.exists()) {
                 outPutFile.mkdir();
             }
-            ImageIO.write(bi, "PNG", new File(initialCapturesFolder + "/" + serialPhoto + ".PNG"));
+            ImageIO.write(bi, "jpg", new File(initialCapturesFolder + "/" + serialPhoto + ".jpg"));
             serialPhoto++;
             return true;
         } catch (IOException ex) {
@@ -64,12 +65,23 @@ public class WrkOutputFile {
             currentFile.delete();
         }
     }
+    
+    private BufferedImage resize(BufferedImage imgToResize){
+        BufferedImage outputImage = new BufferedImage(outputSizeWidth, outputSizeHeight, imgToResize.getType());
+        Graphics2D g2d = outputImage.createGraphics();
+        g2d.drawImage(imgToResize, 0, 0, outputSizeWidth, outputSizeHeight, null);
+        g2d.dispose();
+        return outputImage;
+    }
 
     public String getPath() {
-        return initialCapturesFolder + currentFolder;
+        return outPutFile.getAbsolutePath();
     }
     private int serialPhoto;
     private ItfWrkWrkOutputFile refWrk;
     private int currentFolder;
     private File outPutFile;
+    
+    private final int  outputSizeWidth = 1280;
+    private final int  outputSizeHeight = 720;
 }

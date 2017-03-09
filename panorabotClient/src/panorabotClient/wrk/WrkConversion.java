@@ -21,14 +21,17 @@ public class WrkConversion {
 
     public void launch2dTo3dConversion(String pathDirImages) {
         try {
-            Process p = Runtime.getRuntime().exec("VisualSFM\\VisualSFM.exe sfm+pmvs 'captures' 'result\\result.nvm'");
+            Process p = Runtime.getRuntime().exec("VisualSFM\\VisualSFM.exe sfm+pmvs captures result\\result.nvm");
             p.waitFor();
-            
+
             BufferedReader reader = new BufferedReader(new InputStreamReader(p.getInputStream()));
-            
+
             String line = "";
             while ((line = reader.readLine()) != null) {
-                refWrk.afficheMessage(line, "info");
+                if (line != null & !line.equals("")) {
+                    System.out.println(line);
+                    refWrk.afficheMessage(line, "info");
+                }
             }
         } catch (IOException ex) {
             Logger.getLogger(WrkConversion.class.getName()).log(Level.SEVERE, null, ex);
