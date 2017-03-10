@@ -1,0 +1,8 @@
+C:\Users\ReyL03\Desktop\VisualSFM_windows_64bit>VisualSFM.exe sfm "C:\Users\ReyL03\Google Drive\EMF\Module\Panorabot\Photos test\Ordi" "C:\Users\ReyL03\Desktop\r
+esult.nvm"
+
+C:\Users\ReyL03\Desktop\VisualSFM_windows_64bit>VisualSFM.exe sfm+loadnvm+pmvs C:\Users\ReyL03\Desktop\result.nvm C:\Users\ReyL03\Desktop\final.nvm
+
+
+---- OU ALORS ----
+C:\Users\ReyL03\Desktop\VisualSFM_windows_64bit\VisualSFM.exe sfm+pmvs "C:\Users\ReyL03\Google Drive\EMF\Module\Panorabot\Photos test\Ordi" "C:\Users\ReyL03\Desktop\result.nvm"

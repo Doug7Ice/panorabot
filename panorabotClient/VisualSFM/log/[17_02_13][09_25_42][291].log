@@ -1,0 +1,209 @@
+0: IMG_20170210_102221
+image_size:	3200x2400
+#sift count:	6764
+
+1: IMG_20170210_102223
+image_size:	3200x2400
+#sift count:	7457
+
+2: IMG_20170210_102225
+image_size:	3200x2400
+#sift count:	7505
+
+3: IMG_20170210_102227
+image_size:	3200x2400
+#sift count:	8624
+
+4: IMG_20170210_102228
+image_size:	3200x2400
+#sift count:	8568
+
+5: IMG_20170210_102229
+image_size:	3200x2400
+#sift count:	7944
+
+6: IMG_20170210_102230
+image_size:	3200x2400
+#sift count:	9031
+
+7: IMG_20170210_102231
+image_size:	3200x2400
+#sift count:	9540
+
+8: IMG_20170210_102232
+image_size:	3200x2400
+#sift count:	9871
+
+9: IMG_20170210_102234
+image_size:	3200x2400
+#sift count:	8524
+
+10: IMG_20170210_102235
+image_size:	3200x2400
+#sift count:	10150
+
+Loading image pixel data ...done in 3s
+
+Compute Missing Pairwise Matching, begin...
+0 pairs to compute match
+----------------------------------------------------------------
+Compute Missing Pairwise Matching, finished
+Totally 0.000 seconds used
+
+
+Run full 3D reconstruction, begin...
+55 pairs have two-view models
+55 pairs have fundamental matrices
+Initialize with IMG..02221 and IMG..02223
+1106 3D points initialized from two images
+PBA library version = 105
+PBA: 1106 3D pts, 2 cams and 2212 projs...
+PBA: 1.816 -> 0.590 (29 LMs in 0.46sec)
+Focal Length : [3840.000]->[3824.245]
+Focal Length : [3840.000]->[3662.583]
+
+#############################
+#3: [IMG..02225] sees 1017 (+1126) 3D points
+Estimated Focal Length [3744][1.17N]
+# 2760 projs (1079 pts and 0 merges)
+PBA: 2126 3D pts, 3 cams and 4854 projs...
+PBA: 22.404 -> 0.922 (100 LMs in 0.82sec)
+
+**************************************
+#3/3:  2855 projs and 1106 pts added.
+PBA: 2078 3D pts, 3 cams and 4799 projs...
+PBA: 0.952 -> 0.879 (50 LMs in 0.49sec)
+PBA: 2078 3D pts, 3 cams and 4799 projs...
+PBA: 0.879 -> 0.859 (50 LMs in 0.44sec)
+Focal Length : [3743.984]->[2528.889]
+Radial Distortion : [-0.037 -> -24]
+
+#############################
+#4: [IMG..02228] sees 1194 (+449) 3D points
+Estimated Focal Length [2594][0.81N]
+# 1484 projs (457 pts and 1 merges)
+PBA: 2484 3D pts, 4 cams and 6183 projs...
+PBA: 3.484 -> 0.923 (100 LMs in 1.50sec)
+#points w/ large errors:	64
+#unstable points removed:	65
+Focal Length : [2594.450]->[2484.174]
+Radial Distortion : [-0.023 -> -16]
+
+#############################
+#5: [IMG..02229] sees 1868 (+1236) 3D points
+Estimated Focal Length [2480][0.77N]
+# 3027 projs (1132 pts and 9 merges)
+PBA: 3427 3D pts, 5 cams and 8792 projs...
+PBA: 2.881 -> 0.672 (24 LMs in 0.31sec)
+#points w/ large errors:	19
+
+**************************************
+#5/5:  3175 projs and 1204 pts added.
+PBA: 3451 3D pts, 5 cams and 8842 projs...
+PBA: 0.725 -> 0.708 (25 LMs in 0.37sec)
+PBA: 3451 3D pts, 5 cams and 8842 projs...
+PBA: 0.708 -> 0.708 (6 LMs in 0.05sec)
+Focal Length : [2479.895]->[2452.590]
+Radial Distortion : [-0.019 -> -13]
+
+#############################
+#6: [IMG..02230] sees 3087 (+1544) 3D points
+Estimated Focal Length [2447][0.76N]
+# 2635 projs (679 pts and 17 merges)
+PBA: 4017 3D pts, 6 cams and 11285 projs...
+PBA: 2.579 -> 0.858 (25 LMs in 0.31sec)
+#points w/ large errors:	36
+#unstable points removed:	1
+Focal Length : [2447.089]->[2425.217]
+Radial Distortion : [-0.027 -> -20]
+
+#############################
+#7: [IMG..02231] sees 3129 (+829) 3D points
+Estimated Focal Length [2400][0.75N]
+# 2820 projs (808 pts and 12 merges)
+PBA: 4719 3D pts, 7 cams and 13905 projs...
+PBA: 2.424 -> 0.943 (25 LMs in 0.34sec)
+#points w/ large errors:	44
+#unstable points removed:	1
+
+**************************************
+#7/7:  3152 projs and 931 pts added.
+PBA: 4759 3D pts, 7 cams and 14046 projs...
+PBA: 0.941 -> 0.882 (17 LMs in 0.18sec)
+PBA: 4759 3D pts, 7 cams and 14046 projs...
+PBA: 0.882 -> 0.882 (11 LMs in 0.10sec)
+Focal Length : [2399.657]->[2405.967]
+Radial Distortion : [-0.013 -> -10]
+
+#############################
+#8: [IMG..02232] sees 3470 (+838) 3D points
+Estimated Focal Length [2498][0.78N]
+# 2733 projs (834 pts and 13 merges)
+PBA: 5448 3D pts, 8 cams and 16515 projs...
+PBA: 3.312 -> 1.075 (19 LMs in 0.41sec)
+#points w/ large errors:	67
+Focal Length : [2497.775]->[2389.125]
+Radial Distortion : [-0.013 -> -9]
+
+#############################
+#9: [IMG..02234] sees 4361 (+1146) 3D points
+Estimated Focal Length [2368][0.74N]
+# 2699 projs (587 pts and 27 merges)
+PBA: 5848 3D pts, 9 cams and 18845 projs...
+PBA: 2.163 -> 0.989 (50 LMs in 0.82sec)
+#points w/ large errors:	29
+
+**************************************
+#9/9:  2945 projs and 684 pts added.
+PBA: 5890 3D pts, 9 cams and 18960 projs...
+PBA: 1.080 -> 1.010 (21 LMs in 0.34sec)
+#points w/ large errors:	1
+PBA: 5889 3D pts, 9 cams and 18958 projs...
+PBA: 1.009 -> 1.009 (24 LMs in 0.47sec)
+#points w/ large errors:	1
+Focal Length : [2368.306]->[2410.350]
+Radial Distortion : [-0.013 -> -9]
+
+#############################
+#10: [IMG..02235] sees 4982 (+1336) 3D points
+Estimated Focal Length [2372][0.74N]
+# 2958 projs (636 pts and 19 merges)
+PBA: 6389 3D pts, 10 cams and 21682 projs...
+PBA: 2.827 -> 1.220 (34 LMs in 0.66sec)
+#points w/ large errors:	42
+Focal Length : [2372.343]->[2426.678]
+Radial Distortion : [-0.021 -> -15]
+
+#############################
+#11: [IMG..02227] sees 3915 (+851) 3D points
+Estimated Focal Length [2483][0.78N]
+# 2707 projs (734 pts and 27 merges)
+PBA: 6957 3D pts, 11 cams and 24083 projs...
+PBA: 2.744 -> 1.314 (18 LMs in 0.45sec)
+#points w/ large errors:	72
+Focal Length : [2482.841]->[2443.345]
+Radial Distortion : [-0.015 -> -11]
+END: No more images to add [0 projs]
+
+#############################
+Failed to find two images for initialization
+Resuming SfM finished, 9 sec used
+
+---------------------------------------------------
+11 cams, 7094 pts (3+: 3565)
+24355 projections (3+: 17175)
+---------------------------------------------------
+1 model(s) reconstructed from 11 images;
+11 modeled; 0 reused; 0 EXIF; 
+1MB(1) used to store feature location.
+---------------------------------------------------
+
+########-------timing------#########
+Structure-From-Motion finished, 9 sec used
+8.6(8.6) seconds on Bundle Adjustment (+)
+8.5(8.5) seconds on Bundle Adjustment (*)
+#############################
+----------------------------------------------------------------
+Run full 3D reconstruction, finished
+Totally 9.000 seconds used
+

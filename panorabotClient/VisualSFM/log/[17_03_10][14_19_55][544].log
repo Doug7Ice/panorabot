@@ -1,0 +1,369 @@
+
+VisualSFM 3D reconstruction, begin...
+Searching images in the specified folder
+0: 0
+image_size:	320x180
+1: 1
+image_size:	320x180
+2: 10
+image_size:	320x180
+3: 100
+image_size:	320x180
+4: 101
+image_size:	320x180
+5: 102
+image_size:	320x180
+6: 103
+image_size:	320x180
+7: 104
+image_size:	320x180
+8: 105
+image_size:	320x180
+9: 106
+image_size:	320x180
+10: 107
+image_size:	320x180
+11: 108
+image_size:	320x180
+12: 109
+image_size:	320x180
+13: 11
+image_size:	320x180
+14: 110
+image_size:	320x180
+15: 111
+image_size:	320x180
+16: 112
+image_size:	320x180
+17: 113
+image_size:	320x180
+18: 114
+image_size:	320x180
+19: 115
+image_size:	320x180
+20: 116
+image_size:	320x180
+21: 117
+image_size:	320x180
+22: 118
+image_size:	320x180
+23: 119
+image_size:	320x180
+24: 12
+image_size:	320x180
+25: 120
+image_size:	320x180
+26: 121
+image_size:	320x180
+27: 122
+image_size:	320x180
+28: 123
+image_size:	320x180
+29: 124
+image_size:	320x180
+30: 125
+image_size:	320x180
+31: 126
+image_size:	320x180
+32: 127
+image_size:	320x180
+33: 128
+image_size:	320x180
+34: 129
+image_size:	320x180
+35: 13
+image_size:	320x180
+36: 130
+image_size:	320x180
+37: 131
+image_size:	320x180
+38: 132
+image_size:	320x180
+39: 133
+image_size:	320x180
+40: 134
+image_size:	320x180
+41: 135
+image_size:	320x180
+42: 136
+image_size:	320x180
+43: 137
+image_size:	320x180
+44: 14
+image_size:	320x180
+45: 15
+image_size:	320x180
+46: 16
+image_size:	320x180
+47: 17
+image_size:	320x180
+48: 18
+image_size:	320x180
+49: 19
+image_size:	320x180
+50: 2
+image_size:	320x180
+51: 20
+image_size:	320x180
+52: 21
+image_size:	320x180
+53: 22
+image_size:	320x180
+54: 23
+image_size:	320x180
+55: 24
+image_size:	320x180
+56: 25
+image_size:	320x180
+57: 26
+image_size:	320x180
+58: 27
+image_size:	320x180
+59: 28
+image_size:	320x180
+60: 29
+image_size:	320x180
+61: 3
+image_size:	320x180
+62: 30
+image_size:	320x180
+63: 31
+image_size:	320x180
+64: 32
+image_size:	320x180
+65: 33
+image_size:	320x180
+66: 34
+image_size:	320x180
+67: 35
+image_size:	320x180
+68: 36
+image_size:	320x180
+69: 37
+image_size:	320x180
+70: 38
+image_size:	320x180
+71: 39
+image_size:	320x180
+72: 4
+image_size:	320x180
+73: 40
+image_size:	320x180
+74: 41
+image_size:	320x180
+75: 42
+image_size:	320x180
+76: 43
+image_size:	320x180
+77: 44
+image_size:	320x180
+78: 45
+image_size:	320x180
+79: 46
+image_size:	320x180
+80: 47
+image_size:	320x180
+81: 48
+image_size:	320x180
+82: 49
+image_size:	320x180
+83: 5
+image_size:	320x180
+84: 50
+image_size:	320x180
+85: 51
+image_size:	320x180
+86: 52
+image_size:	320x180
+87: 53
+image_size:	320x180
+88: 54
+image_size:	320x180
+89: 55
+image_size:	320x180
+90: 56
+image_size:	320x180
+91: 57
+image_size:	320x180
+92: 58
+image_size:	320x180
+93: 59
+image_size:	320x180
+94: 6
+image_size:	320x180
+95: 60
+image_size:	320x180
+96: 61
+image_size:	320x180
+97: 62
+image_size:	320x180
+98: 63
+image_size:	320x180
+99: 64
+image_size:	320x180
+100: 65
+image_size:	320x180
+101: 66
+image_size:	320x180
+102: 67
+image_size:	320x180
+103: 68
+image_size:	320x180
+104: 69
+image_size:	320x180
+105: 7
+image_size:	320x180
+106: 70
+image_size:	320x180
+107: 71
+image_size:	320x180
+108: 72
+image_size:	320x180
+109: 73
+image_size:	320x180
+110: 74
+image_size:	320x180
+111: 75
+image_size:	320x180
+112: 76
+image_size:	320x180
+113: 77
+image_size:	320x180
+114: 78
+image_size:	320x180
+115: 79
+image_size:	320x180
+116: 8
+image_size:	320x180
+117: 80
+image_size:	320x180
+118: 81
+image_size:	320x180
+119: 82
+image_size:	320x180
+120: 83
+image_size:	320x180
+121: 84
+image_size:	320x180
+122: 85
+image_size:	320x180
+123: 86
+image_size:	320x180
+124: 87
+image_size:	320x180
+125: 88
+image_size:	320x180
+126: 89
+image_size:	320x180
+127: 9
+image_size:	320x180
+128: 90
+image_size:	320x180
+129: 91
+image_size:	320x180
+130: 92
+image_size:	320x180
+131: 93
+image_size:	320x180
+132: 94
+image_size:	320x180
+133: 95
+image_size:	320x180
+134: 96
+image_size:	320x180
+135: 97
+image_size:	320x180
+136: 98
+image_size:	320x180
+137: 99
+image_size:	320x180
+Loading image pixel data ...done in 0s
+Compute all missing matches
+********* WARNING ***********
+More than 21MB of graphic memory may be allocated
+under the default settings. If the program halts here,
+adjust parameters to save memory and rerun the task: 
+    [Tools->Enable GPU->Set Maximum DIM]
+Note some octaves may be automatically skipped
+SIFT: 0000, 320x180, 	510, 2.23sec
+SIFT: 0001, 320x180, 	572, 0.07sec
+SIFT: 0002, 320x180, 	425, 0.06sec
+SIFT: 0003, 320x180, 	397, 0.06sec
+SIFT: 0004, 320x180, 	456, 0.06sec
+SIFT: 0005, 320x180, 	454, 0.06sec
+SIFT: 0006, 320x180, 	450, 0.07sec
+SIFT: 0007, 320x180, 	434, 0.07sec
+SIFT: 0008, 320x180, 	421, 0.06sec
+SIFT: 0009, 320x180, 	383, 0.08sec
+SIFT: 0010, 320x180, 	413, 0.06sec
+SIFT: 0011, 320x180, 	368, 0.06sec
+SIFT: 0012, 320x180, 	384, 0.06sec
+SIFT: 0013, 320x180, 	581, 0.07sec
+SIFT: 0014, 320x180, 	378, 0.06sec
+SIFT: 0015, 320x180, 	446, 0.06sec
+SIFT: 0016, 320x180, 	421, 0.06sec
+SIFT: 0017, 320x180, 	433, 0.06sec
+SIFT: 0018, 320x180, 	445, 0.06sec
+SIFT: 0019, 320x180, 	503, 0.06sec
+SIFT: 0020, 320x180, 	428, 0.06sec
+SIFT: 0021, 320x180, 	444, 0.06sec
+SIFT: 0022, 320x180, 	498, 0.06sec
+SIFT: 0023, 320x180, 	456, 0.07sec
+SIFT: 0024, 320x180, 	610, 0.10sec
+SIFT: 0025, 320x180, 	465, 0.06sec
+SIFT: 0026, 320x180, 	399, 0.07sec
+SIFT: 0027, 320x180, 	394, 0.07sec
+SIFT: 0028, 320x180, 	413, 0.08sec
+SIFT: 0029, 320x180, 	409, 0.08sec
+SIFT: 0030, 320x180, 	379, 0.06sec
+
+**Notifying the working threads to quit **
+**Press Ctrl + C  3 times to force exit **
+SIFT: 0031, 320x180, 	407, 0.07sec
+SIFT: 0032, 320x180, 	476, 0.07sec
+SIFT: 0033, 320x180, 	382, 0.07sec
+SIFT: 0034, 320x180, 	398, 0.06sec
+SIFT: 0035, 320x180, 	607, 0.07sec
+SIFT: 0036, 320x180, 	487, 0.06sec
+SIFT: 0037, 320x180, 	437, 0.10sec
+SIFT: 0038, 320x180, 	429, 0.06sec
+SIFT: 0039, 320x180, 	440, 0.07sec
+SIFT: 0040, 320x180, 	435, 0.06sec
+SIFT: 0041, 320x180, 	401, 0.06sec
+SIFT: 0042, 320x180, 	385, 0.06sec
+SIFT: 0043, 320x180, 	407, 0.06sec
+SIFT: 0044, 320x180, 	617, 0.07sec
+SIFT: 0045, 320x180, 	630, 0.07sec
+SIFT: 0046, 320x180, 	689, 0.08sec
+SIFT: 0047, 320x180, 	684, 0.06sec
+SIFT: 0048, 320x180, 	677, 0.07sec
+SIFT: 0049, 320x180, 	730, 0.07sec
+SIFT: 0050, 320x180, 	555, 0.07sec
+SIFT: 0051, 320x180, 	615, 0.06sec
+SIFT: 0052, 320x180, 	529, 0.06sec
+SIFT: 0053, 320x180, 	607, 0.06sec
+SIFT: 0054, 320x180, 	628, 0.07sec
+SIFT: 0055, 320x180, 	665, 0.06sec
+SIFT: 0056, 320x180, 	682, 0.07sec
+SIFT: 0057, 320x180, 	683, 0.07sec
+SIFT: 0058, 320x180, 	709, 0.07sec
+SIFT: 0059, 320x180, 	691, 0.06sec
+SIFT: 0060, 320x180, 	701, 0.07sec
+SIFT: 0061, 320x180, 	533, 0.09sec
+SIFT: 0062, 320x180, 	768, 0.09sec
+SIFT: 0063, 320x180, 	714, 0.13sec
+SIFT: 0064, 320x180, 	688, 0.08sec
+SIFT: 0065, 320x180, 	739, 0.07sec
+SIFT: 0066, 320x180, 	679, 0.07sec
+SIFT: 0067, 320x180, 	644, 0.07sec
+SIFT: 0068, 320x180, 	670, 0.06sec
+
+**Notifying the working threads to quit **
+**Press Ctrl + C  3 times to force exit **
+SIFT: 0069, 320x180, 	675, 0.07sec
+SIFT: 0070, 320x180, 	663, 0.07sec
+SIFT: 0071, 320x180, 	642, 0.07sec
+SIFT: 0072, 320x180, 	544, 0.07sec
+SIFT: 0073, 320x180, 	681, 0.07sec
+SIFT: 0074, 320x180, 	648, 0.08sec
+SIFT: 0075, 320x180, 	671, 0.07sec
