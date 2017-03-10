@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<jnlp spec="1.0" xmlns:jfx="http://javafx.com" href="panorabotServer.jnlp">
+  <information>
+    <title>panorabotServer</title>
+    <vendor>ReyL03</vendor>
+    <description>null</description>
+    <offline-allowed/>
+  </information>
+  <resources>
+    <j2se version="1.6+" href="http://java.sun.com/products/autodl/j2se"/>
+    <jar href="lib\BezierUtils-1.0.0.jar" size="49361" download="eager" />
+    <jar href="lib\FaceTracker-1.3.1.jar" size="572962" download="eager" />
+    <jar href="lib\IREval-1.3.1.jar" size="21994" download="eager" />
+    <jar href="lib\ImprovedArgs4J-1.3.1.jar" size="20722" download="eager" />
+    <jar href="lib\JTransforms-1.3.1.jar" size="766179" download="eager" />
+    <jar href="lib\Jama-1.0.2.jar" size="32775" download="eager" />
+    <jar href="lib\MatrixLib-1.3.1.jar" size="38269" download="eager" />
+    <jar href="lib\animation-1.3.1.jar" size="36413" download="eager" />
+    <jar href="lib\apache-commons-sanselan.jar" size="505947" download="eager" />
+    <jar href="lib\apache-jakarta-commons-httpclient.jar" size="279781" download="eager" />
+    <jar href="lib\apache-logging-log4j.jar" size="481534" download="eager" />
+    <jar href="lib\arpack-combo-0.1.jar" size="1194003" download="eager" />
+    <jar href="lib\bridj-0.6.2.jar" size="878674" download="eager" />
+    <jar href="lib\clustering-1.3.1.jar" size="326271" download="eager" />
+    <jar href="lib\colt-1.2.0.jar" size="581945" download="eager" />
+    <jar href="lib\commons-vfs2-2.0.jar" size="415578" download="eager" />
+    <jar href="lib\core-1.3.1.jar" size="771478" download="eager" />
+    <jar href="lib\core-aop-support-1.3.1.jar" size="13506" download="eager" />
+    <jar href="lib\core-audio-1.3.1.jar" size="39389" download="eager" />
+    <jar href="lib\core-citation-1.3.1.jar" size="28268" download="eager" />
+    <jar href="lib\core-experiment-1.3.1.jar" size="165359" download="eager" />
+    <jar href="lib\core-feature-1.3.1.jar" size="293424" download="eager" />
+    <jar href="lib\core-hadoop-1.3.1.jar" size="58766" download="eager" />
+    <jar href="lib\core-image-1.3.1.jar" size="659589" download="eager" />
+    <jar href="lib\core-math-1.3.1.jar" size="354947" download="eager" />
+    <jar href="lib\core-tool-1.3.1.jar" size="5904" download="eager" />
+    <jar href="lib\core-video-1.3.1.jar" size="130393" download="eager" />
+    <jar href="lib\core-video-capture-1.3.1.jar" size="157307" download="eager" />
+    <jar href="lib\faces-1.3.1.jar" size="2552437" download="eager" />
+    <jar href="lib\image-feature-extraction-1.3.1.jar" size="263844" download="eager" />
+    <jar href="lib\image-local-features-1.3.1.jar" size="270227" download="eager" />
+    <jar href="lib\image-processing-1.3.1.jar" size="288659" download="eager" />
+    <jar href="lib\jssc.jar" size="153562" download="eager" />
+    <jar href="lib\klt-tracker-1.3.1.jar" size="621533" download="eager" />
+    <jar href="lib\kryo-2.21.jar" size="363460" download="eager" />
+    <jar href="lib\machine-learning-1.3.1.jar" size="307377" download="eager" />
+    <jar href="lib\mysql-connector-java-5.1.23-bin.jar" size="834126" download="eager" />
+    <jar href="lib\nearest-neighbour-1.3.1.jar" size="308210" download="eager" />
+    <jar href="lib\object-detection-1.3.1.jar" size="2187658" download="eager" />
+    <jar href="lib\org-apache-commons-codec.jar" size="46739" download="eager" />
+    <jar href="lib\org-apache-commons-logging.jar" size="60786" download="eager" />
+    <jar href="lib\trove-3.0.0a1.jar" size="2261455" download="eager" />
+    <jar href="lib\video-processing-1.3.1.jar" size="36204" download="eager" />
+    <jar href="lib\xmlpull-xpp3-1.1.4c.jar" size="116839" download="eager" />
+    <jar href="lib\xuggle-video-1.3.1.jar" size="20997" download="eager" />
+    <jar href="panorabotServer.jar" size="25727" download="eager" />
+  </resources>
+  <applet-desc  width="800" height="600" main-class="com.javafx.main.NoJavaFXFallback"  name="panorabotServer" >
+    <param name="requiredFXVersion" value="8.0+"/>
+  </applet-desc>
+  <jfx:javafx-desc  width="800" height="600" main-class="panorabotSrv.ihm.panorabotServer"  name="panorabotServer" />
+  <update check="always"/>
+</jnlp>
