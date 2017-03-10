@@ -18,5 +18,5 @@ public interface ItfWrkManette {
     public void augmenterRayon();
     public void reduireRayon();
     public void afficheMessage(String message, String type);
-    
+    public void lancerTestRayon();
 }

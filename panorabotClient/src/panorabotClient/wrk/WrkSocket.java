@@ -19,6 +19,7 @@ import java.io.ObjectOutputStream;
 import java.io.PrintWriter;
 import java.io.Reader;
 import java.net.Socket;
+import java.net.SocketException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
@@ -37,19 +38,18 @@ public class WrkSocket extends Thread {
     public WrkSocket(ItfWrkWrkSocket refWrk) {
         super("THREAD - WrkSocket");
         this.refWrk = refWrk;
-        
+
     }
 
     @Override
     public void run() {
         running = true;
         try {
-            running = true;
             while (running) {
                 Object receivedObject = in.readObject();
                 if (receivedObject instanceof ImgCam) {
                     int[] tabInt = ((ImgCam) receivedObject).getImg();
-                    MBFImage i = new MBFImage(tabInt, 320, 180);
+                    MBFImage i = new MBFImage(tabInt, 1280, 720);
                     BufferedImage bi = ImageUtilities.createBufferedImage(i);
                     refWrk.afficheImage(bi);
                 } else if (receivedObject instanceof String) {
@@ -68,7 +68,6 @@ public class WrkSocket extends Thread {
                 } else if (receivedObject instanceof ImgCapture) {
                     InputStream in = new ByteArrayInputStream(((ImgCapture) receivedObject).getImg());
                     BufferedImage bImageFromConvert = ImageIO.read(in);
-                    DisplayUtilities.display(bImageFromConvert);
 //                    int[] tabInt = ((ImgCapture) receivedObject).getImg();
 //                    MBFImage i = new MBFImage(tabInt, 320, 180);
 //                    BufferedImage bi = ImageUtilities.createBufferedImage(i);
@@ -76,16 +75,18 @@ public class WrkSocket extends Thread {
 
                 }
             }
+        } catch (SocketException decoException) {
+            System.out.println("ON A KILL LE SOCKET");
         } catch (IOException e) {
             refWrk.afficheMessage("déconnexion", "error");
             e.printStackTrace();
         } catch (ClassNotFoundException ex) {
             refWrk.afficheMessage("Erreur lors de la lecture du flux", "error");
-        }
 
 //        while(running){
 //            
 //        }
+        }
     }
 
     private void traiteStringScan(String receivedString) {
@@ -196,6 +197,15 @@ public class WrkSocket extends Thread {
         }
     }
 
+    public void lancerTestRayonTCP(int actualRayon) {
+        try {
+            out.writeObject("T," + actualRayon);
+            out.flush();
+        } catch (IOException ex) {
+            Logger.getLogger(WrkSocket.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
     //Setters and Getters
     public boolean isRunning() {
         return running;
@@ -206,9 +216,9 @@ public class WrkSocket extends Thread {
     }
 
     private ItfWrkWrkSocket refWrk;
-    private String actualPath;
     private ObjectInputStream in;
     private ObjectOutputStream out;
     private volatile boolean running;
     private Socket socket;
+
 }

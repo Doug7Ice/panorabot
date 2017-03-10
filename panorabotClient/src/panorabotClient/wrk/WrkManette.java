@@ -67,7 +67,12 @@ public class WrkManette {
 
             @Override
             public void buttonY(boolean pressed) {
-                
+                if (!scanBlocked && pressed) {
+                    System.out.println("test du rayon lancé");
+                    refWrk.lancerTestRayon();
+                }else{
+                    System.out.println("SCAN BLOCKED");
+                }
             }
 
             @Override

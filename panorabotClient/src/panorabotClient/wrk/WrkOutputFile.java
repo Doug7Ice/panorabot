@@ -5,10 +5,13 @@
  */
 package panorabotClient.wrk;
 
+import com.idrsolutions.image.jpeg.JpegEncoder;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.OutputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.logging.Level;
@@ -22,7 +25,7 @@ import org.openimaj.io.FileUtils;
  */
 public class WrkOutputFile {
 
-    private final String initialCapturesFolder = "captures";
+    private final String initialCapturesFolder = "C:\\tempPanorabot";
 
     public WrkOutputFile() {
         currentFolder = 0;
@@ -44,7 +47,11 @@ public class WrkOutputFile {
             if (!outPutFile.exists()) {
                 outPutFile.mkdir();
             }
-            ImageIO.write(bi, "jpg", new File(initialCapturesFolder + "/" + serialPhoto + ".jpg"));
+            OutputStream os = new FileOutputStream(new File(initialCapturesFolder + "\\" + serialPhoto + ".jpg"));
+            JpegEncoder encoder = new JpegEncoder();
+            encoder.write(bi, os);
+            os.flush();
+            os.close();
             serialPhoto++;
             return true;
         } catch (IOException ex) {

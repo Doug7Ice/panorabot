@@ -135,6 +135,11 @@ public class Wrk implements ItfWrkCtrl, ItfWrkManette, ItfWrkWrkConversion, ItfW
     public void sauverImageCapture(BufferedImage img) {
         refWrkOutputFile.saveBufferedImageToJpg(img);
     }
+    
+    @Override
+    public void lancerTestRayon() {
+         refWrkSocket.lancerTestRayonTCP(refCtrl.getActualRayon());
+    }
 
 
     //Setters and Getters
@@ -153,6 +158,8 @@ public class Wrk implements ItfWrkCtrl, ItfWrkManette, ItfWrkWrkConversion, ItfW
     private WrkConversion refWrkConversion;
     private WrkOutputFile refWrkOutputFile;
     private boolean isRobotTurning;
+
+    
 
     
 
