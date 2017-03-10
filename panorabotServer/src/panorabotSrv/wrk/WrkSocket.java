@@ -8,6 +8,7 @@ package panorabotSrv.wrk;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.net.SocketException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -37,6 +38,7 @@ public class WrkSocket extends Thread {
     public void run() {
         try {
             on = true;
+            //refWrk.affichePopupError("Tkt");
             while (on) {
                 if (!on){
                     break;
@@ -49,8 +51,11 @@ public class WrkSocket extends Thread {
                 refWrk.showWebcam();
                 }
             }
-
-        } catch (IOException e) {
+            
+        }catch (SocketException a){
+            System.out.println("L'application c'est déconnectée.");
+        } 
+        catch (IOException e) {
             refWrk.affichePopupError(WrkSocket.class.getName()+" : "+e.getMessage());
         }
     }

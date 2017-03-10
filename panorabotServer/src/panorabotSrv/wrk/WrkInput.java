@@ -6,6 +6,7 @@ import java.io.ObjectInputStream;
 import java.net.Socket;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 /**
  * Cette classe permet de gerer les communications envoyes par le client.
  *
@@ -14,13 +15,13 @@ import java.util.logging.Logger;
  * @updated 17-fevr.-2017 14:54:37
  */
 public class WrkInput extends Thread {
-    
+
     private ObjectInputStream in;
     private volatile boolean read;
     private Socket socket;
     private ItfWrkWrkInput refWrk;
     private volatile boolean captureEnCours;
-    
+
     public WrkInput(Wrk wrk, Socket sock) {
         super("Input");
         this.refWrk = wrk;
@@ -30,10 +31,10 @@ public class WrkInput extends Thread {
         try {
             in = new ObjectInputStream(socket.getInputStream());
         } catch (IOException ex) {
-            refWrk.affichePopupError(WrkInput.class.getName()+" : "+ex.getMessage());
+            refWrk.affichePopupError(WrkInput.class.getName() + " : " + ex.getMessage());
         }
     }
-    
+
     public void finalize() throws Throwable {
         super.finalize();
     }
@@ -58,19 +59,24 @@ public class WrkInput extends Thread {
     private void lanceCapture(String commande) {
         String[] cmd = commande.split(",");
         //choper le rayon
-        refWrk.lanceCapture(Double.parseDouble(cmd[1]));
+        refWrk.lanceCapture(Double.parseDouble(cmd[1]),false);
     }
-    
+    private void lanceCapture(String commande,boolean test) {
+        String[] cmd = commande.split(",");
+        //choper le rayon
+        refWrk.lanceCapture(Double.parseDouble(cmd[1]),test);
+    }
+
     private void checkUser(InfosLogin infos) {
         String username = infos.getUsername();
         String pwd = infos.getPassword();
         refWrk.checkLogin(username, pwd);
     }
-    
+
     private void envoiePhotosDeLaCaptureAuClient(String cmd) {
         refWrk.envoiePhotosDeLaCaptureAuClient();
     }
-    
+
     private void gestionScan(boolean a) {
         refWrk.envoiDB(a);
         refWrk.gestionCam(a);
@@ -92,13 +98,16 @@ public class WrkInput extends Thread {
                             gestionScan(false);
                         }
                         bougeRobot(cmd);
-                    } else if (cmd.startsWith("S")) {                       
+                    } else if (cmd.startsWith("T")) {
+                        lanceCapture(cmd,true);
+
+                    } else if (cmd.startsWith("S")) {
                         if (!captureEnCours) {
                             lanceCapture(cmd);
-                            gestionScan(true);                           
+                            gestionScan(true);
                             captureEnCours = true;
                             refWrk.afficheMessageConsole("lancement du scan");
-                            
+
                         } else {
                             gestionScan(captureEnCours);
                             //a faire
@@ -113,7 +122,7 @@ public class WrkInput extends Thread {
                         envoiePhotosDeLaCaptureAuClient(cmd);
                         refWrk.sendTxtClient("S,stop");
                     }
-                    
+
                 }
                 if (objet instanceof InfosLogin) {
                     InfosLogin infos = (InfosLogin) objet;
@@ -123,24 +132,24 @@ public class WrkInput extends Thread {
         } catch (IOException e) {
             refWrk.affichePopupError("Deconnexion du client");
         } catch (ClassNotFoundException ex) {
-            refWrk.affichePopupError(WrkInput.class.getName()+" : "+ex.getMessage());
+            refWrk.affichePopupError(WrkInput.class.getName() + " : " + ex.getMessage());
         }
     }
-    
+
     public boolean isRead() {
         return read;
     }
-    
+
     public void setRead(boolean read) {
         this.read = read;
     }
-    
+
     public Socket getSocket() {
         return socket;
     }
-    
+
     public void setSocket(Socket socket) {
         this.socket = socket;
     }
-    
+
 }//end WrkInput

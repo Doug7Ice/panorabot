@@ -32,7 +32,7 @@ public class WrkKJuniorCam extends Thread {
         this.refWrk = wrk;
         this.sendDB = false;
         try {
-            video = new VideoCapture(320, 180);
+            video = new VideoCapture(1280, 720);
         } catch (VideoCaptureException ex) {
              refWrk.affichePopupError(WrkKJuniorCam.class.getName()+" : "+ex.getMessage());
         }
@@ -85,7 +85,7 @@ public class WrkKJuniorCam extends Thread {
     }
 
     public void sendWebcam(int[] intArr) {
-        MBFImage img = new MBFImage(intArr, 320, 180);
+        MBFImage img = new MBFImage(intArr, 1280, 720);
         BufferedImage bi = ImageUtilities.createBufferedImage(img);
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         try {

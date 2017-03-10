@@ -86,9 +86,8 @@ public class WrkDB {
                 ImageIO.write(img, "jpg", baos);
                 byte[] imageData = baos.toByteArray();
 
-                InputStream a = new ByteArrayInputStream(imageData);
-                BufferedImage bf = ImageIO.read(a);
-                DisplayUtilities.display(bf);
+//                
+
 
                 lesPhotos.add(new ImgCapture(imageData));             
             }

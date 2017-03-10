@@ -170,16 +170,20 @@ public class Wrk implements ItfWrkCtrl, ItfWrkWrkDB, ItfWrkWrkInput, ItfWrkWrkKJ
      * DB.
      *
      * @param rayon
+     * @param test
      */
-    public void lanceCapture(double rayon) {
+    @Override
+    public void lanceCapture(double rayon,boolean test) {
         int moteurGauche = (int) rayon * 20 / 60;
         int moteurDroite = (int) (rayon + 10) * 20 / 60;
 
         String commande = "D," + moteurGauche + "," + moteurDroite;
         refWrkKjunior.commandeLeRobot(commande);
         System.out.println(commande);
-
+        if (!test){
         refWrkKjuniorCam.setSendDB(true);
+        refCtrl.afficheMessageConsole("Pas un test");
+        }
     }
 
     /**
