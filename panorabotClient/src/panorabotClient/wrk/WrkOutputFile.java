@@ -1,49 +1,38 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package panorabotClient.wrk;
 
 import com.idrsolutions.image.jpeg.JpegEncoder;
-import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.imageio.ImageIO;
-import org.openimaj.io.FileUtils;
-
 /**
- *
- * @author Nathan
+ * Classe permettant la gestion des fichiers.
+ * @author Nathan Canzali
  */
 public class WrkOutputFile {
 
     private final String initialCapturesFolder = "C:\\tempPanorabot";
 
+    /**
+     * Constructeur de la classe WrkOutputFile.
+     */
     public WrkOutputFile() {
-        currentFolder = 0;
         serialPhoto = 0;
         outPutFile = new File(initialCapturesFolder);
-        boolean checkExist = true;
-        while (checkExist) {
-            if (new File(initialCapturesFolder + currentFolder).exists()) {
-                currentFolder++;
-            } else {
-                checkExist = false;
-            }
+        if (!outPutFile.exists()) {
+            outPutFile.mkdir();
         }
     }
 
+    /**
+     * Enregistre une BufferedImage en JPEG (jpg). L'enregistrement se fait dans
+     * le répertoire "C:\tempPanorabot"
+     * @param bi la BufferedImage en jpg.
+     * @return un boolean true si l'enregistrement s'est bien effectué.
+     */
     public boolean saveBufferedImageToJpg(BufferedImage bi) {
         try {
-
             if (!outPutFile.exists()) {
                 outPutFile.mkdir();
             }
@@ -60,10 +49,9 @@ public class WrkOutputFile {
         }
     }
 
-    public void incrementCurrentFolder() {
-        currentFolder += 1;
-    }
-
+    /**
+     * Supprime tous les fichiers dans le répertoire de scan.
+     */
     public void reinitialiserScan() {
         serialPhoto = 0;
         String[] captures = outPutFile.list();
@@ -73,22 +61,15 @@ public class WrkOutputFile {
         }
     }
     
-    private BufferedImage resize(BufferedImage imgToResize){
-        BufferedImage outputImage = new BufferedImage(outputSizeWidth, outputSizeHeight, imgToResize.getType());
-        Graphics2D g2d = outputImage.createGraphics();
-        g2d.drawImage(imgToResize, 0, 0, outputSizeWidth, outputSizeHeight, null);
-        g2d.dispose();
-        return outputImage;
-    }
-
+    /**
+     * Retourne le chemin du répertoire où sont stockées les images du scan en
+     * String.
+     * @return le chemin du répertoire où sont stockées les images du scan.
+     */
     public String getPath() {
         return outPutFile.getAbsolutePath();
     }
     private int serialPhoto;
     private ItfWrkWrkOutputFile refWrk;
-    private int currentFolder;
     private File outPutFile;
-    
-    private final int  outputSizeWidth = 1280;
-    private final int  outputSizeHeight = 720;
 }

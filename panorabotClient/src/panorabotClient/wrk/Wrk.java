@@ -17,7 +17,7 @@ import panorabotClient.ctrl.ItfCtrlWrk;
 public class Wrk implements ItfWrkCtrl, ItfWrkManette, ItfWrkWrkConversion, ItfWrkWrkSocket, ItfWrkWrkOutputFile {
 
     public Wrk() {
-        refWrkSocket = new WrkSocket(this);
+        refWrkSocket = new WrkTransmission(this);
         refWrkConversion = new WrkConversion();
         refWrkOutputFile = new WrkOutputFile();
         isRobotTurning = false;
@@ -63,7 +63,6 @@ public class Wrk implements ItfWrkCtrl, ItfWrkManette, ItfWrkWrkConversion, ItfW
 
     @Override
     public void lancerScan() {
-        refWrkOutputFile.incrementCurrentFolder();
         refWrkSocket.lancerScanTCP(refCtrl.getActualRayon());
     }
     
@@ -154,7 +153,7 @@ public class Wrk implements ItfWrkCtrl, ItfWrkManette, ItfWrkWrkConversion, ItfW
     //Private variables
     private ItfCtrlWrk refCtrl;
     private WrkManette refWrkManette;
-    private WrkSocket refWrkSocket;
+    private WrkTransmission refWrkSocket;
     private WrkConversion refWrkConversion;
     private WrkOutputFile refWrkOutputFile;
     private boolean isRobotTurning;

@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package panorabotClient.wrk;
 
 import ch.aplu.xboxcontroller.XboxController;
@@ -14,7 +9,11 @@ import ch.aplu.xboxcontroller.XboxControllerAdapter;
  */
 public class WrkManette {
 
-    //Constructor
+    /**
+     * Constructeur de la classe WrkManette. Initialise la connexion avec la
+     * manette.
+     * @param refWrk le wrk qui sera appelé lors des actions de la manette.
+     */
     public WrkManette(ItfWrkManette refWrk) {
 
         this.refWrk = refWrk;
@@ -97,21 +96,12 @@ public class WrkManette {
 
             @Override
             public void leftTrigger(double value) {
-//                leftVibrate = (int) (65535 * value * value);
-//                xc.vibrate(leftVibrate, rightVibrate);
-//                if (!isTurning) {
                 refWrk.avancerRobot(valueOn20(-value));
-//                    System.out.println("L " + leftVibrate + " R " + rightVibrate);
-//                }
             }
 
             @Override
             public void rightTrigger(double value) {
-//                rightVibrate = (int) (65535 * value * value);
-//                xc.vibrate(leftVibrate, rightVibrate);
-//                if (!isTurning) {
                 refWrk.avancerRobot(valueOn20(value));
-//                    System.out.println("L " + leftVibrate + " R " + rightVibrate);
             }
 
             @Override
@@ -131,7 +121,12 @@ public class WrkManette {
         });
     }
 
-    public int valueOn20(double value) {
+    /**
+     * Transforme une valeur double de 0 à 0.99 en valeur int de 1 à 20.
+     * @param value la valeur de 0 à 0.99.
+     * @return la valeur de 1 à 20.
+     */
+    private int valueOn20(double value) {
         return (int) (value * 20);
     }
 

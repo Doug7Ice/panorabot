@@ -19,34 +19,15 @@ public class WrkConversion {
 
     private ItfWrkWrkConversion refWrk;
 
-    public void launch2dTo3dConversionDEPRECATED(String pathDirImages) {
-        try {
-            Process p = Runtime.getRuntime().exec("VisualSFM\\VisualSFM.exe sfm+pmvs captures result\\result.nvm");
-            p.waitFor();
-
-            BufferedReader reader = new BufferedReader(new InputStreamReader(p.getInputStream()));
-
-            String line = "";
-            while ((line = reader.readLine()) != null) {
-                if (line != null & !line.equals("")) {
-                    System.out.println(line);
-                    refWrk.afficheMessage(line, "info");
-                }
-            }
-        } catch (IOException ex) {
-            Logger.getLogger(WrkConversion.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (InterruptedException ex) {
-            Logger.getLogger(WrkConversion.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
-
+    /**
+     * Lance le programme VisualSFM.exe en CMD et lance la création d'un modèle
+     * 3d enregistré dans le fichier "C:\tempPanorabot\resultPanorabot.nvm.
+     * @param pathDirImages le chemin des images utilisées pour la création du
+     * modèle 3d.
+     */
     public void launch2dTo3dConversion(String pathDirImages) {
         try {
-            //ProcessBuilder pb = new ProcessBuilder("cmd /c C:\\VisualSFM_windows_64bit\\VisualSFM.exe sfm+pmvs C:\\tempPanorabot C:\\tempPanorabot\\resultPanorabot.nvm");
-            //ProcessBuilder pb = new ProcessBuilder("ipconfig");
-            //pb.redirectErrorStream(true);
-            //Process p = pb.start();
-            Process p = Runtime.getRuntime().exec("cmd /c C:\\VisualSFM_windows_64bit\\VisualSFM.exe sfm+pmvs C:\\tempPanorabot C:\\tempPanorabot\\resultPanorabot.nvm");
+            Process p = Runtime.getRuntime().exec("cmd /c C:\\VisualSFM_windows_64bit\\VisualSFM.exe sfm+pmvs " + pathDirImages + " C:\\tempPanorabot\\resultPanorabot.nvm");
             BufferedReader reader = new BufferedReader(new InputStreamReader(p.getInputStream()));
             String line = "";
             while ((line = reader.readLine()) != null) {
@@ -56,7 +37,7 @@ public class WrkConversion {
                 }
             }
         } catch (IOException ex) {
-            Logger.getLogger(WrkConversion.class.getName()).log(Level.SEVERE, null, ex);
+            refWrk.afficheMessage("Erreur lors du lancement de VisualSFM", "error");
         }
     }
 
